@@ -1,0 +1,124 @@
+Users
+	id
+	first_name
+	last_name
+	userid/email_id /  
+	phone_number
+	adddress
+	id_card_type
+	id_card(bytes)
+	is_email_verified
+	is_phone_verified
+	is_id_verified
+
+user1 -> interested in prop4
+verified phone, email 
+user1 -> id card
+
+user2  -> prop 4
+share id card, details to -> user2
+
+option1 --> user2 doesn't give any dates 
+
+user1 -> prop4
+the request is sent to user2
+user2 responds available or not
+
+options2 ->  user2 gives dates
+between dates -> ad is active
+ad becomes inactive
+
+room1 april 7 -10
+may   1-15
+jun   2-5
+
+active start date
+active end date
+
+show all
+fileter results by date
+
+option1  -> let us not make it inactive, filter it in search results,
+option2  -> background job(admin job), properties, keep it active
+currdate < start date
+	active
+end date < curr date
+status
+	inactive 
+
+
+Postings  (post1,post2,post3,post4)
+	id
+	description
+	rentperday
+	keywords
+	facilities
+	avail start date 
+	avail end date
+	status ->  verified,  in-review-progress, rejected, posted
+	activeornot
+
+photos
+	id
+	type
+	description
+	photo_data (blob)
+	status -> 
+
+
+user1 -> post1, post2, post3
+
+user_posts
+	userid  user1
+	postid  post1,post2,post3
+	user2, property4
+
+property_bookings_requests
+	userid  user1
+ 	postid  post4
+
+posting_photos
+	post_id
+	photo_id
+
+
+post_reviews
+	review_id
+	post_id
+
+
+user_transactions
+	userid
+	postid
+	trasactionid
+
+
+transaction
+	transid
+	start date
+	end date
+	amount
+	bank details
+	status
+
+---->
+UIs and backend
+Add user
+Post an Ad
+Search for Ad
+Display list of Ads
+Show info of seleced Ad
+
+api for user (add,list,modify/update)
+api for posting add (add,list,get,update,delete)
+
+quickstay
+
+python + django + jquery
+backend:  dba
+frontend: java script
+(mysql/mongodb)
+
+
+
+
