@@ -1,3 +1,25 @@
+---->
+UIs and backend
+Add user
+Post an Ad
+Search for Ad
+Display list of Ads
+Show info of seleced Ad
+
+api for user (add,list,modify/update)
+api for posting add (add,list,get,update,delete)
+
+quickstay
+
+python + django + jquery
+backend:  dba
+frontend: java script
+(mysql/mongodb)
+
+
+
+
+
 Users
 	id
 	first_name
@@ -11,6 +33,59 @@ Users
 	is_phone_verified
 	is_id_verified
 
+Postings  (post1,post2,post3,post4)
+	id
+	description
+	rentperday
+	keywords
+	facilities
+	avail start date 
+	avail end date
+	status ->  verified,  in-review-progress, rejected, posted
+	activeornot
+
+photos
+	id
+	type
+	description
+	photo_data (blob)
+	status -> 
+
+user_posts
+	userid  user1
+	postid  post1,post2,post3
+	user2, property4
+
+
+property_bookings_requests
+	userid  user1
+ 	postid  post4
+
+
+posting_photos
+	post_id
+	photo_id
+
+post_reviews
+	review_id
+	post_id
+    user_id  (can be anonymus)    
+
+user_transactions
+	userid
+	postid
+	trasactionid
+
+
+transaction
+	transid
+	start date
+	end date
+	amount
+	bank details
+	status
+
+user1 -> post1, post2, post3
 user1 -> interested in prop4
 verified phone, email 
 user1 -> id card
@@ -47,77 +122,6 @@ status
 	inactive 
 
 
-Postings  (post1,post2,post3,post4)
-	id
-	description
-	rentperday
-	keywords
-	facilities
-	avail start date 
-	avail end date
-	status ->  verified,  in-review-progress, rejected, posted
-	activeornot
-
-photos
-	id
-	type
-	description
-	photo_data (blob)
-	status -> 
-
-
-user1 -> post1, post2, post3
-
-user_posts
-	userid  user1
-	postid  post1,post2,post3
-	user2, property4
-
-property_bookings_requests
-	userid  user1
- 	postid  post4
-
-posting_photos
-	post_id
-	photo_id
-
-
-post_reviews
-	review_id
-	post_id
-
-
-user_transactions
-	userid
-	postid
-	trasactionid
-
-
-transaction
-	transid
-	start date
-	end date
-	amount
-	bank details
-	status
-
----->
-UIs and backend
-Add user
-Post an Ad
-Search for Ad
-Display list of Ads
-Show info of seleced Ad
-
-api for user (add,list,modify/update)
-api for posting add (add,list,get,update,delete)
-
-quickstay
-
-python + django + jquery
-backend:  dba
-frontend: java script
-(mysql/mongodb)
 
 
 
