@@ -20,13 +20,14 @@ from users.models import User
 from users.serializers import UserSerializer
 
 
+'''
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-
+'''
 
 urlpatterns = [
     url(r'^polls/', include('polls.urls')),
