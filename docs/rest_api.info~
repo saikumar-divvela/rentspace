@@ -1,0 +1,32 @@
+User API
+rentspace.com/users/     (GET/POST)
+    Returns all users    (GET)
+    Adds an user         (POST)  
+
+rentspace.com/users/1     (GET/PUT/DELETE)
+    Returns information of user 1  (GET)
+    Updates information of user 1  (PUT)
+    Deletes information of user 1  (DELETE)
+
+
+rentspace.com/users/1/status  (GET/PUT)
+    Returns status(emailid,phone,idcard) of user 1 (GET)
+    Updates status(emailid,phone,idcard) of user 1 (PUT)  
+
+
+Post API
+rentspace.com/users/1/posts   (GET/POST)
+    Returns all posts for user 1 (GET)
+    Adds post for user 1 (POST)
+
+rentspace.com/users/1/posts/1   (GET/PUT/DELETE)
+    Returns post 1 details for user 1 (GET)
+    Updates post 1 details for user 1 (PUT)
+    Deletes post 1 details for user 1 (DELETE)
+
+rentspace.com/users/1/posts/status   (GET/PUT)
+    Returns the status,is_active of post 1 for user 1  (GET)
+    Updates the status of post 1 for user 1  (PUT)
+
+
+Examples:
