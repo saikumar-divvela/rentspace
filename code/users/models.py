@@ -45,15 +45,13 @@ STATUS = (
 
 
 
-PROGRESS='progress'
-PENDING ='pending'
-VERIFIED='verified'
-REJECTED='Rejected'
+PENDING ='P'
+ACCEPTED='A'
+REJECTED='R'
 
 POST_STATE = (
-    (PROGRESS,'progress'),
     (PENDING,'pending'),  #
-    (VERIFIED,'verified'),
+    (ACCEPTED,'accepted'),
     (REJECTED,'rejected'),
 )
 
@@ -81,10 +79,10 @@ class Date(models.Model):
 
 
 @python_2_unicode_compatible
-class User(Address):
+class User(Address,object):
     emailid = models.EmailField(max_length=30,db_index=True,unique=True)    
     password = models.CharField(max_length=15,blank=True)
-    phone_number = models.CharField(max_length=10,db_index=True,unique=True)
+    phone_number = models.CharField(max_length=10,blank=True,db_index=True,unique=True)
     first_name = models.CharField(max_length=30,blank=True)
     last_name = models.CharField(max_length=30,blank=True)
 
@@ -101,6 +99,9 @@ class User(Address):
 
     def __str__(self):
         return self.emailid
+    
+    def __setitem__(self, key, value):
+        object.__setattr__(self, key, value)
 
     class Meta:
         ordering = ('id',)
@@ -110,15 +111,22 @@ class  Post(Address):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='posts')
     description  = models.CharField(max_length=40,blank=True)
     rentperday  = models.IntegerField(blank=True,default=10)
-    keywords = models.CharField(max_length=50,blank=True)
     facilities = models.CharField(max_length=50,blank=True)
     avail_start_date = models.DateField(blank=True,null=True)
     avail_end_date = models.DateField(blank=True,null=True)
-    status  =  models.CharField(max_length=1,blank=True,choices=POST_STATE,default=PROGRESS)
+    status  =  models.CharField(max_length=1,blank=True,choices=POST_STATE,default=PENDING)
     is_active = models.CharField(max_length=1,blank=True,choices=STATUS,default=NO)
+    is_verified = models.CharField(max_length=1,blank=True,choices=STATUS,default=NO)
+    keywords = models.CharField(max_length=50,blank=True)
 
     created = models.DateTimeField(auto_now_add=True,blank=True)
     last_modified = models.DateTimeField(auto_now=True,blank=True)
 
     def __str__(self):
         return self.description
+
+class PostAttributes(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='attributes')
+    name = models.CharField(max_length=40,blank=True)
+    name = models.CharField(max_length=40,blank=True)
+

@@ -20,19 +20,19 @@ from users.models import User
 from users.serializers import UserSerializer
 
 
-'''
+
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
-'''
+
 
 urlpatterns = [
     url(r'^polls/', include('polls.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include('users.urls')),
-    #url(r'^', include(router.urls)),
-    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^', include(router.urls)),
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
