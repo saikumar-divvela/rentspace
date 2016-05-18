@@ -24,9 +24,18 @@ rentspace.com/users/1/posts/1   (GET/PUT/DELETE)
     Updates post 1 details for user 1 (PUT)
     Deletes post 1 details for user 1 (DELETE)
 
-rentspace.com/users/1/posts/status   (GET/PUT)
+rentspace.com/users/1/posts/1/status   (GET/PUT)
     Returns the status,is_active of post 1 for user 1  (GET)
     Updates the status of post 1 for user 1  (PUT)
 
+TODO
+rentspace.com/users/1/posts/status   (GET)
+    Returns the status,is_active of all posts for user1 (GET)
+ 
+rentspace.com/users/posts/status   (GET)
+    Returns the status,is_active of all posts for all users (GET)
+
+rentspace.com/users/status  (GET)
+    Returns status(emailid,phone,idcard) of all users (GET)
 
 Examples:

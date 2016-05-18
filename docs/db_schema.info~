@@ -66,7 +66,6 @@ photos
     size
 	status (pending, accepted, rejected) 
 
-
 post_reviews
     id
 	post_id
@@ -75,11 +74,9 @@ post_reviews
     description
     status
 
-
 property_bookings_requests
 	userid  user1
  	postid  post4
-
 
 user_transactions
 	userid

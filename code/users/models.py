@@ -107,7 +107,7 @@ class User(Address,object):
         ordering = ('id',)
 
 @python_2_unicode_compatible
-class  Post(Address):
+class  Post(Address,object):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='posts')
     description  = models.CharField(max_length=40,blank=True)
     rentperday  = models.IntegerField(blank=True,default=10)
@@ -125,8 +125,29 @@ class  Post(Address):
     def __str__(self):
         return self.description
 
+    def __setitem__(self, key, value):
+        object.__setattr__(self, key, value)
+
 class PostAttributes(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='attributes')
     name = models.CharField(max_length=40,blank=True)
-    name = models.CharField(max_length=40,blank=True)
+    value = models.CharField(max_length=40,blank=True)
+
+class Photo(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='photos')
+    title = models.CharField(max_length=25,blank=True)
+    description = models.CharField(max_length=50,blank=True)
+    filepath = models.CharField(max_length=50,blank=True)   
+    filetype = models.CharField(max_length=10,blank=True)
+    size = models.IntegerField(blank=True,default=0)
+    status  = models.CharField(max_length=1,blank=True,choices=POST_STATE,default=PENDING)
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
+    reviewedby = models.ForeignKey(User, null=True, on_delete=models.CASCADE,related_name='comments')
+    username  = models.CharField(max_length=50,blank=True)
+    description = models.CharField(max_length=100,blank=True)
+    status = models.CharField(max_length=1,blank=True,choices=POST_STATE,default=PENDING)
+
+
 
