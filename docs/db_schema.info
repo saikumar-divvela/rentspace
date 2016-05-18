@@ -66,8 +66,7 @@ photos
     size
 	status (pending, accepted, rejected) 
 
-
-post_reviews
+post_comments
     id
 	post_id
     reviewedby (user_id)
