@@ -30,8 +30,23 @@ rentspace.com/users/1/posts/1/status   (GET/PUT)
 
 
 rentspace.com/users/1/posts/1/attributes   (GET/POST/PUT)
-        Returns the attributes of post 1   (GET)
-        Updates the attributes of post2    (POST/PUT) both are same
+    Returns the attributes of post 1   (GET)
+    Updates the attributes of post2    (POST/PUT) both are same
+
+Image API
+rentspace.com/users/1/posts/1/media   (GET/POST/DELETE)
+    Returns all photos for post1   (GET)
+    Adds photos for post1   (POST)
+    Delete all photos for post1 (DELETE)
+
+Example: curl -X POST -H "Content-Type: application/json"  -d '{"title": "test pic12","description": "this is a test pic12", "filetype": "test type"}' -F "filedata=@a.txt" http://localhost:8000/users/1/posts/2/images/
+
+        
+rentspace.com/users/1/posts/1/media/1   (GET/DELETE)
+    Return photo1 for post1 (GET)  (return pic and meta data)
+    Delete photo1 for post1 (DELETE)
+
+rentspace.com/images/<image uuid>   (GET)
 
 TODO
 rentspace.com/users/1/posts/status   (GET)
