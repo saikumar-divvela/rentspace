@@ -69,6 +69,14 @@ Iteration 1
 
 
 ==>MOM
+May 22
+Google cloud messaging services
+GCM registraion  (mobile users)
+Additional fields to add for users for android/ios
+
+--> complete rest api for photos and post comments
+--> implement mockups (static pages)
+
 
 
 ==>Issues
