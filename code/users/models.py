@@ -133,14 +133,20 @@ class PostAttributes(models.Model):
     name = models.CharField(max_length=40,blank=True)
     value = models.CharField(max_length=40,blank=True)
 
-class Photo(models.Model):
+class Image(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='photos')
     title = models.CharField(max_length=25,blank=True)
     description = models.CharField(max_length=50,blank=True)
-    filepath = models.CharField(max_length=50,blank=True)   
+    url = models.CharField(max_length=50,blank=True)   
+    filename = models.CharField(max_length=50,blank=True)
+    filepath = models.CharField(max_length=100,blank=True)      
     filetype = models.CharField(max_length=10,blank=True)
     size = models.IntegerField(blank=True,default=0)
     status  = models.CharField(max_length=1,blank=True,choices=POST_STATE,default=PENDING)
+
+    @property
+    def filedata(self):
+        return "test file data"
 
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
