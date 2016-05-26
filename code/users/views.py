@@ -36,11 +36,11 @@ class UserList(APIView):
     def get(self,request,format=None):
         users = User.objects.all();
         serializer = UserSerializer(users,many=True)
-        print serializer.data
+        print (serializer.data)
         return Response(serializer.data)
 
     def post(self,request,format=None):    
-        print request.data
+        print (request.data)
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -124,9 +124,9 @@ class PostList(APIView):
     def post(self,request,user_pk,format=None):    
         user =UserDetail().get_object(user_pk)
         request.data["user"]= user_pk
-        print request.data["attributes"]
+        print (request.data["attributes"])
         serializer = PostSerializer(data=request.data)
-        print serializer
+        print (serializer)
         if serializer.is_valid():
             serializer.save()
             add_post_attributes(request.data["attributes"],serializer.data["id"])
@@ -135,7 +135,7 @@ class PostList(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def perform_create(self, serializer):
-        print "************************************************************"
+        print ("************************************************************")
         serializer.save(user=self.request.user)
 
 
@@ -154,7 +154,7 @@ class PostDetail(APIView):
     
     def put(self, request,user_pk, pk, format=None):
          post = self.get_object(pk)
-         print post
+         print (post)
          request.data["user"]=user_pk   
          serializer = PostSerializer(post,data=request.data)     
          if serializer.is_valid():
@@ -226,14 +226,14 @@ class PostAttributeList(APIView):
         return Response(serializer.data)
 
     def post(self,request,user_pk,post_pk,format=None):    
-        print request.data
+        print (request.data)
         update_post_attributes(request.data["attributes"],post_pk)
         postattributes = PostAttributes.objects.filter(post__id=post_pk)
         serializer = PostAttributeSerializer(postattributes,many=True)
         return Response(serializer.data)
 
     def put(self,request,user_pk,post_pk,format=None):    
-        print request.data
+        print (request.data)
         update_post_attributes(request.data["attributes"],post_pk)
         postattributes = PostAttributes.objects.filter(post__id=post_pk)
         serializer = PostAttributeSerializer(postattributes,many=True)
@@ -250,15 +250,15 @@ class ImageList(APIView):
     parser_classes = (MultiPartParser, FormParser,)
 
     def get(self,request,user_pk,post_pk,format=None):
-        print "Get request for all images"
+        print ("Get request for all images")
         post =PostDetail().get_object(post_pk)
         images = Image.objects.filter(post__id=post_pk) 
         serializer = ImageSerializer(images,many=True)
         return Response(serializer.data)
 
     def post(self,request,user_pk,post_pk,format=None):    
-        print "Post request for all images"
-        print request.data
+        print ("Post request for all images")
+        print (request.data)
         tmpdir = "/tmp/media"
         uploaded_file = request.FILES['filedata']
         filename =   str(uploaded_file)      
@@ -306,13 +306,13 @@ class ImageDetail(APIView):
             raise Http404
 
     def get(self, request, user_pk,post_pk,pk, format=None):
-        print "Get request for one images"
+        print ("Get request for one images")
         image = self.get_object(pk)
         serializer = ImageSerializer(image)
         return Response(serializer.data)
     
     def delete(self,request,user_pk,post_pk,pk,format=None):
-        print "Deleting selected images"
+        print ("Deleting selected images")
         image = self.get_object(pk)
         image.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -320,7 +320,7 @@ class ImageDetail(APIView):
 @permission_classes((permissions.AllowAny,))
 class ImageDownload(APIView):
     def get(self,request,pk,format=None):
-        print pk
+        print (pk)
         image =  Image.objects.filter(url=pk)[0]
         fileformat='raw'
         if fileformat == 'raw':
