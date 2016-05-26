@@ -18,7 +18,6 @@ Windows7 (tested on 64 bit)
     https://www.python.org/ftp/python/3.4.3/
      https://www.python.org/ftp/python/3.4.3/python-3.4.3rc1.msi  (for 32 bit)
      https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi  (for 64 bit os)
-
     Install python 
     Add following paths to system path
         Python installation directory
@@ -37,9 +36,6 @@ Windows7 (tested on 64 bit)
 ====> Installing mysql workbench (6.x)
         http://downloads.mysql.com/archives/workbench/
         http://downloads.mysql.com/archives/get/file/mysql-workbench-community-6.0.8-win32.msi
-
-====> mysql connector (python mysql api to connect to mysql db)
-        pip install mysql-connector
 
 ===>Installing DJango (1.9.6)
      pip install Django==1.9.6
