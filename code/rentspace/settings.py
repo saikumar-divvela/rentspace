@@ -55,10 +55,15 @@ MIDDLEWARE_CLASSES = [
 
 ROOT_URLCONF = 'rentspace.urls'
 
+MEDIA_ROOT = BASE_DIR + '/media/'
+
+
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR + '/templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -130,3 +135,15 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+print ("***********555555**********************")
+print (PROJECT_PATH)
+print (BASE_DIR)
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    '/var/www/static/',
+]
+
+
