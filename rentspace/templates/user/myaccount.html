@@ -1,0 +1,92 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+</style>
+
+<script>
+<!--
+$(document).ready(
+    function(){
+    $("button").click(
+        function(){
+        var postData = $("form").serialize();
+        $.ajax1({
+            url: "http://localhost:8000/editprofile/", 
+            type: "POST",
+            contentType: "multipart/form-data",
+            data: $('form.profile').serialize(),
+            success: function(result) {
+                $("#div1").html(result["msg"]);
+            },
+            error: function () {
+               alert("error");
+            }        
+            });
+        });
+    });
+-->
+</script>
+
+
+</head>
+<body>
+
+
+<div id='header'>
+{% include "header.html" %}
+</div>
+
+<div id="footer">
+{% include "footer.html" %}
+</div>
+
+<div class="container">
+     <h4>Edit Profile</h4>
+     <div id="div1">{{ msg }}</div>   
+     <form action="/editprofile/" method="post" enctype="multipart/form-data"
+     <fieldset> 
+        <ul class="nav nav-list">
+        <li class="nav-header">User name</li>  
+        <li><input class="input-xlarge" type="text" name="username" value= "{{ user }}" disabled></li>  
+
+        <li class="nav-header">First Name</li>  
+        <li><input class="input-xlarge" type="text" name="firstname" value= "{{ user.first_name }}"></li>  
+
+        <li class="nav-header">Last Name</li>  
+        <li><input class="input-xlarge" type="text" name="lastname" value= "{{ user.last_name }}"></li>  
+
+    
+        <li class="nav-header">Phone Number</li>  
+        <li><input class="input-xlarge" type="text" name="phonenumber" value= "{{ user.phone_number}}"></li>  
+
+        <li class="nav-header">ID Card</li>  
+        <li><input class="input-xlarge" type="text" name="idcardtype" value= "{{ user.id_card_type}}"></li>  
+       
+        <li class="nav-header">Upload ID card</li>  
+        <input id="idcard_file" name="idcard" type="file" />
+
+        <li class="nav-header">Gender</li>  
+        <li><input class="input-xlarge" type="text" name="gender" value= "{{ user.gender}}"></li>  
+       
+        <!--
+        <li class="nav-header">DOB</li>  
+        <li><input class="input-xlarge" type="text" name="date_of_birth" value= "{{ user.date_of_birth}}"></li>  
+        -->
+    </ul>
+    </fieldset> 
+    <button class="btn btn-default" type="submit">submit</button>    
+    </form>
+    
+</div>
+</body>
+</html>

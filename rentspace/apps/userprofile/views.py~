@@ -1,0 +1,113 @@
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponse
+from django.template import loader
+
+import sys
+from userprofile.models import User
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+# Create your views here.
+
+
+
+@csrf_exempt
+@login_required(login_url='/login/')
+def test_task(request):
+    
+    template = loader.get_template('index.html')
+    context ={}
+    context["msg"]= "if you see this message. it means you are logged in"
+    return HttpResponse(template.render(context, request))
+
+
+@csrf_exempt
+def create_user(request):
+    try: 
+        print ("You hit create user")
+        username = request.POST.get("username","")
+        password = request.POST.get("pwd","")
+        password_repeat = request.POST.get("pwd-repeat","")
+        phone_number =  request.POST.get("phnumber","")
+
+        print (username,password,password_repeat,phone_number)
+
+        user = User.objects.create_user(email=username,password=password)
+        
+        print (user,user.password)
+        user.save()  # This doesn't return anything
+
+    except:
+        print ("Unexpected error:", sys.exc_info()[0])
+        raise
+        template = loader.get_template('register.html')
+        context ={}
+        context["msg"]= "Some errror occurred while creating user..."
+        return HttpResponse(template.render(context, request))
+
+    template = loader.get_template('register_success.html')
+    context ={}
+    context["msg"]= "Login id is created successfully"
+    return HttpResponse(template.render(context, request))
+
+
+@csrf_exempt
+# Retun success page if success else show same page with error message
+def login_user(request):
+    username = request.POST.get("username","")
+    password = request.POST.get("pwd","")
+    print (username,password)
+
+    user = authenticate(username=username, password=password)
+    print (user)
+    if user is not None:
+        login(request, user)
+        template = loader.get_template('index.html')
+        context ={}
+        return HttpResponse(template.render(context, request))
+
+    else:
+        # Return an 'invalid login' error message.
+
+        template = loader.get_template('login.html')
+        context ={}
+        context["msg"]= "Either login name or password is incorrect"
+        return HttpResponse(template.render(context, request))
+
+
+# TODO for some unknown reason this is not working
+@csrf_exempt
+def logout_user(request):
+    try:
+        print ('logging out...')
+        del request.session['userid']
+        print (request.user)
+        logout(request)
+        request.session.flush()
+        print (request.user)
+    except KeyError:
+        pass
+  
+    template = loader.get_template('index.html')
+    context ={}
+    context["msg"]= "successfully logged out"
+    return HttpResponse(template.render(context, request))
+
+
+
+def password_change(request):
+    print ("password change")
+    return HttpResponse("you hit password change page")
+
+def password_change_done(request):
+    print ("password change done")
+    return HttpResponse("you hit password change done page")
+
+
+def password_reset(request):
+    print ("reset password")
+    return HttpResponse("you hit reset password change page")
+
+
+def password_reset_done(request):
+    print ("reset password done")
+    return HttpResponse("you hit reset password change done page")
