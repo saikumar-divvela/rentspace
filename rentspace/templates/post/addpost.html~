@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+</style>
+<script type="text/javascript">
+$(document).ready(
+    function(){
+    $("button").click(
+        function() {
+            if ( $(this).attr("id") == "cancel") {
+                 alert($(this).attr("id"))   
+                 $("#form1").attr("action","http://localhost:8000/posts/");
+                 $("#form1").attr("method","get");
+            } else if ( $(this).attr("id") == "submit") {
+                alert($(this).attr("id"))
+                 $("#form1").attr("action","http://localhost:8000/addpost/");
+                 $("#form1").attr("method","post");
+            }
+
+            $("#form1").submit();
+        });
+});
+
+
+</script>
+
+
+</head>
+<body>
+
+
+<div id='header'>
+{% include "header.html" %}
+</div>
+
+<div id="footer">
+{% include "footer.html" %}
+</div>
+
+<div class="container">
+    <form id ="form1" role="form">
+        {{ msg }} <br/>   
+        <h4>Add Post </h4>
+        <div class="form-group">
+        <label for="description">Description:</label><br/>
+        <input type="text"  id="description" name="description"><br/>
+        </div>
+        <button id="submit" type="submit" class="btn btn-info">Submit</button>
+        <button id="cancel" type="submit" class="btn btn-info">Cancel</button>      
+    </form>
+
+
+</div>
+
+
+</body>
+</html>

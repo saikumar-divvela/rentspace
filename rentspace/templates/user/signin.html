@@ -1,0 +1,65 @@
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
+
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<style>
+</style>
+</head>
+<body>
+
+
+
+<div id='header'>
+{% include "header.html" %}
+</div>
+
+<div id="footer">
+{% include "footer.html" %}
+</div>
+
+<div class="container">
+<div class="col-lg-offset-1 col-lg-4">
+    <div class="panel panel-default">
+        <div class='panel-heading'>
+            <h2>Login</h2>
+        </div>
+    <div class="panel-body">
+
+ <form role="form" action="http://localhost:8000/login/" method="post">
+  <div class="form-group">
+    {{ msg }} <br/>
+    <label for="username">Email</label><br/>
+    <input type="username"  id="username" name="username"><br/>
+
+    <label for="pwd">Password</label><br/>
+    <input type="password" id="pwd" name="pwd"> <br/>
+    <br/> 
+    <button type="submit" class="btn btn-info btn-lg">Sign In</button> &nbsp;&nbsp; <a href="http://localhost:8000/resetpassword">Forgot Password</a> <br/><br/>
+  </div>
+
+</form>
+</div></div></div>
+<div class="col-lg-3 ">
+    <div class="panel panel-default">
+        <div class='panel-heading'>
+             <h2>New User?</h2>
+        </div>
+        <div class="panel-body">
+            <div class="text-center">
+                <br/><br/><br/>
+                <a class="btn btn-info btn-lg" role="button" href="http://localhost:8000/signup">Create Account</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
