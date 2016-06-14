@@ -45,30 +45,27 @@ class MyUserManager(BaseUserManager):
 
 class User(AbstractBaseUser,Address):
 
-
     email = models.EmailField(max_length=50,verbose_name='email address',db_index=True,unique=True)    
     first_name = models.CharField(max_length=40,blank=True)
     last_name = models.CharField(max_length=40,blank=True)
     phone_number = models.CharField(max_length=10,blank=True,db_index=True,unique=True)
+    gender = models.CharField(max_length=1,blank=True,choices=GENDER,default=MALE)    
+    date_of_birth = models.DateField(null=True)
+
+    id_card_type = models.CharField(max_length=20,blank=True)
+    id_card_data = models.CharField(max_length=20,blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-
-
-    date_of_birth = models.DateField(null=True)
 
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login_date = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-
-    id_card_type = models.CharField(max_length=20,blank=True)
-    id_card_data = models.CharField(max_length=20,blank=True)
-
     is_email_verified = models.CharField(max_length=1,choices=STATUS,default=NO)
     is_phone_verified = models.CharField(max_length=1,choices=STATUS,default=NO)
     is_id_verified =models.CharField(max_length=1,choices=STATUS,default=NO)
-    gender = models.CharField(max_length=1,blank=True,choices=GENDER,default=MALE)    
+
 
     objects = MyUserManager()
     
