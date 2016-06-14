@@ -1,63 +1,83 @@
 <html lang="en">
+
 <head>
-  <title>Bootstrap Example</title>
+  <title>Bootstrap Example
+  </title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
-
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<style>
-</style>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet">
+  <script src="http://code.jquery.com/jquery-latest.js">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js">
+  </script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
+  </script>
+  <style>
+  </style>
 </head>
+
+
+  <div id="header">
+    {% include "header.html" %}
+  </div>
+  <div id="footer">
+    {% include "footer.html" %}
+  </div>
 <body>
-<div id="header">
-{% include "header.html" %}
-</div>
-
-<div id="footer">
-{% include "footer.html" %}
-</div>
-
-<div class="container">
-<div class="col-lg-9 col-md-9 col-sm-9">
-<div class="panel panel-default">
-<div class="panel-body">
-<div class="col-lg-offset-1 col-lg-3">
-    <div class="panel panel-default">
-        <div class='panel-heading'>
-            <h2>Signup</h2>
+  <form role="form" action="http://localhost:8000/register/" method="post">
+    <div class="container">
+      <div class="col-lg-offset-1 col-lg-6">
+        <div class="panel panel-default">
+          <div class='panel-heading'>
+            <h3>Signup</h3>
+          </div>
+          <div class="panel-body">
+            {{ msg }}
+            <div class="form-group">
+              <label for="username">Use an emailid</label>
+              <input type="email" class="form-control" id="username" name="username" placeholder="username">
+            </div>
+            <div class="form-group">
+              <label for="pwd">Create a password</label>
+              <input type="password" class="form-control" id="pwd" name="pwd">
+            </div>
+            <div class="form-group">
+              <label for="pwd-repeat">Confirm your password</label>
+              <input type="password" class="form-control" id="pwd-repeat" name="pwd-repeat">
+            </div>
+            <div class="form-group">
+              <label for="firstname">Name</label>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                 <div class="form-group">
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" />
+                 </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"/>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="phnumber">Mobile number</label>
+              <input type="text" id="phnumber" name="phnumber">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
+            </div>
+            <div class="form-group">
+                <label for="newuser">Already have account?</label>
+                <a href="http://localhost:8000/signin">Login</a>
+            </div>
+          </div>
         </div>
-    <div class="panel-body">
- <form role="form" action="http://localhost:8000/register/" method="post">
-  {{ msg }}<br/>
-  <div class="form-group">
-    <label for="username">Email id:</label><br/>
-    <input type="username"  id="username" name="username">
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password:</label><br/>
-    <input type="password" id="pwd" name="pwd">
-  </div>
-  <div class="form-group">
-    <label for="pwd">Password (Again):</label><br/>
-    <input type="password-repeat" id="pwd-repeat" name="pwd-repeat">
-  </div>
-  <div class="form-group">
-    <label for="phnumber">Mobile number:</label><br/>
-    <input type="phnumber" id="phnumber" name="phnumber">
-  </div>
-  <button type="submit" class="btn btn-info">Create Account</button>
-  <label for="newuser">Already have account?</label>  <a href="http://localhost:8000/signin">Login</a></li>
-</form>
-</div></div></div>
-</div>
-</div>
-</div>
-</div>
-
+      </div>
+    </div>
+  </form>
 </body>
+
 </html>

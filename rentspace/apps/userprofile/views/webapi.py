@@ -54,20 +54,24 @@ def test_file_upload(request):
 def create_user(request):
     try: 
         print ("You hit create user")
-        username = request.POST.get("username","")
-        password = request.POST.get("pwd","")
-        password_repeat = request.POST.get("pwd-repeat","")
+        username = request.POST.get("username")
+        password = request.POST.get("pwd")
+        password_repeat = request.POST.get("pwd-repeat")
         phone_number =  request.POST.get("phnumber","")
+        first_name = request.POST.get("firstname","")
+        last_name = request.POST.get("lastname","")
 
-        print (username,password,password_repeat,phone_number)
-
-        user = User.objects.create_user(email=username,password=password,phone_number=phone_number)
-        
+        print (username,password,password_repeat,phone_number,first_name,last_name)
+        user = User.objects.create_user(email=username,password=password,phone_number=phone_number)  # Only pass the required fields defined in models.py
         print (user,user.password)
+        user.first_name = first_name
+        user.last_name = last_name
+
         user.save()  # This doesn't return anything
 
-    except:
+    except Exception as err:
         print ("Unexpected error:", sys.exc_info()[0])
+        print (err)
         context ={}
         context["msg"]= "Some errror occurred while creating user..."
         return render(request,'signup.html',context)
@@ -173,7 +177,8 @@ def edit_profile(request):
         id_card_type =  request.POST.get("idcardtype","")  
         #date_of_birth =  request.POST.get("date_of_birth","")  
         gender =  request.POST.get("gender","")  
-
+        
+        print (id_card_type)
         saveuser = User.objects.get(email=request.user.email)
         if request.FILES:
             f = request.FILES['idcard']
@@ -189,8 +194,8 @@ def edit_profile(request):
         saveuser.last_name= last_name
         saveuser.phone_number= phone_number
         saveuser.id_card_type = id_card_type
-        #saveuser.date_of_birth = date_of_birth
         saveuser.gender = gender
+        #saveuser.date_of_birth = date_of_birth
         saveuser.save()
     
         output = {}
