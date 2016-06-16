@@ -11,10 +11,10 @@ urlpatterns = [
     url(r'^deletepost/$',views.deletepost),
 
     ### REST API
-    url(r'^users/(?P<user_pk>[0-9]+)/posts/$', views.PostList.as_view()),
-    url(r'^users/(?P<user_pk>[0-9]+)/posts/(?P<pk>[0-9]+)/$', views.PostDetail.as_view()),
-    url(r'^users/(?P<user_pk>[0-9]+)/posts/(?P<pk>[0-9]+)/status/$', views.post_status),
-    url(r'^users/(?P<user_pk>[0-9]+)/posts/(?P<post_pk>[0-9]+)/attributes/$', views.PostAttributeList.as_view()),
+    url(r'^api/users/(?P<user_pk>[0-9]+)/posts/$', views.PostList.as_view()),
+    url(r'^api/users/(?P<user_pk>[0-9]+)/posts/(?P<pk>[0-9]+)/$', views.PostDetail.as_view()),
+    url(r'^api/users/(?P<user_pk>[0-9]+)/posts/(?P<pk>[0-9]+)/status/$', views.post_status),
+    url(r'^api/users/(?P<user_pk>[0-9]+)/posts/(?P<post_pk>[0-9]+)/attributes/$', views.PostAttributeList.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

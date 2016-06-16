@@ -26,10 +26,17 @@ urlpatterns = [
 
 
     # REST api
-    url(r'^users/$', views.UserList.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
-    url(r'^users/(?P<pk>[0-9]+)/status/$', views.user_status),
+    url(r'^api/users/$', views.UserList.as_view()),
+    url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
+    url(r'^api/users/(?P<pk>[0-9]+)/status/$', views.user_status),
+
+    # TODO not implemented
+
+    # url(r'^api/login/$',views.login_user),
+    # url(r'^api/logout/$','django.contrib.auth.views.logout', {'next_page': '/'}),
+    
 ]
+
 
 
 
