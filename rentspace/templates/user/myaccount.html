@@ -105,6 +105,20 @@
               <label class="radio-inline"> <input type="radio" name="gender" value="M" {% if user.gender in "M" %} checked {% endif %}>Male</label>
               <label class="radio-inline"> <input type="radio" name="gender" value="F" {% if user.gender in "F" %} checked {% endif %}>Female</label>
             </div>
+            <div class="form-group">            
+                 <label for="date_of_birth" class="control-label col-md-3">DOB</label> 
+                 <input type="hidden" id="date_of_birth" value="{{user.date_of_birth}}">  
+                 <!-- TODO use datepicker -->
+            </div>
+            <div class="form-group">            
+                <label for="address" class="control-label col-md-3">Address</label> 
+                <input type="text" id="address" name="address" value="{{user.address}}">
+                <input type="text" id="street" name="street" value="{{user.street}}">    
+                <input type="text" id="city" name="city" value="{{user.city}}">
+                <input type="text" id="pincode" name="pincode" value="{{user.pincode}}">
+                <input type="text" id="state" name="state" value="{{user.state}}">
+                <input type="text" id="country" name="country" value="{{user.country}}">
+            </div>
             <div class="col-md-offset-3">
             <div class="form-group">
                 <button class="btn btn-primary btn-lg" type="submit">submit</button>    
