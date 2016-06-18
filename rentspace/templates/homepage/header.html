@@ -1,22 +1,19 @@
-<nav class="navbar navbar-default">
+<div class="navbar navbar-default">
   <div class="container">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="http://localhost:8000">Rentspace</a>
-    </div>
+    <a class="navbar-brand" href="http://localhost:8000"><b>Rentspace</b></a>
     {% csrf_token %}
-    <ul class="nav navbar-nav navbar-right">
+    <ul class="nav pull-right">
         {% if request.user.is_authenticated %}        
 
-        <li class="dropdown">
-                    <!-- <a class="btn btn-info" data-toggle="dropdown" href="#">{{ user }} <span class="caret"></span></a> -->
-                    <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">{{ user }} <span class="caret"></span> </button>
+        <div class="dropdown">
+          <a href="#" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;{{ user }}  </a>
             <ul class="dropdown-menu">
-                <li><a href="http://localhost:8000/myaccount">My Account</a></li>
-                <li><a href="http://localhost:8000/changepassword">Change Password</a></li>
-                <li><a href="http://localhost:8000/posts">Manage Listings</a></li>
+                <li><a href="http://localhost:8000/myaccount" >My Account</a></li>
+                <li><a href="http://localhost:8000/changepassword" >Change Password</a></li>
+                <li><a href="http://localhost:8000/posts" >Manage Listings</a></li>
                 <li><a href="http://localhost:8000/logout">Logout</a></li>
             </ul>
-        </li>
+        </div>
       {% else %}
 
       <li><a href="http://localhost:8000/signin" title="Login to make a reservation"> <span class="glyphicon glyphicon-log-in"></span>Login</a></li>
@@ -25,6 +22,6 @@
      {% endif %}
     </ul>
   </div>
-</nav>
+</div>
 
 

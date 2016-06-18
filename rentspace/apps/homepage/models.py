@@ -38,7 +38,7 @@ class Address(models.Model):
     city    = models.CharField(max_length=20,blank=True)
     state   = models.CharField(max_length=20,blank=True)
     country = models.CharField(max_length=20,blank=True)
-    zipcode = models.CharField(max_length=20,blank=True)
+    pincode = models.CharField(max_length=20,blank=True)
     google_map = models.CharField(max_length=20,blank=True)
 
     class Meta:
