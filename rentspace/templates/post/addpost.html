@@ -37,14 +37,34 @@ $(document).ready(
                  $("#form1").attr("action","http://localhost:8000/posts/");
                  $("#form1").attr("method","get");
             } else if ( $(this).attr("id") == "submit") {
-                
+                 facilities = [];
+            $('input:checkbox').each(function () {
+              if (this.checked) {
+                //alert($(this).val());
+                facilities.push($(this).val())   
+              
+              }
+              //var sThisVal = (this.checked ? $(this).val() : "");
+             });
+              
+         
+            alert(facilities); 
                  $("#form1").attr("action","http://localhost:8000/addpost/");
                  $("#form1").attr("method","post");
+                  $('<input />').attr('type', 'hidden')
+                  .attr('name', "facilities")
+                  .attr('value', facilities)
+                  .appendTo('#form1');
             }
 
+
             $("#form1").submit();
+            //return false;
         });
-});
+}
+
+
+);
 
 </script>
 
@@ -63,6 +83,7 @@ $(document).ready(
 
    <form id ="form1" role="form">
         <div class="container">
+          <div class="row">
           <div class="col-md-6">
             <div class="panel panel-default">
               <div class='panel-heading'>
@@ -70,6 +91,10 @@ $(document).ready(
               </div>  
               <div class="panel-body">
                 {{ msg }}
+                <div class="form-group">
+                  <label for="title" class="control-label col-md-3">Title</label>
+                  <input type="text"  id="title" name="title" value="{{post.title}}">
+                </div> 
                 <div class="form-group">
                   <label for="description" class="control-label col-md-3">Description</label>
                   <input type="text"  id="description" name="description" value="{{post.description}}">
@@ -94,7 +119,7 @@ $(document).ready(
                     <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </div>
-                    <input type="text" class ="col-md-4" id="avail_start_date" name="avail_start_date" value="{{post.avail_start_date | date:"Y -m -d"}}" >
+                    <input type="text" class ="col-md-4" id="avail_start_date" name="avail_start_date" value="{{post.avail_start_date | date:"Y-m-d"}}" >
 
                     </div>
                 </div>  
@@ -106,7 +131,7 @@ $(document).ready(
                     <div class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                     </div>
-                    <input type="text"  class ="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date | date:"Y -m -d" }}" >
+                    <input type="text"  class ="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date | date:"Y-m-d" }}" >
                     </div>
                 </div>  
                 
@@ -161,7 +186,20 @@ $(document).ready(
                 </div>
               </div>
             </div>
+          </div>
+          <div class="col-md-4">
+            <h4>Facilities</h4><br/>
+             <label class="checkbox-inline"><input type="checkbox" value="hotwater">Hot water</label>
+            <label class="checkbox-inline"><input type="checkbox" value="internet">Internet</label>
+            <label class="checkbox-inline"><input type="checkbox" value="ac">AC</label>
+<label class="checkbox-inline"><input type="checkbox" value="cardaccepted">Card Accepted</label>
+<label class="checkbox-inline"><input type="checkbox" value="elevator">Elevator</label>
+<label class="checkbox-inline"><input type="checkbox" value="tv">Tv</label>
+<label class="checkbox-inline"><input type="checkbox" value="security">Security</label>
+
           </div>      
+
+        </div>
         </div>
     </form>
 
