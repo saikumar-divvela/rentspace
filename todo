@@ -1,46 +1,17 @@
 --->
 TODO
 
-minor things
-    add title to Post  10mins
-    show start date to end date next to search bar  30mins
 
 Delete post  ( don't delete post, just purge it in database)  1 hours
 
-
-#upload a file   2Hrs
-    Django provides File model object
-    need to set two fields MEDIA field and MEDIA url in settings file: Django uses these fields to save and retrieve files
-    usermodel 
-        photo = models.ImageField(upload_to='cars')  # this is added to media root
-
-    in view
-    user.photo = request.FILES["file"]
-    user.save()
-    add this in url.py
-    static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-if uploading multiple files
+If uploading multiple files
     in server code request.FILES.getlist("file_field")
-
-# Add attributes   2Hrs
-    display check boxes (predefined list)
-    before sending response, convert checkbox values to json response (using jquery)
-    show post
-        show all selected check boxes
-    update post
-        show all checkboxes (predefined list) (using jquery)
-
-
-# upload multiple files(post) (after uploading show the images in preview)  2Hrs
-
-# show post (show picture with arrow marks)    2 hrs
-
-# edit post (show pictures with remove option) 6 hrs
-
+# Upload multiple files(post) (after uploading show the images in preview)  2Hrs
+# Show post (show picture with arrow marks)    2 hrs
+# Edit post (show pictures with remove option) 6 hrs
 # Search post  6 hours
 
-# api for login/logout   1Hr
+# Api for login/logout   1Hr
 
 to change upload behaviour, we can write custom file handler like progressBarUploadHandler
 
