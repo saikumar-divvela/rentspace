@@ -2,7 +2,7 @@
   <div class="container">
     <a class="navbar-brand" href="http://localhost:8000"><b>Rentspace</b></a>
     {% csrf_token %}
-    <ul class="nav pull-right">
+    <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}        
 
         <div class="dropdown">

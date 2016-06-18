@@ -10,8 +10,24 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <style>
 </style>
+
+<script type="text/javascript">
+ $(function() {
+   $( "#from_date" ).datepicker(
+                { dateFormat: "yy-mm-dd" }
+              );
+            
+    $( "#to_date" ).datepicker(
+                { dateFormat: "yy-mm-dd" }
+              );
+         });
+</script>
 </head>
 <div id='header'>
 {% include "header.html" %}
@@ -25,7 +41,11 @@
 
 <form role="form" >
  {{ msg }} <br/>   
- <input type="search"  id="search" name="search"><label for="searcg">Search</label><br/>
+ <input type="search"  id="search" name="search">
+ <input type="text"  id="from_date" name="from_date" size="12">
+ <input type="text"  id="to_date" name="to_date" size="12">
+ <a href="#" class="btn btn-primary">Search</a> <br/>
+
  <a href="http://localhost:8000/test_task/">Test me</a> <br/>
  <a href="http://localhost:8000/test_file_upload/">Test Task for File Upload</a> <br/>   
 </form>

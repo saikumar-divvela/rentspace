@@ -191,6 +191,10 @@ def edit_profile(request):
         print (id_card_type)
         saveuser = User.objects.get(email=request.user.email)
         if request.FILES:
+            saveuser.idphoto = request.FILES['idphoto']
+
+        '''
+        if request.FILES:
             f = request.FILES['idcard']
             print (str)
 
@@ -199,7 +203,10 @@ def edit_profile(request):
                     dest.write(chunk)
 
             saveuser.id_card_data = str(f)    
-
+        '''    
+        if saveuser.idphoto:
+            print (saveuser.idphoto.url)
+            print (saveuser.idphoto.name,saveuser.idphoto.size)
         saveuser.first_name= first_name
         saveuser.last_name= last_name
         saveuser.phone_number= phone_number
@@ -214,6 +221,8 @@ def edit_profile(request):
         saveuser.country = country
 
         saveuser.save()
+
+   
     
         output = {}
         output["status"]= "success"

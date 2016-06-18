@@ -41,10 +41,13 @@ def addpost(request):
     print ("you hit add post")
     if request.method == 'POST':
         print ("got post request")
+        title = request.POST.get("title","")
         description = request.POST.get("description","")
         rentperday  = request.POST.get("rentperday","")
-        avail_start_date = request.POST.get("avail_start_date","")
-        avail_end_date   = request.POST.get("avail_end_date","")
+        avail_start_date = request.POST.get("avail_start_date",None)
+        avail_end_date   = request.POST.get("avail_end_date",None)
+        facilities = request.POST.get("facilities",None)
+        print (facilities)
 
         address = request.POST.get("address","")
         street  = request.POST.get("street","")
@@ -53,12 +56,15 @@ def addpost(request):
         state = request.POST.get("state","")
         country = request.POST.get("country","")
 
+
         p = Post()
         p.description = description
+        p.title = title
         p.user = request.user
         p.rentperday = rentperday
         p.avail_start_date = avail_start_date
         p.avail_end_date  = avail_end_date
+        p.facilities = facilities
 
         p.address = address
         p.street = street
@@ -89,10 +95,13 @@ def updatepost(request):
     if request.method == 'POST':
         print ("got post request")
         postid = request.POST.get("postid")
+        title = request.POST.get("title","")
         description = request.POST.get("description","")
         rentperday  = request.POST.get("rentperday","")
         avail_start_date = request.POST.get("avail_start_date","")
         avail_end_date   = request.POST.get("avail_end_date","")
+        facilities = request.POST.get("facilities",None)
+        print (facilities)
 
         address = request.POST.get("address","")
         street  = request.POST.get("street","")
@@ -105,8 +114,10 @@ def updatepost(request):
         print (postid,description)
         p =  Post.objects.get(id=postid)        
         p.description = description
+        p.title = title
         #p.user = request.user
         p.rentperday = rentperday
+        p.facilities = facilities
         p.avail_start_date = avail_start_date
         p.avail_end_date  = avail_end_date
 

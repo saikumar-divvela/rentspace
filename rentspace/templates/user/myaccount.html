@@ -82,6 +82,7 @@
     <div id="wrap">
     <form action="/editprofile/" method="post" class="form-horizontal" enctype="multipart/form-data">
       <div class="container">
+        <div class="row">
         <div class="col-md-6">
           <div class="panel panel-default">
             <div class='panel-heading'>
@@ -115,10 +116,15 @@
                 <option value="PAN">Pan</option>
               </select>   
             </div>
+ 
             <div class="form-group">
-              <label for="idcard" class="control-label col-md-3">Upload ID card</label>  
-              <input id="idcard_file" name="idcard" type="file" />
+              <label for="idphoto" class="control-label col-md-3">Upload ID card</label> 
+
+    
+
+           <input id="idphoto" name="idphoto" type="file" /> 
             </div>
+
             <div class="form-group">
               <label for="gender" class="control-label col-md-3">Gender</label>  
               <label class="radio-inline"> <input type="radio" name="gender" value="M" {% if user.gender in "M" %} checked {% endif %}>Male</label>
@@ -126,7 +132,7 @@
             </div>
             <div class="form-group">            
                  <label for="date_of_birth" class="control-label col-md-3">DOB</label> 
-                 <input type="text" id="date_of_birth"  name="date_of_birth" value="{{user.date_of_birth}}"> 
+                 <input type="text" id="date_of_birth"  name="date_of_birth" value="{{user.date_of_birth | date:"Y-m-d" }}"> 
 
                  <!-- TODO use datepicker -->
             </div>
@@ -169,7 +175,15 @@
           </div>
         </div>
       </div>
-     </div>  
+
+     </div> 
+     <div class="col-md-6">
+        {% if user.idphoto and user.idphoto.url %}
+          <img class="img-responsive" src="{{user.idphoto.url}}" alt="{{user.idphoto.name}}"> 
+        {% endif %}  
+     </div>
+     </div>
+     </div>
     </form>
     </div>
   </body>

@@ -53,7 +53,7 @@ class User(AbstractBaseUser,Address):
     date_of_birth = models.DateField(null=True)
 
     id_card_type = models.CharField(max_length=20,blank=True)
-    id_card_data = models.CharField(max_length=20,blank=True)
+    idphoto = models.ImageField(blank=True)
 
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
