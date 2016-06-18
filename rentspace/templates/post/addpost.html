@@ -9,20 +9,35 @@
 
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> 
+
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
 <style>
+ body { padding-bottom: 70px; }
 </style>
 <script type="text/javascript">
+ $(function() {
+   $( "#avail_start_date" ).datepicker(
+                { dateFormat: "yy-mm-dd" }
+              );
+            
+    $( "#avail_end_date" ).datepicker(
+                { dateFormat: "yy-mm-dd" }
+              );
+         });
 $(document).ready(
+
     function(){
     $("button").click(
         function() {
             if ( $(this).attr("id") == "cancel") {
-                 alert($(this).attr("id"))   
+                  
                  $("#form1").attr("action","http://localhost:8000/posts/");
                  $("#form1").attr("method","get");
             } else if ( $(this).attr("id") == "submit") {
-                alert($(this).attr("id"))
+                
                  $("#form1").attr("action","http://localhost:8000/addpost/");
                  $("#form1").attr("method","post");
             }
@@ -48,56 +63,98 @@ $(document).ready(
 
    <form id ="form1" role="form">
         <div class="container">
-          <div class="col-lg-6">
+          <div class="col-md-6">
             <div class="panel panel-default">
               <div class='panel-heading'>
                   <h3>Add Post </h3>
               </div>  
               <div class="panel-body">
-                {{ msg }} <br/>   
+                {{ msg }}
                 <div class="form-group">
                   <label for="description" class="control-label col-md-3">Description</label>
-                  <input type="text"  id="description" name="description">
+                  <input type="text"  id="description" name="description" value="{{post.description}}">
                 </div>  
                 
                 <div class="form-group">
                   <label for="rentperday" class="control-label col-md-3">Rent per day</label>
-                  <input type="text"  id="rentperday" name="rentperday">
-                </div>  
-                <!-- TODO use datepicker -->
-                <div class="form-group">
-                  <label for="avail_start_date" class="control-label col-md-3">Available start date</label>
-                  <input type="text"  id="avail_start_date" name="avail_start_date">
+                  <div class="input-group">
+                  <div class="input-group-addon">Rs</div>
+                  <input type="text"  class ="col-md-3" id="rentperday" name="rentperday" value="{{post.rentperday}}">
+                  
+                  </div>
+
                 </div>  
 
+
+
                 <div class="form-group">
-                  <label for="avail_end_date" class="control-label col-md-3">Available end date</label>
-                  <input type="text"  id="avail_end_date" name="avail_end_date">
+
+                    <label for="avail_start_date" class="control-label col-md-3">Available start date</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input type="text" class ="col-md-4" id="avail_start_date" name="avail_start_date" value="{{post.avail_start_date | date:"Y -m -d"}}" >
+
+                    </div>
                 </div>  
+
+                <br/>  
+                <div class="form-group">
+                    <label for="avail_end_date" class="control-label col-md-3">Available end date</label>
+                    <div class="input-group">
+                    <div class="input-group-addon">
+                    <span class="glyphicon glyphicon-calendar"></span>
+                    </div>
+                    <input type="text"  class ="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date | date:"Y -m -d" }}" >
+                    </div>
+                </div>  
+                
+                
+                <br/>
+
+              
 
                 <!-- TODO Add checkboxes for facilities -->
-                <div class="form-group">
-                    <label for="avail_end_date" class="control-label col-md-3">Select all that applies</label>
-
-                </div>
+              
                 
                 <!-- TODO add code to upload multiple photos -->
-                <div class="form-group">
+              
 
+            <div class="form-group">  
+                <div class="row"> 
+                  <label for="address" class="control-label col-md-3">Address</label>
+                  <div class="col-md-3">
+                     <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                    <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
+                  </div>   
                 </div>
-
-                <div class="form-group">            
-                  <label for="address" class="control-label col-md-3">Address</label> 
-                  <input type="text" id="address" name="address" value="{{post.address}}">
-                  <input type="text" id="street" name="street" value="{{post.street}}">    
-                  <input type="text" id="city" name="city" value="{{post.city}}">
-                  <input type="text" id="pincode" name="pincode" value="{{post.pincode}}">
-                  <input type="text" id="state" name="state" value="{{post.state}}">
-                  <input type="text" id="country" name="country" value="{{post.country}}">
+                <div class="row"> 
+                  
+                </div>   
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-3">
+                  <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                  <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{post.pincode}}">
+                  </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-3">
+                  <input type="text" id="state" name="state" placeholder="State" value="{{post.state}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                    <input type="text" id="country" name="country" placeholder="Country" value="{{post.country}}">
+                  </div>
+                </div>
+            </div>
                
-                <div class="col-md-offset-3">
+                
                   <div class="form-group">
+                    <div class="col-md-offset-3">
                     <button id="submit" type="submit" class="btn btn-info">Submit</button>
                     <button id="cancel" type="submit" class="btn btn-info">Cancel</button>     
                   </div>  

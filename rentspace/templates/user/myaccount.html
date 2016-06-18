@@ -7,13 +7,19 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
-    <script src="http://code.jquery.com/jquery-latest.js">
-    </script>
+  
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js">
     </script>
+    
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js">
     </script>
+
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+
     <style>
+      body { padding-bottom: 70px; }
     </style>
     <script>
       var idcardtype = "{{ user.id_card_type}}";
@@ -24,8 +30,19 @@
             } else if (idcardtype == "AADHAR"){
                 $('#idcardtype option[value="AADHAR"]').prop('selected', true);            
             }
+            $( "#date_of_birth" ).datepicker(
+                { dateFormat: "yy-mm-dd" }
+              );
+            
         }
+
+    
       );  
+      <!--
+      $(function() {
+            
+         });
+      -->
     
       <!--
         $(document).ready(
@@ -54,16 +71,18 @@
       -->
     </script>
   </head>
-  <body>
-    <div id='header'>
+   <div id='header'>
       {% include "header.html" %}
     </div>
-    <div id="footer">
-      {% include "footer.html" %}
-    </div>
+ 
+  <body>
+   
+
+   
+    <div id="wrap">
     <form action="/editprofile/" method="post" class="form-horizontal" enctype="multipart/form-data">
       <div class="container">
-        <div class="col-lg-6">
+        <div class="col-md-6">
           <div class="panel panel-default">
             <div class='panel-heading'>
               <h3>Edit Profile</h3>
@@ -107,18 +126,42 @@
             </div>
             <div class="form-group">            
                  <label for="date_of_birth" class="control-label col-md-3">DOB</label> 
-                 <input type="hidden" id="date_of_birth" value="{{user.date_of_birth}}">  
+                 <input type="text" id="date_of_birth"  name="date_of_birth" value="{{user.date_of_birth}}"> 
+
                  <!-- TODO use datepicker -->
             </div>
-            <div class="form-group">            
-                <label for="address" class="control-label col-md-3">Address</label> 
-                <input type="text" id="address" name="address" value="{{user.address}}">
-                <input type="text" id="street" name="street" value="{{user.street}}">    
-                <input type="text" id="city" name="city" value="{{user.city}}">
-                <input type="text" id="pincode" name="pincode" value="{{user.pincode}}">
-                <input type="text" id="state" name="state" value="{{user.state}}">
-                <input type="text" id="country" name="country" value="{{user.country}}">
+            <div class="form-group">  
+                <div class="row"> 
+                  <label for="address" class="control-label col-md-3">Address</label>
+                  <div class="col-md-3">
+                     <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{user.address}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                    <input type="text" id="street" name="street" placeholder="Street" value="{{user.street}}">   
+                  </div>   
+                </div>
+                <div class="row"> 
+                  
+                </div>   
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-3">
+                  <input type="text" id="city" name="city" placeholder="City" value="{{user.city}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                  <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{user.pincode}}">
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-3 col-md-offset-3">
+                  <input type="text" id="state" name="state" placeholder="State" value="{{user.state}}">
+                  </div>
+                  <div class="col-md-3 col-md-offset-1">
+                    <input type="text" id="country" name="country" placeholder="Country" value="{{user.country}}">
+                  </div>
+                </div>
             </div>
+
+
             <div class="col-md-offset-3">
             <div class="form-group">
                 <button class="btn btn-primary btn-lg" type="submit">submit</button>    
@@ -128,6 +171,10 @@
       </div>
      </div>  
     </form>
+    </div>
   </body>
+      <div id="footer">
+      {% include "footer.html" %}
+    </div>
 </html>
 

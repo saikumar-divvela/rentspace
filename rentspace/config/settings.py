@@ -154,4 +154,6 @@ STATICFILES_DIRS = [
     '/var/www/static/',
 ]
 
+DATE_FORMAT = "Y-m-d"
+#USE_L10N = False
 
