@@ -15,7 +15,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
 <style>
- body { padding-bottom: 70px; }
 </style>
 <script type="text/javascript">
  $(function() {
@@ -70,19 +69,19 @@ $(document).ready(
 
 
 </head>
-<body>
-
 
 <div id='header'>
 {% include "header.html" %}
 </div>
+<body>
+<div id="main">
+<div class="container clear-top">
 
-<div id="footer">
-{% include "footer.html" %}
-</div>
 
-   <form id ="form1" role="form" enctype="multipart/form-data">
-        <div class="container">
+
+
+  <form id ="form1" role="form" enctype="multipart/form-data">
+        
           <div class="row">
           <div class="col-md-6">
             <div class="panel panel-default">
@@ -202,8 +201,13 @@ $(document).ready(
           </div>      
 
         </div>
-        </div>
+        
     </form>
-
+</div>
+</div>
 </body>
+<div id="footer">
+{% include "footer.html" %}
+</div>
+
 </html>

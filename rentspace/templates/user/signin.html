@@ -11,22 +11,19 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <style>
-  </style>
+ <style>
+</style>
+<script type="text/javascript">
+</script>
 </head>
-
-<body>
 
   <div id='header'>
     {% include "header.html" %}
   </div>
-
-  <div id="footer">
-    {% include "footer.html" %}
-  </div>
-
+<body>
+<div id="main">
   <form role="form" action="http://localhost:8000/login/" method="post">
-    <div class="container">
+    <div class="container clear-top">
       <div class="col-lg-offset-1 col-lg-4">
         <div class="panel panel-default">
           <div class='panel-heading'>
@@ -69,6 +66,10 @@
       </div>
     </div>
   </form>
+  </div>
 </body>
+  <div id="footer">
+    {% include "footer.html" %}
+  </div>
 
 </html>

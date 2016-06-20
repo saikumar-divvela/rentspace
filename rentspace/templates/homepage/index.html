@@ -29,16 +29,14 @@
          });
 </script>
 </head>
+
 <div id='header'>
 {% include "header.html" %}
 </div>
-<div id="footer">
-{% include "footer.html" %}
-</div>
+
 <body>
-
-<div class="container">
-
+<div id="main">
+<div class="container clear-top">
 <form role="form" >
  {{ msg }} <br/>   
  <input type="search"  id="search" name="search">
@@ -51,7 +49,10 @@
 </form>
 
 </div>
-
+</div>
 </body>
+<div id="footer">
+{% include "footer.html" %}
+</div>
 
 </html>

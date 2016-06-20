@@ -1,4 +1,19 @@
-<div class="navbar navbar-default">
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+   var docHeight = $(window).height();
+   var footerHeight = $('#footer').height();
+   var footerTop = $('#footer').position().top + footerHeight;
+
+   if (footerTop < docHeight) {
+    $('#footer').css('margin-top', 0+ (docHeight - footerTop) + 'px');
+   }
+  });
+
+</script>
+
+<div id="header" class="navbar navbar-default">
   <div class="container">
     <a class="navbar-brand" href="http://localhost:8000"><b>Rentspace</b></a>
     {% csrf_token %}
