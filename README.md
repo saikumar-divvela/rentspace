@@ -12,53 +12,23 @@ ActionItems
 Others
 
 
-
 ==>Documents
 docs/software.info -> for tools and technologies used in this project
 docs/db_schema.info -> for database tables, fields
 docs/rest_api.info -> for rest API exposed by this app
 wireframes-mockups -> for wireframes of this web app
+project_plan.info -> more details about development plan, screens, issues etc..
  
 ==>Requirements
-Version 1.0 (stage1)
-iteration 1 (basic features)
-    UI development and API development
-    Login/New user registration
-    Post an Ad
-    Search for Ad
-    Display list of Ads
-    Show info of seleced Ad
-
-About the site
-    FAQ, Contact us, Privacy policy, Guest policies, User agreement,Terms and conditions
-
-About company
-    About us/Team, Blog, Social Responsibility
-
-iteration 2 
-    Forgot password
-    OTP/Email verification/ID card verificaion
-    Admin UI (for managing posts)
-
-iteration 3
-    Connect using facebook/gmail
-    Offers page/ Promotions
-    follow us on facebook, twitter, google play etc
-
-Version 1.1
-Iteration 1
-    Integration with payment gateway
-    validate location using google map
-
 
 ==>Usecases
-#1 No seperate login for clients/users
+# No seperate login for clients/users
 
-#2 Seperate login for admin people to maintain the website.
-   Some screens are available only to admin people
+# Seperate login for admin people to maintain the website.
+  Some screens are available only to admin people
     
-#3  user1 is looking for accomdation and interested in property posted by user2
-    option1: user2 doesn't post available dates of property
+# User1 is looking for accomdation and interested in property posted by user2
+  option1: user2 doesn't post available dates of property
         user1 express interest in property
         the details are sent to user2
         user2 responds back to user1
@@ -67,19 +37,38 @@ Iteration 1
         after the end date the ad becomes inactive
         don't show the property in search results
 
+==>Issues
 
 ==>MOM
 May 22
-Google cloud messaging services
-GCM registraion  (mobile users)
-Additional fields to add for users for android/ios
+    Google cloud messaging services
+    GCM registraion  (mobile users)
+    Additional fields to add for users for android/ios
 
---> complete rest api for photos and post comments
---> implement mockups (static pages)
+Jun 19th
+   Providing calendar option to user to enter all the dates for availibility of accomdation
+   # Option1
+     Allow customer to specify accomdation dates for 45 days or 60 days etc
+   
+   Fixing the price of accomdation
+   Discussion about whether to have payment gateway or not
+    # Option1
+      Release the app to public without payment gateway
+      Initially provide the service for free of cost. 
+      Collect the feedback and identity the real time issues.
+      Fix the issues in process, enhance the webapp/android app with more features
+      Integrate the app with payment gateway and start collecting the money
+    # Option2
+      Release beta version just to close friends, selected users
+      Collect the feedback and identity the real time issues.
+      Integrate the app with payment gateway and release to public
+    # Option3
+      Take enough time to discuss about process, development
+      Release the webapp and android app with payment gateway
+      
+      
+      
 
-
-
-==>Issues
 
 ==>ActionItems
     -> Check about how to validate Aadhar card using the software provided by police dept or others
