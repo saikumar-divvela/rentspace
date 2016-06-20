@@ -42,7 +42,7 @@ $(document).ready(
               if (this.checked) {
                 //alert($(this).val());
                 facilities.push($(this).val())   
-              
+
               }
               //var sThisVal = (this.checked ? $(this).val() : "");
              });
@@ -81,7 +81,7 @@ $(document).ready(
 {% include "footer.html" %}
 </div>
 
-   <form id ="form1" role="form">
+   <form id ="form1" role="form" enctype="multipart/form-data">
         <div class="container">
           <div class="row">
           <div class="col-md-6">
@@ -196,7 +196,9 @@ $(document).ready(
 <label class="checkbox-inline"><input type="checkbox" value="elevator">Elevator</label>
 <label class="checkbox-inline"><input type="checkbox" value="tv">Tv</label>
 <label class="checkbox-inline"><input type="checkbox" value="security">Security</label>
-
+          <h5> Add photos </h5>
+          <input id="photos" name="photos" type="file" multiple/> 
+          <input id="photos" name="photos" type="file" /> 
           </div>      
 
         </div>
