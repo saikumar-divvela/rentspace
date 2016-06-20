@@ -60,12 +60,14 @@ def create_user(request):
         phone_number =  request.POST.get("phnumber","")
         first_name = request.POST.get("firstname","")
         last_name = request.POST.get("lastname","")
+        
 
         print (username,password,password_repeat,phone_number,first_name,last_name)
         user = User.objects.create_user(email=username,password=password,phone_number=phone_number)  # Only pass the required fields defined in models.py
         print (user,user.password)
         user.first_name = first_name
         user.last_name = last_name
+        
 
         user.save()  # This doesn't return anything
 
@@ -175,11 +177,23 @@ def edit_profile(request):
         last_name =  request.POST.get("lastname","")   
         phone_number =  request.POST.get("phonenumber","")   
         id_card_type =  request.POST.get("idcardtype","")  
-        #date_of_birth =  request.POST.get("date_of_birth","")  
+        date_of_birth = request.POST.get("date_of_birth","")
         gender =  request.POST.get("gender","")  
+
+        address = request.POST.get("address","")
+        street  = request.POST.get("street","")
+        city = request.POST.get("city","")
+        pincode = request.POST.get("pincode","")
+        state = request.POST.get("state","")
+        country = request.POST.get("country","")
         
+        print (date_of_birth)
         print (id_card_type)
         saveuser = User.objects.get(email=request.user.email)
+        if request.FILES:
+            saveuser.idphoto = request.FILES['idphoto']
+
+        '''
         if request.FILES:
             f = request.FILES['idcard']
             print (str)
@@ -189,14 +203,26 @@ def edit_profile(request):
                     dest.write(chunk)
 
             saveuser.id_card_data = str(f)    
-
+        '''    
+        if saveuser.idphoto:
+            print (saveuser.idphoto.url)
+            print (saveuser.idphoto.name,saveuser.idphoto.size)
         saveuser.first_name= first_name
         saveuser.last_name= last_name
         saveuser.phone_number= phone_number
         saveuser.id_card_type = id_card_type
         saveuser.gender = gender
-        #saveuser.date_of_birth = date_of_birth
+        saveuser.date_of_birth = date_of_birth
+        saveuser.address = address
+        saveuser.street = street
+        saveuser.city = city
+        saveuser.pincode = pincode
+        saveuser.state = state
+        saveuser.country = country
+
         saveuser.save()
+
+   
     
         output = {}
         output["status"]= "success"
