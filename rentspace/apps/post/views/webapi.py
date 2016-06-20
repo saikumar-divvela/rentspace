@@ -9,7 +9,7 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 
-from post.models import Post
+from post.models import Post,PostPhoto
 
 
 @csrf_exempt
@@ -57,6 +57,7 @@ def addpost(request):
         country = request.POST.get("country","")
 
 
+
         p = Post()
         p.description = description
         p.title = title
@@ -73,7 +74,34 @@ def addpost(request):
         p.state = state
         p.country = country
 
+       
+
+   
         p.save()
+
+        
+        print ('hello')
+        '''
+        if request.FILES:
+            print (request.FILES["postphoto"])
+            image = PostPhoto()
+            image.photo = request.FILES["postphoto"]
+            image.post = p
+            image.save()
+        else:
+            print ("something wrong no file data...........")
+        ''' 
+
+        
+        if request.FILES.getlist("photos"):
+            print (request.FILES.getlist("photos"))
+            for f in request.FILES.getlist("photos"):
+                print (f)
+                image = PostPhoto()
+                image.photo = f
+                image.post = p
+                image.save()
+            
 
         return HttpResponseRedirect("/addpost?msg=susscessfully added property&id="+str(p.id))
         #return HttpResponse("POST object created successfully")
@@ -110,6 +138,8 @@ def updatepost(request):
         state = request.POST.get("state","")
         country = request.POST.get("country","")
 
+       
+
 
         print (postid,description)
         p =  Post.objects.get(id=postid)        
@@ -120,6 +150,8 @@ def updatepost(request):
         p.facilities = facilities
         p.avail_start_date = avail_start_date
         p.avail_end_date  = avail_end_date
+
+
 
         p.address = address
         p.street = street
