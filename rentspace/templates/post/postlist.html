@@ -10,21 +10,33 @@
   <script src="http://code.jquery.com/jquery-latest.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <style>
 </style>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+   var docHeight = $(window).height();
+   var footerHeight = $('#footer').height();
+   var footerTop = $('#footer').position().top + footerHeight;
+
+   if (footerTop < docHeight) {
+    $('#footer').css('margin-top', 10+ (docHeight - footerTop) + 'px');
+   }
+  });
+</script>
 </head>
-<body>
+
 
 
 <div id='header'>
 {% include "header.html" %}
 </div>
 
-<div id="footer">
-{% include "footer.html" %}
-</div>
-<div class="container">
-
+<body>
+<div id="main">
+<div class="container clear-top">
 <form role="form" >
  {{ msg }} <br/>   
     <a href="http://localhost:8000/addpost/" class="btn btn-info" role="button">Add Post</a>
@@ -33,8 +45,10 @@
          <a href="http://localhost:8000/showpost/?id={{post.id}}" class="btn btn-link" role="button">{{post.description}}</a> <br/>
     {% endfor %}    
 </form>
-
 </div>
-
+</div>
 </body>
+<div id="footer">
+{% include "footer.html" %}
+</div>
 </html>

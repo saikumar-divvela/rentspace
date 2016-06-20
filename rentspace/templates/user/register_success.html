@@ -12,19 +12,21 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <style>
 </style>
+<script type="text/javascript">
+</script>
 </head>
-<body>
+
 <div id="header">
 {% include "header.html" %}
 </div>
-
+<body>
+<div id="main">
+<div class="container clear-top">
+  {{ msg }}<br/>
+</div>
+</div>
+</body>
 <div id="footer">
 {% include "footer.html" %}
 </div>
-
-<div class="container">
-  {{ msg }}<br/>
-</div>
-
-</body>
 </html>
