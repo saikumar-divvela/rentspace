@@ -5,6 +5,7 @@ from userprofile.models import User
 
 class  Post(Address,object):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='posts')
+    title = models.CharField(max_length=100)
     description  = models.CharField(max_length=40)
     rentperday  = models.IntegerField(default=0,blank=True)
     facilities = models.CharField(max_length=50,blank=True)

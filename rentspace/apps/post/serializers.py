@@ -14,7 +14,7 @@ class PostSerializer(serializers.ModelSerializer):
     attributes = PostAttributeSerializer(read_only=True,many=True)
     class Meta:
         model = Post
-        fields = ('id','description','rentperday','facilities','avail_start_date','avail_end_date','status','is_active','is_verified','keywords')
+        fields = ('id','description','title','rentperday','facilities','avail_start_date','avail_end_date','status','is_active','is_verified','keywords')
         #read_only_fields = ('id',)         
         #exclude=('user',)
 

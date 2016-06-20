@@ -28,8 +28,26 @@
 <form role="form" >
       <h4>Post Details</h4>
       <div class="container">
+          <label for="title">Title:</label>
+          <label for="title">{{ post.title }}</label><br/>
           <label for="description">Description:</label>
           <label for="description">{{ post.description }}</label><br/>
+          <label for="rentperday">Rent per night:</label>
+          <label for="rentperday">{{ post.rentperday }}</label><br/>
+          <label for="facilities">Facilities:</label>
+          <label for="facilities">{{ post.facilities }}</label><br/>
+                 <label for="avail_start_date">Available start date:</label>
+          <label for="avail_start_date">{{ post.avail_start_date }}</label><br/>
+                 <label for="avail_end_date">Available end date:</label>
+          <label for="avail_end_date">{{ post.avail_end_date }}</label><br/>
+          <label for="address">Address of property:</label>
+          {{post.address}}
+          {{post.street}}
+          {{post.city}}
+          {{post.pincode}}
+          {{post.state}}
+          {{post.country}}
+          <br/>
           <a href="/updatepost/?id={{post.id}}" class="btn btn-info" role="button">Edit</a>
           <a href="/deletepost/?id={{post.id}}" class="btn btn-info" role="button">Delete</a>  
           <a href="/posts/" class="btn btn-info" role="button">Back</a>    
