@@ -22,12 +22,12 @@ project_plan.info -> more details about development plan, screens, issues etc..
 ==>Requirements
 
 ==>Usecases
-# No seperate login for clients/users
+-> No seperate login for clients/users
 
-# Seperate login for admin people to maintain the website.
+-> Seperate login for admin people to maintain the website.
   Some screens are available only to admin people
     
-# User1 is looking for accomdation and interested in property posted by user2
+-> User1 is looking for accomdation and interested in property posted by user2
   option1: user2 doesn't post available dates of property
         user1 express interest in property
         the details are sent to user2
