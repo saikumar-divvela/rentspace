@@ -47,6 +47,7 @@ Windows7 (tested on 64 bit)
 
 ===>Installing Django-rest framework (3.3.3)
     pip install djangorestframework
+    pip install Pillow
     pip install markdown       # Markdown support for the browsable API.
     pip install django-filter
     pip install httpie
