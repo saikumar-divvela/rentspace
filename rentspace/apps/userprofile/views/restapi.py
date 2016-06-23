@@ -83,6 +83,7 @@ class UserDetail(APIView):
         output["is_phone_verified"] = user.is_phone_verified
         output["is_id_verified"] = user.is_id_verified
         return Response(output)
+        
 
 @csrf_exempt
 def user_status(request,pk):
@@ -96,19 +97,24 @@ def user_status(request,pk):
         output["is_email_verified"] = user.is_email_verified
         output["is_phone_verified"] = user.is_phone_verified
         output["is_id_verified"] = user.is_id_verified
-                
-        serializer = UserSerializer(user)
+        output["is_active"] =user.is_active
+
         return JSONResponse(output)
 
     elif request.method == "PUT":
          data = JSONParser().parse(request)
+         print (data)   
+         '''   
          for key,value in data.items():
             user[key]=value    
+         '''
+         user.is_active = data["is_active"]   
+         user.is_id_verified = data["is_id_verified"]
+         user.is_phone_verified = data["is_phone_verified"]
+         user.is_email_verified = data["is_email_verified"]
          user.save()
 
-         serializer = UserSerializer(user)
-         return JSONResponse(serializer.data)  
-         #return Response(serializer.data) 
-
-
-
+         #return JSONResponse(UserSerializer(user).data)
+         return HttpResponse(status=200)
+         
+         

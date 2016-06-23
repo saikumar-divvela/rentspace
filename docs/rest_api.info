@@ -1,15 +1,15 @@
 User API
-rentspace.com/users/     (GET/POST)
+rentspace.com/api/users/     (GET/POST)
     Returns all users    (GET)
     Adds an user         (POST)  
 
-rentspace.com/users/1     (GET/PUT/DELETE)
+rentspace.com/api/users/1/     (GET/PUT/DELETE)
     Returns information of user 1  (GET)
     Updates information of user 1  (PUT)
     Deletes information of user 1  (DELETE)
 
 
-rentspace.com/users/1/status  (GET/PUT)
+rentspace.com/api/users/1/status/  (GET/PUT)
     Returns status(emailid,phone,idcard) of user 1 (GET)
     Updates status(emailid,phone,idcard) of user 1 (PUT)  
 
@@ -59,3 +59,66 @@ rentspace.com/users/status  (GET)
     Returns status(emailid,phone,idcard) of all users (GET)
 
 Examples:
+
+----------------------------------------------------------------------------------------------
+Testing web services
+----------------------------------------------------------------------------------------------
+curl is a command line tool to transfer data from or to server. this supports many protocols http , https, ftp , smtp, ldap, imap etc......
+
+GENERAL HTTP RESPONSE CODE:
+
+GET SUCCESS: HTTP/1.0 200 OK
+POST SUCCESS: HTTP/1.0 201 Created
+PUT SUCCESS: HTTP/1.0 200 OK
+DELETE SUCCESS: HTTP/1.0 204 No Content
+
+HTTP/1.0 404 Not Found
+HTTP/1.0 400 Bad Request (for any incorrect json formats, wrong arguments, missing arguments etc..)
+
+
+USER API
+Replace rentspace.com or localhost:8000 with appropriate domain name or ip address
+
+REST URL: http://localhost:8000/api/users/   (GET | POST )
+
+HEADERS
+    curl -i -X HEAD http://localhost:8000/api/users/
+    curl -i -X OPTIONS http://localhost:8000/api/users/  (this gives accepted formats, rendered formats like json, text, xml etc)
+GET
+    curl -i -X GET http://localhost:8000/api/users/
+    curl -X GET http://localhost:8000/api/users/ | python -m json.tool  (make sure the output is in json format and python is installed)
+
+OTHER EXAMPLES
+    curl -H "Accept:application/json" -i -X GET http://localhost:8000/api/users/  (to specify an accepted content type. Now only json is supported)
+        Example headers: "Accept:application/json", "Accept:application/xml", "Accept:text/html"
+    curl -v -H "Accept:application/json" -H "Accept-encoding:gzip" -X GET http://localhost:8000/api/users/
+POST 
+    curl -H "Content-Type:application/json" -i -X POST http://localhost:8000/api/users/ -d  '{"email":"test300@test300.com","first_name":"test300_fn","last_name":"test300_ln","phone_number":"123456789","gender":"M","date_of_birth":"2016-06-22"}'
+
+
+REST URL: http://localhost:8000/api/users/<user_id>/   (GET | PUT | DELETE)
+
+HEADERS:  
+    curl -i -X HEAD http://localhost:8000/api/users/27/
+
+GET 
+    curl -i -X GET http://localhost:8000/api/users/27/
+
+PUT 
+    curl -H "Content-Type:application/json" -i -X PUT  http://localhost:8000/api/users/27/ -d '{"email":"test300@test300.com","first_name":"test300_fn_updated","last_name":"test300_ln_updated","phone_number":"123456780","gender":"F","date_of_birth":"2016-06-22"}'
+    
+
+DELETE
+    curl -i -X DELETE http://localhost:8000/api/users/27/
+
+
+REST URL: http://localhost:8000/api/users/<user_id>/status/  (GET/PUT)
+
+HEADERS
+    curl -i -X HEAD http://localhost:8000/api/users/28/status/
+
+GET
+    curl -i -X GET http://localhost:8000/api/users/28/status/
+
+PUT
+    curl -H "Content-Type:application/json" -i -X PUT http://localhost:8000/api/users/28/status/ -d '{"is_id_verified":"Y","is_active":true,"is_email_verified":"Y","is_phone_verified":"Y"}'
