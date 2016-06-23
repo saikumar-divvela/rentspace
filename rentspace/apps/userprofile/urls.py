@@ -31,10 +31,9 @@ urlpatterns = [
     url(r'^api/users/(?P<pk>[0-9]+)/status/$', views.user_status),
 
     # TODO not implemented
-
     # url(r'^api/login/$',views.login_user),
     # url(r'^api/logout/$','django.contrib.auth.views.logout', {'next_page': '/'}),
-   
+  
 ]
 
 
