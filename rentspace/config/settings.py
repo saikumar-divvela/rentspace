@@ -103,6 +103,18 @@ DATABASES = {
     }
 }
 
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'saikumar$rentspace',
+        'USER':'saikumar',
+        'PASSWORD':'rentspace',
+        'PORT':3306,
+        'HOST': 'saikumar.mysql.pythonanywhere-services.com',
+    }
+}
+'''
 # Password validation https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
