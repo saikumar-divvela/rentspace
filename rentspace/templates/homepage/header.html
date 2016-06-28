@@ -1,21 +1,8 @@
-<script type="text/javascript">
 
-  $(document).ready(function() {
-
-   var docHeight = $(window).height();
-   var footerHeight = $('#footer').height();
-   var footerTop = $('#footer').position().top + footerHeight;
-
-   if (footerTop < docHeight) {
-    $('#footer').css('margin-top', 0+ (docHeight - footerTop) + 'px');
-   }
-  });
-
-</script>
 
 <div id="header" class="navbar navbar-default">
   <div class="container">
-    <a class="navbar-brand" href="http://localhost:8000"><b>Rentspace</b></a>
+    <a class="navbar-brand" href="{% url 'home' %}"><b>Rentspace</b></a>
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
         {% if request.user.is_authenticated %}        
@@ -23,16 +10,16 @@
         <div class="dropdown">
           <a href="#" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;{{ user }}  </a>
             <ul class="dropdown-menu">
-                <li><a href="http://localhost:8000/myaccount" >My Account</a></li>
-                <li><a href="http://localhost:8000/changepassword" >Change Password</a></li>
-                <li><a href="http://localhost:8000/posts" >Manage Listings</a></li>
-                <li><a href="http://localhost:8000/logout">Logout</a></li>
+                <li><a href="{% url 'myaccount' %}" >My Account</a></li>
+                <li><a href="{% url 'change_password' %}" >Change Password</a></li>
+                <li><a href="{% url 'myposts' %}">Manage Listings</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
         </div>
       {% else %}
 
-      <li><a href="http://localhost:8000/signin" title="Login to make a reservation"> <span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-      <li><a href="http://localhost:8000/signup" title="Register new user"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+      <li><a href="{% url 'signin' %}" title="Login to make a reservation"> <span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+      <li><a href="{% url 'signup' %}" title="Register new user"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
 
      {% endif %}
     </ul>
