@@ -1,18 +1,6 @@
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/4.10.1/bootstrap-social.css" rel="stylesheet" >
-
-  <script src="http://code.jquery.com/jquery-latest.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+{% include "init_header.html" %}
 
 <style>
 </style>
@@ -44,8 +32,8 @@
  <input type="text"  id="to_date" name="to_date" size="12">
  <a href="#" class="btn btn-primary">Search</a> <br/>
 
- <a href="http://localhost:8000/test_task/">Test me</a> <br/>
- <a href="http://localhost:8000/test_file_upload/">Test Task for File Upload</a> <br/>   
+  <a href="{% url 'test_task' %}">Test me</a> <br/>
+  <a href="{% url 'test_file_upload' %}">Test Task for File Upload</a> <br/> 
 </form>
 
 </div>

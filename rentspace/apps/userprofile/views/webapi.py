@@ -128,7 +128,7 @@ def logout_user(request):
     return render(request,'index.html',context)
 
 @csrf_exempt
-@login_required(login_url='/signin/')
+@login_required(login_url='/signin')
 def change_password(request):
     old_password = request.POST.get("old_password","")
     new_password = request.POST.get("new_password","")
@@ -204,6 +204,7 @@ def edit_profile(request):
 
             saveuser.id_card_data = str(f)    
         '''    
+        
         if saveuser.idphoto:
             print (saveuser.idphoto.url)
             print (saveuser.idphoto.name,saveuser.idphoto.size)
@@ -219,7 +220,6 @@ def edit_profile(request):
         saveuser.pincode = pincode
         saveuser.state = state
         saveuser.country = country
-
         saveuser.save()
 
    
