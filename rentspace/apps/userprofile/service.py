@@ -1,27 +1,21 @@
 from userprofile.models import User
-from userprofile.error_codes import *
+import userprofile.error_codes as message
 
-
+import traceback
 
 def createuser(username,password,first_name,last_name,phone_number):
 	response = {}
-	response["status"] = ERROR
+	response["status"] = message.SUCCESS
 	try: 
 
 		if username is None or password is None or first_name is None or last_name is None or phone_number is None:
-			response["code"] =	MISSING_CONTENT_CODE
-			response["msg"] = MISSING_CONTENT_MSG
-			return response
+			raise Exception(message.MISSING_INPUT_FIELD)
 
 		if is_user_exists(username):
-			response["code"] = DUP_USER_CODE
-			response["msg"] =  DUP_USER_MSG
-			return response
+			raise Exception(message.DUP_USER)
 
 		if is_phone_exists(phone_number):
-			response["code"] = DUPL_PHONE_NUMBER_CODE
-			response["msg"] =  DUPL_PHONE_NUMBER_MSG
-			return response	
+			raise Exception(message.DUP_PHONE_NUMBER)
 
 		# Only pass the required fields defined in models.py
 		
@@ -31,13 +25,13 @@ def createuser(username,password,first_name,last_name,phone_number):
 		user.last_name = last_name
 		user.save()
 		
-		response["status"] = SUCCESS
-		response["code"] = 0
-		response["msg"] = "User created successfully "
+		response["message"] = message.USER_CREATED
 
-	except:
-		response["code"] =ERROR_CODE		
-		response["msg"]= ERROR_MSG
+	except Exception as exp:
+		print (exp)
+		traceback.print_exc()
+		response["status"] = message.ERROR
+		response["message"]= str(exp)
 
 	return response		
 

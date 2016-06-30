@@ -21,7 +21,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
 import userprofile.service as service
-from userprofile.error_codes import *
+import userprofile.error_codes as message
+
+import django.contrib.auth.views as view1
+
+import traceback
 
 '''
 def token_request(request):
@@ -34,32 +38,35 @@ def token_request(request):
 def registeruser(request):
     print  ("You Hit registeruser")
     response ={}
-
+    response["status"] = message.SUCCESS
     try:
-        data = JSONParser().parse(request)
-        if request.method == 'POST':
-            username = data["username"]
-            password = data["password"]
-            first_name = data["first_name"]
-            last_name = data["last_name"]
-            phone_number =  data["phone_number"]
+        data = request.data
+        username = data["username"]
+        password = data["password"]
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        phone_number =  data["phone_number"]
 
-            print (username,password,phone_number,first_name,last_name)
-            response = service.createuser(username,password,first_name,last_name,phone_number) 
+        print (username,password,phone_number,first_name,last_name)
+        response = service.createuser(username,password,first_name,last_name,phone_number) 
 
-    except Exception as exp:            
-        response["status"]= ERROR
-        response["code"] = ERROR_CODE       
-        response["msg"]= ERROR_MSG
+    except Exception as exp:     
+        print (exp)    
+        traceback.print_exc()  
+        response["status"]= message.ERROR
+        response["message"]=str(exp)
     
-    return JSONResponse(response)    
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)       
 
 
 @api_view(['POST'])
 def userlogin(request):
     print ('You hit login(rest api) request')
     response={}
-    response["status"]=ERROR
+    response["status"]= message.SUCCESS
     #print (request.data)
     try:
         data = JSONParser().parse(request)
@@ -72,24 +79,29 @@ def userlogin(request):
     
         if user is not None:
             login(request, user)
+           
             new_token = Token.objects.create(user=user)
             print (new_token)
             response["token"] = str(new_token)
-            response["status"]= SUCCESS
-            response["msg"]= "Login successfull"  
+           
+            response["message"]= message.LOGIN_SUCCESS
+            request.session["test_msg"] = "test hello"
         else:
-            response["status"]= ERROR
-            response["code"] = ERROR_CODE       
-            response["msg"]= "User doesn't exist"  
+            response["status"]= message.ERROR
+            response["message"]= message.USER_NOT_EXISTS
     
     except Exception as exp:
         print (exp)
-        response["status"]= ERROR
-        response["code"] = ERROR_CODE       
-        response["msg"]= ERROR_MSG                
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
             
     print (response)       
-    return JSONResponse(response)
+
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
 
 
 @api_view(['GET'])
@@ -98,27 +110,38 @@ def userlogout(request):
     print ('You hit logout(rest api) request')
 
     response={}
-    response["status"]= SUCCESS
-    response["code"]= SUCCESS_CODE
-
+    response["status"]= message.SUCCESS
     try:
         if "HTTP_AUTHORIZATION" in request.META.keys():
             token = request.META["HTTP_AUTHORIZATION"]        
             print (token)
-
         print (request.user)
+        
         request.user.auth_token.delete()
+
         logout(request)
-        request.session.flush()
+        
+        print (request.session.keys())
+        '''
+        for sesskey in request.session.keys():
+            print (sesskey)
+            del request.session[sesskey]
+        '''
+        #request.session.flush()
+        
         print (request.user)    
-        response["msg"]= "User logged out successfully"
+        response["message"]= message.USER_LOGOUT_SUCCESS
 
     except Exception as exp:
-        response["status"]= ERROR
-        response["code"] = ERROR_CODE       
-        response["msg"]= ERROR_MSG 
+        print (exp)
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
 
-    return JSONResponse(response)     
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
 
 
 @api_view(['GET','PUT'])
@@ -146,23 +169,27 @@ def user_status(request):
 
             response["status"]= SUCCESS
             response["code"]= SUCCESS_CODE
-            response["msg"]= "User status updated successfully"
+            response["message"]= "User status updated successfully"
 
             return JSONResponse(response)
     except Exception as exp:
         print (exp)
         response["status"]= ERROR
         response["code"] = ERROR_CODE       
-        response["msg"]= ERROR_MSG 
+        response["message"]= ERROR_message 
 
     return JSONResponse(response)     
 
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,))
+@csrf_exempt
 def user_profile(request):
     response = {}
+    response["status"] = message.SUCCESS
     print ('You hit user profile')
+
+    '''
     try:
         if request.method == "GET":
             user = request.user
@@ -179,25 +206,36 @@ def user_profile(request):
             print (serializer.errors)
             response["status"]= ERROR
             response["code"] = ERROR_CODE       
-            response["msg"]= ERROR_MSG      
+            response["message"]= ERROR_message      
             return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     except Exception as exp:
         print (exp)
         response["status"]= ERROR
         response["code"] = ERROR_CODE       
-        response["msg"]= ERROR_MSG 
+        response["message"]= ERROR_message 
+    '''    
 
     return JSONResponse(response)    
 
-@api_view(['GET'])
+#@api_view(['GET'])
 @permission_classes((IsAuthenticated,))
+#@login_required
 def testlogin(request):
+    #print (request.session["user_id"])
+    '''
+    print (request.session.get("test_msg"))
+    print (request.session)
+    print (request.session.keys())
     print (request.user.is_authenticated())
     print (request.user)
+    #print (request.auth)
+    '''
+    
     output={}
     #print (request.auth)
-    output["msg"] ="If you see this it means you are logged in"
+    output["message"] ="If you see this it means you are logged in"
+    #request.session["test_msg"]="This is test message"
     return JSONResponse(output)    
 
 

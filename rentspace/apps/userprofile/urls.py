@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 from rest_framework.authtoken import views as views1
 
 urlpatterns = [
-    url(r'^register$',views.create_user,name="register"),
+    
     url(r'^login/?$',views.login_user,name="login"),
     #url(r'^logout/$',views.logout_user),  # TODO not working
     url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
@@ -28,13 +28,16 @@ urlpatterns = [
     
     
     # REST api for mobile client / logged in user
-    url(r'^api/register$', views.registeruser),
-    url(r'^api/login$', views.userlogin),
-    url(r'^api/logout$', views.userlogout),
-    url(r'^api/testlogin$', views.testlogin),
-    url(r'^api/userstatus$', views.user_status),
-    url(r'^api/profile$', views.user_profile),
+    url(r'^api/register$', views.registeruser),  #POST
+    url(r'^api/login$', views.userlogin),   #POST
+    url(r'^api/logout$', views.userlogout),   # GET
+    url(r'^api/testlogin$', views.testlogin),    # GET
+    url(r'^api/userstatus$', views.user_status),  # GET PUT
+    url(r'^api/profile$', views.user_profile,name="edit_profile1"),    # PUT
     url(r'^api-token-auth$', views1.obtain_auth_token)
+
+    # Unused URLs
+    #url(r'^register$',views.create_user,name="register"),
 ]
 
 

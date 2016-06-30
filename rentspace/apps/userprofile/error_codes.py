@@ -1,16 +1,17 @@
 SUCCESS="success"
 ERROR="error"
 
-SUCCESS_CODE=0
+
+LOGIN_SUCCESS="Login successful"
+USER_LOGOUT_SUCCESS="User is logged out successfully"
+USER_NOT_EXISTS="User doesn't exist"
+
+DEFAULT_ERROR_MSG= "Error occurred while performing the operation."
+DEFAULTSUCCESS_MSG = "Operation successful"
 
 
-DUP_USER_CODE=100
-DUPL_PHONE_NUMBER_CODE=101
-DUP_USER_MSG= "User already exists"
-DUPL_PHONE_NUMBER_MSG = "Duplicate phone number"
+USER_CREATED="User registered successfully"
+DUP_USER= "User already exists"
+DUP_PHONE_NUMBER = "Duplicate phone number"
+MISSING_INPUT_FIELD = "One of the mandatory input fields is empty. Please fix and resend the request."
 
-MISSING_CONTENT_CODE = 500
-MISSING_CONTENT_MSG = "One of the mandatory input fields is empty. Please fix and resend the request."
-
-ERROR_CODE = 1000
-ERROR_MSG = "Some errror occurred while performing the operation"		
