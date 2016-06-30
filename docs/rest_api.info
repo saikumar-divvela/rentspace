@@ -122,3 +122,70 @@ GET
 
 PUT
     curl -H "Content-Type:application/json" -i -X PUT http://localhost:8000/api/users/28/status/ -d '{"is_id_verified":"Y","is_active":true,"is_email_verified":"Y","is_phone_verified":"Y"}'
+
+
+----------
+User API
+----------
+
+===>REGISTER USER
+
+curl -i -X POST http://localhost:8000/api/register  -H "Content-Type:application/json" -d '{"username":"test35@test35.com","password":"test35","first_name":"test35_fn","last_name":"test35_ln_updated","phone_number":"35"}'
+
+===>Login 
+
+curl -i -X POST http://localhost:8000/api/login -H "Content-Type:application/json"  -d '{"username":"test35@test35.com","password":"test35"}'
+
+===>Logout
+
+curl -i -X GET  http://localhost:8000/api/logout  -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61" 
+
+===> Test login
+curl -i -X GET  http://localhost:8000/api/testlogin -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"
+
+
+===>Get token
+
+curl -i -X POST http://localhost:8000/api-token-auth  -H "Content-Type:application/json"   -d '{"username":"test35@test35.com","password":"test35"}'
+
+
+===>Get user status
+curl -i -X GET http://localhost:8000/api/userstatus -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61" 
+
+
+===> Update status of user
+curl -i -X PUT http://localhost:8000/api/userstatus -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -d '{"is_email_verified":"Y","is_id_verified":"Y","is_phone_verified":"Y"}'
+
+
+===> Get user details
+curl -i -X GET http://localhost:8000/api/userprofile -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"
+
+===> Update user details
+
+curl -i -X PUT http://localhost:8000/api/userprofile -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -d '{"first_name":"test35_fn","last_name":"test35_ln_updated","phone_number":35,"gender":"M","date_of_birth":"2016-06-25","is_admin":false,"address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
+
+
+--------
+Posts
+--------
+===> Add post to logged in user
+curl -i -X POST  http://localhost:8000/api/posts  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384"  -d '{"title":"test property126","description":"testproperty126","rentperday":100,"facilities":"internet,ac,hotwater","avail_start_date":"2016-06-01","avail_end_date":"2016-06-25","address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
+
+===> Get all posts for a logged in user
+curl -i -X GET  http://localhost:8000/api/posts  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===>Get details of post for logged in user
+curl -i -X GET  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===>Update details of a post for logged in user
+curl -i -X PUT  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384"  -d '{"title":"test property126_updated","description":"testproperty126_updated","rentperday":100,"facilities":"internet,ac,hotwater","avail_start_date":"2016-06-01","avail_end_date":"2016-06-25","address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
+
+===>Delete a post for the logged in user  [This doesn't remove the record, but sets is_active to False]
+curl -i -X DELETE  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+
+===> Get status of a post for a user
+curl -i -X GET  http://localhost:8000/api/posts/13/status  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===> Update status of a post for logged in user
+curl -i -X PUT http://localhost:8000/api/posts/13/status  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" -d '{"status":"ACCEPTED","is_verified":true}'
