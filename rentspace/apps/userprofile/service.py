@@ -25,7 +25,7 @@ def createuser(username,password,first_name,last_name,phone_number):
 		user.last_name = last_name
 		user.save()
 		
-		response["message"] = message.USER_CREATED
+		response["message"] = message.REGISTER_USER_SUCCESS
 
 	except Exception as exp:
 		print (exp)
