@@ -67,6 +67,12 @@ def userlogin(request):
     print ('You hit login(rest api) request')
     response={}
     response["status"]= message.SUCCESS
+    import re
+    regex_content_type   = re.compile(r'^CONTENT_TYPE$')
+    for header in request.META:
+        if regex_content_type.match(header):
+            print (header)
+            print (request.META[header])        
     #print (request.data)
     try:
         data = request.data
@@ -80,9 +86,9 @@ def userlogin(request):
         if user is not None:
             #login(request, user)    # Login not required , otherwise session is created and is useless
            
-            new_token = Token.objects.create(user=user)
-            print (new_token)
-            response["token"] = str(new_token)
+            new_token = Token.objects.get_or_create(user=user)
+            print (new_token,new_token[0])
+            response["token"] = str(new_token[0])
             response["message"]= message.LOGIN_SUCCESS
             
         else:
@@ -117,8 +123,7 @@ def userlogout(request):
         print (request.user)
         
         request.user.auth_token.delete()
-
-        #logout(request)   # This is not needed as there is no login
+        logout(request)   # This is not needed as there is no login
         
         '''
         for sesskey in request.session.keys():

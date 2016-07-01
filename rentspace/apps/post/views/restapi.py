@@ -40,6 +40,7 @@ class PostDetail(APIView):
             raise Http404
 
     def get(self, request, pk, format=None):
+        print ("You hit Get POST REQUEST")
         response = {}
         response["status"] = message.SUCCESS     
 
@@ -47,6 +48,7 @@ class PostDetail(APIView):
             post = self.get_object(pk)
             serializer = PostSerializer(post)
             response["data"]= serializer.data
+            print (response)
 
         except Exception as exp:
             print (exp)
