@@ -19,8 +19,8 @@ urlpatterns = [
 
     ## Rest api  (for mobile client)
     url('api/posts$',views.Posts.as_view()),  # Add post Get posts
-    url('^api/posts/(?P<pk>[0-9]+)$', views.PostDetail.as_view()),
-    url('^api/posts/(?P<pk>[0-9]+)/status$', views.post_status),
+    url('^api/posts/(?P<pk>[0-9]+)$', views.PostDetail.as_view()),  # Update post , Delete post
+    url('^api/posts/(?P<pk>[0-9]+)/status$', views.post_status),    # Get status of post, Update status of posts
 ]
 
 

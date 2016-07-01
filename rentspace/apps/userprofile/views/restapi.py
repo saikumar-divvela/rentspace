@@ -69,7 +69,7 @@ def userlogin(request):
     response["status"]= message.SUCCESS
     #print (request.data)
     try:
-        data = JSONParser().parse(request)
+        data = request.data
         username = data["username"]
         password = data["password"]
         #print (username,password)
@@ -78,14 +78,13 @@ def userlogin(request):
         print (user)
     
         if user is not None:
-            login(request, user)
+            #login(request, user)    # Login not required , otherwise session is created and is useless
            
             new_token = Token.objects.create(user=user)
             print (new_token)
             response["token"] = str(new_token)
-           
             response["message"]= message.LOGIN_SUCCESS
-            request.session["test_msg"] = "test hello"
+            
         else:
             response["status"]= message.ERROR
             response["message"]= message.USER_NOT_EXISTS
@@ -99,12 +98,12 @@ def userlogin(request):
     print (response)       
 
     if response["status"] == message.SUCCESS:
-        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+        return JSONResponse(response,status=status.HTTP_200_OK)    
     else:
         return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
 
 
-@api_view(['GET'])
+@api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 def userlogout(request):
     print ('You hit logout(rest api) request')
@@ -119,16 +118,15 @@ def userlogout(request):
         
         request.user.auth_token.delete()
 
-        logout(request)
+        #logout(request)   # This is not needed as there is no login
         
-        print (request.session.keys())
         '''
         for sesskey in request.session.keys():
             print (sesskey)
             del request.session[sesskey]
+        request.session.flush()
         '''
-        #request.session.flush()
-        
+                
         print (request.user)    
         response["message"]= message.USER_LOGOUT_SUCCESS
 
@@ -139,7 +137,7 @@ def userlogout(request):
         response["message"]= str(exp)
 
     if response["status"] == message.SUCCESS:
-        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+        return JSONResponse(response,status=status.HTTP_200_OK)    
     else:
         return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
 
@@ -148,18 +146,19 @@ def userlogout(request):
 @permission_classes((IsAuthenticated,))
 def user_status(request):
     response = {}
+    response["status"] = message.SUCCESS
     print ('You hit user status')
     try:
         if request.method == "GET":
             user = request.user
-    
-            response["is_email_verified"] = user.is_email_verified
-            response["is_phone_verified"] = user.is_phone_verified
-            response["is_id_verified"] = user.is_id_verified
-            return JSONResponse(response)
+            output={}
+            output["is_email_verified"] = user.is_email_verified
+            output["is_phone_verified"] = user.is_phone_verified
+            output["is_id_verified"] = user.is_id_verified
+            response["data"] = output
 
         elif request.method == "PUT":
-            data = JSONParser().parse(request)
+            data = request.data
             print (data)   
             user = request.user
             user.is_id_verified = data["is_id_verified"]
@@ -167,75 +166,72 @@ def user_status(request):
             user.is_email_verified = data["is_email_verified"]
             user.save()
 
-            response["status"]= SUCCESS
-            response["code"]= SUCCESS_CODE
-            response["message"]= "User status updated successfully"
+            response["status"]= message.SUCCESS
+            response["message"]= message.UPDATE_USER_SUCCESS
 
-            return JSONResponse(response)
+
     except Exception as exp:
         print (exp)
-        response["status"]= ERROR
-        response["code"] = ERROR_CODE       
-        response["message"]= ERROR_message 
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
 
-    return JSONResponse(response)     
+    
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
 
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,))
-@csrf_exempt
 def user_profile(request):
     response = {}
     response["status"] = message.SUCCESS
     print ('You hit user profile')
 
-    '''
     try:
         if request.method == "GET":
             user = request.user
             serializer = UserSerializer(user)
-            return Response(serializer.data)
+            print (serializer.data)
+            response["data"] = serializer.data
 
         elif request.method == "PUT":
-            data = JSONParser().parse(request)
+            data = request.data
             print (data)
             serializer = UserSerializer(request.user,data=data)     
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data)   
-            print (serializer.errors)
-            response["status"]= ERROR
-            response["code"] = ERROR_CODE       
-            response["message"]= ERROR_message      
-            return JSONResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+                response["data"] = serializer.data
+                response["message"] = message.UPDATE_USER_SUCCESS
+            else:
+                response["status"]= message.ERROR
+                response["message"] = serializer.errors
+                
     except Exception as exp:
         print (exp)
-        response["status"]= ERROR
-        response["code"] = ERROR_CODE       
-        response["message"]= ERROR_message 
-    '''    
+        traceback.print_exc()        
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
 
-    return JSONResponse(response)    
 
-#@api_view(['GET'])
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+
+@api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-#@login_required
 def testlogin(request):
-    #print (request.session["user_id"])
-    '''
-    print (request.session.get("test_msg"))
-    print (request.session)
-    print (request.session.keys())
     print (request.user.is_authenticated())
     print (request.user)
-    #print (request.auth)
-    '''
+    print (request.auth)
+    
     
     output={}
-    #print (request.auth)
+    
     output["message"] ="If you see this it means you are logged in"
-    #request.session["test_msg"]="This is test message"
     return JSONResponse(output)    
 
 

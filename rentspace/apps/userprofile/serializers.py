@@ -15,8 +15,8 @@ class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ( 'id','email','first_name','last_name','phone_number','date_of_birth','gender','is_admin','address','street','city','pincode','state','country')
-        read_only_fields = ('id','email','is_admin')
+        fields = ( 'id','email','first_name','last_name','phone_number','date_of_birth','gender','is_staff','address','street','city','pincode','state','country')
+        read_only_fields = ('id','email','is_staff')
         #exclude=('id',)
 
 
