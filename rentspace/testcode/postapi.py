@@ -112,8 +112,8 @@ def main():
 
     ## LOGIN USER
     login_data = {}
-    login_data["username"] =  "test37@test37.com"
-    login_data["password"] =  "test37"
+    login_data["username"] =  "test288@test288.com"
+    login_data["password"] =  "test288"
     json_data = json.dumps(login_data)   
     token = login_user(login_url,json_data,headers=headers)
     headers["Authorization"]="Token "+token
@@ -144,7 +144,7 @@ def main():
 
 
     ## DELETE POST
-    deletepost(post_url,data={},headers=headers)
+    #deletepost(post_url,data={},headers=headers)
 
     ## GET A POST DETAILS
     getpost(post_url,data={},headers=headers)
