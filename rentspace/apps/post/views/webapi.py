@@ -36,7 +36,7 @@ def showpost(request):
 
 
 @csrf_exempt
-@login_required(login_url='/signin/')
+@login_required(login_url='/signin')
 def addpost(request):
     print ("you hit add post")
     if request.method == 'POST':
@@ -103,7 +103,7 @@ def addpost(request):
                 image.save()
             
 
-        return HttpResponseRedirect("/addpost?msg=susscessfully added property&id="+str(p.id))
+        return HttpResponseRedirect("/addpost/?msg=susscessfully added property&id="+str(p.id))
         #return HttpResponse("POST object created successfully")
     else:
         context ={}

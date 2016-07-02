@@ -5,6 +5,11 @@ from django.contrib.auth.models import (
 
 from homepage.models import *
 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.conf import settings
+
 # Create your models here.
 
 '''
@@ -56,15 +61,17 @@ class User(AbstractBaseUser,Address):
     idphoto = models.ImageField(blank=True)
 
     is_active = models.BooleanField(default=True)
-    is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
 
     date_joined = models.DateTimeField(auto_now_add=True)
     last_login_date = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    is_email_verified = models.CharField(max_length=1,choices=STATUS,default=NO)
-    is_phone_verified = models.CharField(max_length=1,choices=STATUS,default=NO)
-    is_id_verified =models.CharField(max_length=1,choices=STATUS,default=NO)
+    is_email_verified =  models.BooleanField(default=True)
+    is_phone_verified =  models.BooleanField(default=True)
+    is_id_verified =  models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=True)
 
 
     objects = MyUserManager()
@@ -102,3 +109,15 @@ class User(AbstractBaseUser,Address):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+'''
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_auth_token(sender, instance=None, created=False, **kwargs):
+    if created:
+        Token.objects.create(user=instance)
+'''
+
+'''
+for user in User.objects.all():
+    Token.objects.get_or_create(user=user)
+'''

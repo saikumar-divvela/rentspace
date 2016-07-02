@@ -2,21 +2,242 @@ from userprofile.models import User
 from userprofile.serializers import UserSerializer
 
 from django.http import HttpResponse
-from django.http import Http404
+
 from django.views.decorators.csrf import csrf_exempt
 
-from rest_framework import permissions
 from rest_framework import status
 
-from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from rest_framework.decorators import api_view,permission_classes
+
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 
+from rest_framework.authtoken.models import Token
+
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+
+import userprofile.service as service
+import userprofile.error_codes as message
+
+import django.contrib.auth.views as view1
+
+import traceback
+
+'''
+def token_request(request):
+    if user_requested_token() and token_request_is_warranted():
+        new_token = Token.objects.create(user=request.user)
+
+'''
+
+@api_view(['POST'])
+def registeruser(request):
+    print  ("You Hit registeruser")
+    response ={}
+    response["status"] = message.SUCCESS
+    try:
+        data = request.data
+        username = data["username"]
+        password = data["password"]
+        first_name = data["first_name"]
+        last_name = data["last_name"]
+        phone_number =  data["phone_number"]
+
+        print (username,password,phone_number,first_name,last_name)
+        response = service.createuser(username,password,first_name,last_name,phone_number) 
+
+    except Exception as exp:     
+        print (exp)    
+        traceback.print_exc()  
+        response["status"]= message.ERROR
+        response["message"]=str(exp)
+    
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_201_CREATED)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)       
 
 
+@api_view(['POST'])
+def userlogin(request):
+    print ('You hit login(rest api) request')
+    response={}
+    response["status"]= message.SUCCESS
+    import re
+    regex_content_type   = re.compile(r'^CONTENT_TYPE$')
+    for header in request.META:
+        if regex_content_type.match(header):
+            print (header)
+            print (request.META[header])        
+    #print (request.data)
+    try:
+        data = request.data
+        username = data["username"]
+        password = data["password"]
+        #print (username,password)
 
+        user = authenticate(username=username, password=password)
+        print (user)
+    
+        if user is not None:
+            #login(request, user)    # Login not required , otherwise session is created and is useless
+           
+            new_token = Token.objects.get_or_create(user=user)
+            print (new_token,new_token[0])
+            response["token"] = str(new_token[0])
+            response["message"]= message.LOGIN_SUCCESS
+            
+        else:
+            response["status"]= message.ERROR
+            response["message"]= message.USER_NOT_EXISTS
+    
+    except Exception as exp:
+        print (exp)
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
+            
+    print (response)       
+
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+
+
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
+def userlogout(request):
+    print ('You hit logout(rest api) request')
+
+    response={}
+    response["status"]= message.SUCCESS
+    try:
+        if "HTTP_AUTHORIZATION" in request.META.keys():
+            token = request.META["HTTP_AUTHORIZATION"]        
+            print (token)
+        print (request.user)
+        
+        request.user.auth_token.delete()
+        logout(request)   # This is not needed as there is no login
+        
+        '''
+        for sesskey in request.session.keys():
+            print (sesskey)
+            del request.session[sesskey]
+        request.session.flush()
+        '''
+                
+        print (request.user)    
+        response["message"]= message.USER_LOGOUT_SUCCESS
+
+    except Exception as exp:
+        print (exp)
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
+
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+
+
+@api_view(['GET','PUT'])
+@permission_classes((IsAuthenticated,))
+def user_status(request):
+    response = {}
+    response["status"] = message.SUCCESS
+    print ('You hit user status')
+    try:
+        if request.method == "GET":
+            user = request.user
+            output={}
+            output["is_email_verified"] = user.is_email_verified
+            output["is_phone_verified"] = user.is_phone_verified
+            output["is_id_verified"] = user.is_id_verified
+            response["data"] = output
+
+        elif request.method == "PUT":
+            data = request.data
+            print (data)   
+            user = request.user
+            user.is_id_verified = data["is_id_verified"]
+            user.is_phone_verified = data["is_phone_verified"]
+            user.is_email_verified = data["is_email_verified"]
+            user.save()
+
+            response["status"]= message.SUCCESS
+            response["message"]= message.UPDATE_USER_SUCCESS
+
+
+    except Exception as exp:
+        print (exp)
+        traceback.print_exc()
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
+
+    
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+
+
+@api_view(['GET','PUT'])
+@permission_classes((IsAuthenticated,))
+def user_profile(request):
+    response = {}
+    response["status"] = message.SUCCESS
+    print ('You hit user profile')
+
+    try:
+        if request.method == "GET":
+            user = request.user
+            serializer = UserSerializer(user)
+            print (serializer.data)
+            response["data"] = serializer.data
+
+        elif request.method == "PUT":
+            data = request.data
+            print (data)
+            serializer = UserSerializer(request.user,data=data)     
+            if serializer.is_valid():
+                serializer.save()
+                response["data"] = serializer.data
+                response["message"] = message.UPDATE_USER_SUCCESS
+            else:
+                response["status"]= message.ERROR
+                response["message"] = serializer.errors
+                
+    except Exception as exp:
+        print (exp)
+        traceback.print_exc()        
+        response["status"]= message.ERROR
+        response["message"]= str(exp)
+
+
+    if response["status"] == message.SUCCESS:
+        return JSONResponse(response,status=status.HTTP_200_OK)    
+    else:
+        return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def testlogin(request):
+    print (request.user.is_authenticated())
+    print (request.user)
+    print (request.auth)
+    
+    
+    output={}
+    
+    output["message"] ="If you see this it means you are logged in"
+    return JSONResponse(output)    
 
 
 class JSONResponse(HttpResponse):
@@ -27,94 +248,7 @@ class JSONResponse(HttpResponse):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'
         super(JSONResponse, self).__init__(content, **kwargs)
-
-@permission_classes((permissions.AllowAny,))
-class UserList(APIView):
-    def get(self,request,format=None):
-        users = User.objects.all();
-        serializer = UserSerializer(users,many=True)
-        print (request.session)
-        print (request.session.keys())
-        print (request.session.items())
-        #print (serializer.data)
-        return Response(serializer.data)
-
-    def post(self,request,format=None):    
-        print (request.data)
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@permission_classes((permissions.AllowAny,))
-class UserDetail(APIView):
-    def get_object(self,pk):
-        try:
-            return User.objects.get(pk=pk)
-        except User.DoesNotExist:
-            raise Http404
-
-    def get(self, request, pk, format=None):
-        user = self.get_object(pk)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    
-    def put(self, request, pk, format=None):
-         user = self.get_object(pk)
-         serializer = UserSerializer(user,data=request.data)     
-         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)   
-         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def delete(self,request,pk,format=None):
-        user = self.get_object(pk)
-        user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    def get_status(self,request,pk,format=None):
-        user = self.get_object(pk)
-        
-        output = {}
-        output["is_email_verified"] = user.is_email_verified
-        output["is_phone_verified"] = user.is_phone_verified
-        output["is_id_verified"] = user.is_id_verified
-        return Response(output)
         
 
-@csrf_exempt
-def user_status(request,pk):
-    try:
-        user = User.objects.get(pk=pk)
-    except User.DoesNotExist:
-        raise Http404
-    
-    if request.method == "GET":
-        output = {}
-        output["is_email_verified"] = user.is_email_verified
-        output["is_phone_verified"] = user.is_phone_verified
-        output["is_id_verified"] = user.is_id_verified
-        output["is_active"] =user.is_active
 
-        return JSONResponse(output)
-
-    elif request.method == "PUT":
-         data = JSONParser().parse(request)
-         print (data)   
-         '''   
-         for key,value in data.items():
-            user[key]=value    
-         '''
-         user.is_active = data["is_active"]   
-         user.is_id_verified = data["is_id_verified"]
-         user.is_phone_verified = data["is_phone_verified"]
-         user.is_email_verified = data["is_email_verified"]
-         user.save()
-
-         #return JSONResponse(UserSerializer(user).data)
-         return HttpResponse(status=200)
-         
          

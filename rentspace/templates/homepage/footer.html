@@ -1,15 +1,20 @@
  <style>
 
 #footer, #header {
+<<<<<<< HEAD
   background-color: #f7f6d4;
+=======
+  background-color: #dfbf9f;
+>>>>>>> f0a998677614bfea6ac4026c03971828d39aa76b
 }
 
 .foot-links a, .foot-links p{
   display: block;
-  color: green;
+  color: #00264d;
   text-decoration: none;
   font-family: OpenSansRegular, Arial, sans-serif;
   font-size: 14px;
+  font-weight: bold;
   padding-bottom: 5px;
   text-shadow: rgb(255, 255, 255) 1px 1px 0px;
 }
@@ -33,28 +38,26 @@ html, body {
 
 </style>
 
-
-
-               <div  class="container" >
+              <div  class="container" >
 
                   <div class="row">
                         <div class="col-md-3">
                             <div class="foot-header"><b>Rentspace.com</b></div>
                              <div class="foot-links">
-                                <a href="http://localhost:8000/about" title="rentspace.com is a temporary accomdation reservation portal ">About Us</a>
-                                <a href="http://localhost:8000/contact" title="Contact us for any queries">Contact Us</a>
-                                <a href="http://localhost:8000/support" title="Support">Support</a>
-                                <a href="http://localhost:8000/blog" title="Blog">Blog</a>
-                                <a href="http://localhost:8000/careers" title="Careers">Careers</a>
+                                <a href="{% url 'aboutus' %}" title="rentspace.com is a temporary accomdation reservation portal ">About Us</a>
+                                <a href="{% url 'contact' %}" title="Contact us for any queries">Contact Us</a>
+                                <a href="{% url 'support' %}" title="Support">Support</a>
+                                <a href="{% url 'blog' %}" title="Blog">Blog</a>
+                                <a href="{% url 'careers' %}" title="Careers">Careers</a>
                              </div>
                    
                         </div>
                         <div class="col-md-3">
                               <div class="foot-header"><b>Guest</b></div>
                               <div class="foot-links">
-                                <a href="http://localhost:8000/help" title="Answers to all your questions on temporary accomdation">Help</a>
-                                <a href="http://localhost:8000/faq" title="Frequently asked questions">FAQ</a>
-                                <a href="http://localhost:8000/terms" title="Terms and conditions">Terms & Privacy</a>
+                                <a href="{% url 'help' %}" title="Answers to all your questions on temporary accomdation">Help</a>
+                                <a href="{% url 'faq' %}" title="Frequently asked questions">FAQ</a>
+                                <a href="{% url 'terms' %}" title="Terms and conditions">Terms & Privacy</a>
                                </div> 
                              
                         </div>
@@ -76,3 +79,17 @@ html, body {
       
    
   
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+   var docHeight = $(window).height();
+   var footerHeight = $('#footer').height();
+   var footerTop = $('#footer').position().top + footerHeight;
+
+   if (footerTop < docHeight) {
+    $('#footer').css('margin-top', 0+ (docHeight - footerTop) + 'px');
+   }
+  });
+
+</script>

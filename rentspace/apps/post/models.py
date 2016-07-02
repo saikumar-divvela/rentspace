@@ -14,8 +14,8 @@ class  Post(Address,object):
     avail_start_date = models.DateField(null=True)
     avail_end_date = models.DateField(null=True)
     status  =  models.CharField(max_length=10,choices=STATE,default=PENDING)
-    is_active = models.CharField(max_length=1,choices=STATUS,default=NO)
-    is_verified = models.CharField(max_length=1,choices=STATUS,default=NO)
+    is_active = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
     keywords = models.CharField(max_length=50,blank=True)
 
     created = models.DateTimeField(auto_now_add=True)

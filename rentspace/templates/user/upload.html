@@ -1,5 +1,28 @@
-<form action="/test_file_upload/" method="post" enctype="multipart/form-data">
+<!DOCTYPE html>
+<html>
+<head>
+	{% include "init_header.html" %}
+</head>
+
+<div id='header'>
+{% include "header.html" %}
+</div>
+
+<body>
+<div id="main">
+<div class="container clear-top">
+
+<form action="{% url 'test_file_upload' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form }}
     <input type="submit" value="Submit" />
 </form>
+</div>
+</div>
+</body>
+
+<div id="footer">
+	{% include "footer.html" %}
+</div>
+
+</html>
