@@ -105,7 +105,8 @@ def update_user_profile(url,data,headers):
 
 def main():
     ### URLS ####
-    host_address="http://localhost:8000"
+    #host_address="http://localhost:8000"
+    host_address="http://saikumar.pythonanywhere.com"
     reguser_url=host_address+"/api/register"
     login_url=host_address+"/api/login"
     logout_url = host_address+"/api/logout"
