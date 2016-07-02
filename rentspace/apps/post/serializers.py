@@ -2,6 +2,7 @@ from rest_framework import serializers
 from post.models import User
 from post.models import Post
 from post.models import PostAttributes
+from userprofile.serializers import UserSerializer
 
 
 class PostAttributeSerializer(serializers.ModelSerializer):
@@ -11,13 +12,13 @@ class PostAttributeSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    attributes = PostAttributeSerializer(read_only=True,many=True)
+    #user = UserSerializer(many=False, read_only=True)  # This will print all user details
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     class Meta:
         model = Post
-        fields = ('id','description','title','rentperday','facilities','avail_start_date','avail_end_date','status','is_active','is_verified','keywords')
-        #read_only_fields = ('id',)         
+        fields = ('user','id','title','description','title','rentperday','facilities','avail_start_date','avail_end_date','status','is_active','is_verified','keywords','address','street','city','pincode','state','country')
+        read_only_fields = ('id','is_active','is_verified')         
         #exclude=('user',)
-
 
 '''
 class CommentSerializer(serializers.ModelSerializer):

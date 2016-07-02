@@ -1,124 +1,67 @@
+
+----------
 User API
-rentspace.com/api/users/     (GET/POST)
-    Returns all users    (GET)
-    Adds an user         (POST)  
+----------
 
-rentspace.com/api/users/1/     (GET/PUT/DELETE)
-    Returns information of user 1  (GET)
-    Updates information of user 1  (PUT)
-    Deletes information of user 1  (DELETE)
+===>REGISTER USER
 
+curl -i -X POST http://localhost:8000/api/register  -H "Content-Type:application/json" -d '{"username":"test35@test35.com","password":"test35","first_name":"test35_fn","last_name":"test35_ln_updated","phone_number":"35"}'
 
-rentspace.com/api/users/1/status/  (GET/PUT)
-    Returns status(emailid,phone,idcard) of user 1 (GET)
-    Updates status(emailid,phone,idcard) of user 1 (PUT)  
+===>Login 
 
+curl -i -X POST http://localhost:8000/api/login -H "Content-Type:application/json"  -d '{"username":"test35@test35.com","password":"test35"}'
 
-Post API
-rentspace.com/users/1/posts   (GET/POST)
-    Returns all posts for user 1 (GET)
-    Adds post for user 1 (POST)
+===>Logout
 
-rentspace.com/users/1/posts/1   (GET/PUT/DELETE)
-    Returns post 1 details for user 1 (GET)
-    Updates post 1 details for user 1 (PUT)
-    Deletes post 1 details for user 1 (DELETE)
+curl -i -X GET  http://localhost:8000/api/logout  -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61" 
 
-rentspace.com/users/1/posts/1/status   (GET/PUT)
-    Returns the status,is_active of post 1 for user 1  (GET)
-    Updates the status of post 1 for user 1  (PUT)
+===> Test login
+curl -i -X GET  http://localhost:8000/api/testlogin -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"
 
 
-rentspace.com/users/1/posts/1/attributes   (GET/POST/PUT)
-    Returns the attributes of post 1   (GET)
-    Updates the attributes of post2    (POST/PUT) both are same
+===>Get token
 
-Image API
-rentspace.com/users/1/posts/1/media   (GET/POST/DELETE)
-    Returns all photos for post1   (GET)
-    Adds photos for post1   (POST)
-    Delete all photos for post1 (DELETE)
-
-Example: curl -X POST -H "Content-Type: application/json"  -d '{"title": "test pic12","description": "this is a test pic12", "filetype": "test type"}' -F "filedata=@a.txt" http://localhost:8000/users/1/posts/2/images/
-
-        
-rentspace.com/users/1/posts/1/media/1   (GET/DELETE)
-    Return photo1 for post1 (GET)  (return pic and meta data)
-    Delete photo1 for post1 (DELETE)
-
-rentspace.com/images/<image uuid>   (GET)
-
-TODO
-rentspace.com/users/1/posts/status   (GET)
-    Returns the status,is_active of all posts for user1 (GET)
- 
-rentspace.com/users/posts/status   (GET)
-    Returns the status,is_active of all posts for all users (GET)
-
-rentspace.com/users/status  (GET)
-    Returns status(emailid,phone,idcard) of all users (GET)
-
-Examples:
-
-----------------------------------------------------------------------------------------------
-Testing web services
-----------------------------------------------------------------------------------------------
-curl is a command line tool to transfer data from or to server. this supports many protocols http , https, ftp , smtp, ldap, imap etc......
-
-GENERAL HTTP RESPONSE CODE:
-
-GET SUCCESS: HTTP/1.0 200 OK
-POST SUCCESS: HTTP/1.0 201 Created
-PUT SUCCESS: HTTP/1.0 200 OK
-DELETE SUCCESS: HTTP/1.0 204 No Content
-
-HTTP/1.0 404 Not Found
-HTTP/1.0 400 Bad Request (for any incorrect json formats, wrong arguments, missing arguments etc..)
+curl -i -X POST http://localhost:8000/api-token-auth  -H "Content-Type:application/json"   -d '{"username":"test35@test35.com","password":"test35"}'
 
 
-USER API
-Replace rentspace.com or localhost:8000 with appropriate domain name or ip address
-
-REST URL: http://localhost:8000/api/users/   (GET | POST )
-
-HEADERS
-    curl -i -X HEAD http://localhost:8000/api/users/
-    curl -i -X OPTIONS http://localhost:8000/api/users/  (this gives accepted formats, rendered formats like json, text, xml etc)
-GET
-    curl -i -X GET http://localhost:8000/api/users/
-    curl -X GET http://localhost:8000/api/users/ | python -m json.tool  (make sure the output is in json format and python is installed)
-
-OTHER EXAMPLES
-    curl -H "Accept:application/json" -i -X GET http://localhost:8000/api/users/  (to specify an accepted content type. Now only json is supported)
-        Example headers: "Accept:application/json", "Accept:application/xml", "Accept:text/html"
-    curl -v -H "Accept:application/json" -H "Accept-encoding:gzip" -X GET http://localhost:8000/api/users/
-POST 
-    curl -H "Content-Type:application/json" -i -X POST http://localhost:8000/api/users/ -d  '{"email":"test300@test300.com","first_name":"test300_fn","last_name":"test300_ln","phone_number":"123456789","gender":"M","date_of_birth":"2016-06-22"}'
+===>Get user status
+curl -i -X GET http://localhost:8000/api/userstatus -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61" 
 
 
-REST URL: http://localhost:8000/api/users/<user_id>/   (GET | PUT | DELETE)
-
-HEADERS:  
-    curl -i -X HEAD http://localhost:8000/api/users/27/
-
-GET 
-    curl -i -X GET http://localhost:8000/api/users/27/
-
-PUT 
-    curl -H "Content-Type:application/json" -i -X PUT  http://localhost:8000/api/users/27/ -d '{"email":"test300@test300.com","first_name":"test300_fn_updated","last_name":"test300_ln_updated","phone_number":"123456780","gender":"F","date_of_birth":"2016-06-22"}'
-    
-
-DELETE
-    curl -i -X DELETE http://localhost:8000/api/users/27/
+===> Update status of user
+curl -i -X PUT http://localhost:8000/api/userstatus -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -d '{"is_email_verified":"Y","is_id_verified":"Y","is_phone_verified":"Y"}'
 
 
-REST URL: http://localhost:8000/api/users/<user_id>/status/  (GET/PUT)
+===> Get user details
+curl -i -X GET http://localhost:8000/api/profile -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"
 
-HEADERS
-    curl -i -X HEAD http://localhost:8000/api/users/28/status/
+===> Update user details
 
-GET
-    curl -i -X GET http://localhost:8000/api/users/28/status/
+curl -i -X PUT http://localhost:8000/api/profile -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -d '{"first_name":"test35_fn","last_name":"test35_ln_updated","phone_number":35,"gender":"M","date_of_birth":"2016-06-25","is_staff":false,"address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
 
-PUT
-    curl -H "Content-Type:application/json" -i -X PUT http://localhost:8000/api/users/28/status/ -d '{"is_id_verified":"Y","is_active":true,"is_email_verified":"Y","is_phone_verified":"Y"}'
+
+--------------------------------------------------------------------
+Posts
+-------------------------------------------------------------------
+
+===> Add post to logged in user
+curl -i -X POST  http://localhost:8000/api/posts  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384"  -d '{"title":"test property126","description":"testproperty126","rentperday":100,"facilities":"internet,ac,hotwater","avail_start_date":"2016-06-01","avail_end_date":"2016-06-25","address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
+
+===> Get all posts for a logged in user
+curl -i -X GET  http://localhost:8000/api/posts  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===>Get details of post for logged in user
+curl -i -X GET  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===>Update details of a post for logged in user
+curl -i -X PUT  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384"  -d '{"title":"test property126_updated","description":"testproperty126_updated","rentperday":100,"facilities":"internet,ac,hotwater","avail_start_date":"2016-06-01","avail_end_date":"2016-06-25","address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
+
+===>Delete a post for the logged in user  [This doesn't remove the record, but sets is_active to False]
+curl -i -X DELETE  http://localhost:8000/api/posts/12  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+
+===> Get status of a post for a user
+curl -i -X GET  http://localhost:8000/api/posts/13/status  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" 
+
+===> Update status of a post for logged in user
+curl -i -X PUT http://localhost:8000/api/posts/13/status  -H "Content-Type:application/json"  -H "Authorization: Token 0c181b86ccda409824c9a5ed49f3d56c5d808384" -d '{"status":"ACCEPTED","is_verified":true}'
