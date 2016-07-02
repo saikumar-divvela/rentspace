@@ -5,6 +5,7 @@
    var docHeight = $(window).height();
    var footerHeight = $('#footer').height();
    var footerTop = $('#footer').position().top + footerHeight;
+   //alert(docHeight+" "+footerHeight+" "+$('#footer').position().top+" "+footerTop);
 
    if (footerTop < docHeight) {
     $('#footer').css('margin-top', 0+ (docHeight - footerTop) + 'px');
