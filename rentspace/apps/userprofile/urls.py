@@ -6,6 +6,7 @@ from rest_framework.authtoken import views as views1
 
 urlpatterns = [
     
+    url(r'^register$',views.create_user,name="register"),
     url(r'^login/?$',views.login_user,name="login"),
     #url(r'^logout/$',views.logout_user),  # TODO not working
     url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
