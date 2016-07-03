@@ -50,6 +50,33 @@ def test_file_upload(request):
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
 
+@csrf_exempt
+def create_user(request):
+    try: 
+        print ("You hit create user")
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        password_repeat = request.POST.get("password-repeat")
+        phone_number =  request.POST.get("phone_number","")
+        first_name = request.POST.get("first_name","")
+        last_name = request.POST.get("last_name","")
+        
+
+        print (username,password,password_repeat,phone_number,first_name,last_name)
+        user = User.objects.create_user(email=username,password=password,phone_number=phone_number)  # Only pass the required fields defined in models.py
+        print (user,user.password)
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()  # This doesn't return anything
+
+    except Exception as err:
+        print ("Unexpected error:", sys.exc_info()[0])
+        print (err)
+        context ={}
+        context["msg"]= "Some errror occurred while creating user..."
+        return render(request,'signup.html',context)
+
+    return HttpResponseRedirect("/register_success")
     
 def register_success(request):
     context ={}
@@ -59,6 +86,7 @@ def register_success(request):
 @csrf_exempt
 # Retun success page if success else show same page with error message
 def login_user(request):
+    print ('You hit login user')
     if request.method == 'POST':
        username = request.POST.get("username","")
        password = request.POST.get("pwd","")

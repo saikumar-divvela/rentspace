@@ -23,8 +23,10 @@ MEDIA_URL = '/media/'
 
 
 APPEND_SLASH = True
+print("before")
 print (PROJECT_ROOT)
 print (APPEND_SLASH)
+print ("after")
 
 
 # Quick-start development settings - unsuitable for production

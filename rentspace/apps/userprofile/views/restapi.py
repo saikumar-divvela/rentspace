@@ -41,6 +41,7 @@ def registeruser(request):
     response["status"] = message.SUCCESS
     try:
         data = request.data
+        print (data)
         username = data["username"]
         password = data["password"]
         first_name = data["first_name"]

@@ -17,6 +17,7 @@ import sys
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 print (PROJECT_ROOT)
+print("******* WEB HOST ***")
 
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
@@ -37,6 +38,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'rest_framework',
+
 #   'polls.apps.PollsConfig',
     'homepage.apps.HomepageConfig',
     'userprofile.apps.UserprofileConfig',

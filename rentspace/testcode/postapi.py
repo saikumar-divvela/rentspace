@@ -97,7 +97,7 @@ def main():
     ## URLS
     num = randint(1000, 1400) 
 
-    host_address="http://localhost:8000"
+    host_address="http://saikumar.pythonanywhere.com"
     login_url=host_address+"/api/login"
     logout_url = host_address+"/api/logout"
 
@@ -112,8 +112,8 @@ def main():
 
     ## LOGIN USER
     login_data = {}
-    login_data["username"] =  "test288@test288.com"
-    login_data["password"] =  "test288"
+    login_data["username"] =  "test854@test854.com"
+    login_data["password"] =  "test854"
     json_data = json.dumps(login_data)   
     token = login_user(login_url,json_data,headers=headers)
     headers["Authorization"]="Token "+token
