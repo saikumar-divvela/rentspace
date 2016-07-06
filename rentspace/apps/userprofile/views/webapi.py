@@ -24,7 +24,7 @@ class UploadFileForm(forms.Form):
 
 
 @login_required(login_url='/signin/')
-def test_task(request):
+def test_login(request):
     
     template = loader.get_template('index.html')
     context ={}

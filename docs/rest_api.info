@@ -39,6 +39,14 @@ curl -i -X GET http://localhost:8000/api/profile -H "Content-Type:application/js
 
 curl -i -X PUT http://localhost:8000/api/profile -H "Content-Type:application/json"  -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -d '{"first_name":"test35_fn","last_name":"test35_ln_updated","phone_number":35,"gender":"M","date_of_birth":"2016-06-25","is_staff":false,"address":"test_address","street":"test_street","city":"","pincode":"","state":"ap","country":"india"}'
 
+===> Upload idphoto for user
+
+curl  -X PUT http://localhost:8000/api/photoid    -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61"  -F file=@<file_name>
+
+
+===> Download idphoto for user
+curl  -X GET http://localhost:8000/api/photoid    -H "Authorization: Token a3f5f6b39c97bef722a31b29c0c0de6388eaff61" 
+
 
 --------------------------------------------------------------------
 Posts

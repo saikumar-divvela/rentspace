@@ -17,7 +17,7 @@ urlpatterns = [
 
     url(r'^editprofile$',views.edit_profile,name="edit_profile"),
     url(r'^register_success$',views.register_success,name="register_success"),
-    url(r'^test_task$',views.test_task,name="test_task"),
+    url(r'^test_login$',views.test_login,name="test_login"),
     url(r'^test_file_upload$',views.test_file_upload,name="test_file_upload"),
 
 
@@ -35,10 +35,11 @@ urlpatterns = [
     url(r'^api/testlogin$', views.testlogin),    # GET
     url(r'^api/userstatus$', views.user_status),  # GET PUT
     url(r'^api/profile$', views.user_profile,name="edit_profile1"),    # PUT
-    url(r'^api-token-auth$', views1.obtain_auth_token)
+    url(r'^api-token-auth$', views1.obtain_auth_token),
 
-    # Unused URLs
-    #url(r'^register$',views.create_user,name="register"),
+    # REST api for testing
+    url(r'^api/photoid$', views.photoid),  #POST
+    
 ]
 
 
