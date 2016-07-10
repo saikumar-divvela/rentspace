@@ -1,6 +1,7 @@
 import requests
 from random import randint
 import json
+import cgi  
 
 def show(*args):
     print (args)
@@ -101,6 +102,30 @@ def update_user_profile(url,data,headers):
     print (resp.json())
 
 
+def uploadfile(url,files,headers):
+    print ("You hit file upload")
+    resp = requests.put(url,files=files,headers= headers)
+
+    print ("Request:")
+    show(resp.url,files,headers)
+
+
+    print ("Response:")
+    show(resp.status_code,resp.headers,resp.encoding)
+    print (resp.json())
+
+
+def downloadfile(url,headers):
+    print ("You hit file download")
+    resp = requests.get(url,headers= headers)
+    show(resp.status_code,resp.headers,resp.encoding)
+    #print (resp.content)
+    value,params = cgi.parse_header(resp.headers["content-disposition"])
+    print (params["filename"])
+    with open(params["filename"], 'wb') as output:
+        output.write(resp.content)
+
+
 
 
 def main():
@@ -146,6 +171,27 @@ def main():
 
     ## LOGOUT USER
     logout_user(logout_url,data={},headers=headers)
+
+
+def main1():
+    host_address="http://localhost:8000"
+    file_upload_url=host_address+"/api/photoid"
+    files = {'file': open('test.py','rb')}
+    token = "ca9367427dc32fc6011f26021e6284045e021c8d"    
+
+    headers={}
+    #headers["Content-Type"] = "multipart/form-data"  # Don't enable this otherwise will fail
+    headers["Accept"]="application/json"
+    headers["Authorization"]="Token "+token
+
+    # upload file
+    uploadfile(file_upload_url,files=files,headers=headers)
+
+    # download file
+    downloadfile(file_upload_url,headers=headers)
+
+
+    
 
 
 if __name__ == "__main__":

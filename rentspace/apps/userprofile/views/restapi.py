@@ -14,6 +14,8 @@ from rest_framework.decorators import api_view,permission_classes
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
+from  rest_framework.parsers import FileUploadParser
+from  rest_framework.parsers import MultiPartParser,FormParser
 
 from rest_framework.authtoken.models import Token
 
@@ -22,10 +24,14 @@ from django.contrib.auth.decorators import login_required
 
 import userprofile.service as service
 import userprofile.error_codes as message
+from django.conf import settings
 
 import django.contrib.auth.views as view1
 
+from wsgiref.util import FileWrapper
+
 import traceback
+import os
 
 '''
 def token_request(request):
@@ -33,6 +39,45 @@ def token_request(request):
         new_token = Token.objects.create(user=request.user)
 
 '''
+
+
+@api_view(['GET','PUT'])
+@permission_classes((IsAuthenticated,))
+def photoid(request):
+    #parser_classes = (MultiPartParser, FormParser,)    
+    response ={}
+    response["status"] = message.SUCCESS
+    try:
+        if request.method == "PUT":
+            print ('you hit file upload') 
+            print(request.data)
+            user = request.user
+            user.idphoto = request.FILES['file']
+            user.save()
+            print (user.idphoto.path,user.idphoto.name,user.idphoto.url)
+            response["message"]="photo uploaded successfully"
+    
+        elif request.method == "GET":
+            print ('you hit file download') 
+            user = request.user
+            #print (user.idphoto.path,user.idphoto.name,user.idphoto.url)
+            filedata = open(user.idphoto.path, 'rb')
+
+            response = HttpResponse(FileWrapper(filedata), content_type='application/octet-stream')
+            response['Content-Disposition'] = 'attachment; filename="%s"' % (user.idphoto.name)
+
+            return response
+
+    except Exception as exp:     
+        print (exp)    
+        traceback.print_exc()  
+        response["status"]= message.ERROR
+        response["message"]=str(exp)
+    
+    if response["status"] == message.SUCCESS:
+        return Response(data=response,status=status.HTTP_200_OK)    
+    else:
+        return Response(response,status=status.HTTP_400_BAD_REQUEST)       
 
 @api_view(['POST'])
 def registeruser(request):
