@@ -1,0 +1,80 @@
+
+requirements
+single objective: temporary accomdation (budget accomdation) for st
+PG
+booking flow
+
+fields for property
+-------------------
+sharing
+rent
+security deposit
+
+Amenities
+TV
+Washing Machine
+A/C
+Fridge
+Geyser
+Microwave
+
+
+WIFI
+
+Sofa
+Bed
+
+Cooking Allowed
+Laundry
+
+
+Parking
+CCTV
+Elevator
+Power Backup
+
+
+Attached bathroom 
+
+Services
+Food
+
+
+About this property
+-------------------
+
+
+
+Rules
+-------
+No restrictions on entry 
+Documents proof required 
+Guests not allowed 
+Drinking not allowed
+Smoking  not allowed
+  
+
+
+Contact, Shortlist
+
+
+
+search criteria
+-----------------
+	location
+	budget
+	boys/girls/family
+
+
+
+verification is mandatory
+
+option1
+	someone is interested,share the details of owner to the interested person
+	he will get sms, email
+
+
+
+	we will maintain this info in our database
+
+
