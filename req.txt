@@ -64,6 +64,7 @@ search criteria
 	location
 	budget
 	boys/girls/family
+	PG/Home
 
 
 
@@ -75,6 +76,8 @@ option1
 
 
 
-	we will maintain this info in our database
+Add form for looking for Tenant
+
+we will maintain this info in our database
 
 

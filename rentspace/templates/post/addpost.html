@@ -1,277 +1,272 @@
 <html lang="en">
-<head>
-
-<link href="/static/kk/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-<script src="/static/kk/js/fileinput.min.js"></script>
-
-
-{% include "init_header.html" %}
-
-<style>
-</style>
-<script type="text/javascript">
- $(function() {
-   $( "#avail_start_date" ).datepicker(
-                { dateFormat: "yy-mm-dd" }
-              );
-            
-    $( "#avail_end_date" ).datepicker(
-                { dateFormat: "yy-mm-dd" }
-              );
-         });
-
- $(document).on('ready', function() {
-        $("#photos").fileinput({
-           
-            maxFileCount: 2,
-            uploadAsync: false,
-            showUpload: true,
-            /*
-            previewFileType: "image",
-            browseClass: "btn btn-success",
-            browseLabel: "Pick Image",
-            browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-            removeClass: "btn btn-danger",
-            removeLabel: "Delete",
-            removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-            uploadClass: "btn btn-info",
-            uploadLabel: "Upload",
-            uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> "
-            */
-        });
-    });
-$(document).ready(
-        
-    function(){
-    $("button").click(
-        function() {
-            if ( $(this).attr("id") == "cancel") {
-                  
-                 $("#form1").attr("action","{% url 'myposts'  %}");
-                 $("#form1").attr("method","get");
-            } else if ( $(this).attr("id") == "submit") {
-                 facilities = [];
-            $('input:checkbox').each(function () {
-              if (this.checked) {
-                //alert($(this).val());
-                facilities.push($(this).val())   
-
-              }
-              //var sThisVal = (this.checked ? $(this).val() : "");
-             });
-              
-         
-            alert(facilities); 
-                 $("#form1").attr("action","{% url 'addpost'  %}");
-                 $("#form1").attr("method","post");
-                  $('<input />').attr('type', 'hidden')
-                  .attr('name', "facilities")
-                  .attr('value', facilities)
-                  .appendTo('#form1');
-            }
-
-
-            $("#form1").submit();
-            //return false;
-        });
+   <head>
+      <link href="/static/kk/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+      <script src="/static/kk/js/fileinput.min.js"></script>
+      {% include "init_header.html" %}
+      <style>
+ul{
+  list-style-type:none;
 }
-
-
-);
-
-
-
-</script>
-
-
-</head>
-
-<div id='header'>
-{% include "header.html" %}
-</div>
-<body>
-<div id="main">
-<div class="container clear-top">
-
-
-
-
-  <form id ="form1" role="form" enctype="multipart/form-data">
-        
+li {
+  margin-top:6px;
+}
+      </style>
+      <script type="text/javascript">
+         $(function() {
+           $( "#avail_start_date" ).datepicker(
+                        { dateFormat: "yy-mm-dd" }
+                      );
+                    
+            $( "#avail_end_date" ).datepicker(
+                        { dateFormat: "yy-mm-dd" }
+                      );
+                 });
          
-          <div class="col-md-9">
-            <!-- <div class="panel panel-default"> -->
-              <div class='panel-heading'>
-                  <h3>Add Post </h3>
-              </div>  
-              <div class="panel-body">
-                {{ msg }}
-                <div class="form-group">
-                  <label for="title" class="control-label col-md-3">Title</label>
-                  <input type="text"  id="title" name="title" required title="required" value="{{post.title}}">
-                </div> 
-                <div class="form-group">
-                  <label for="description" class="control-label col-md-3">Description</label>
-                  <input type="text"  id="description" name="description" value="{{post.description}}">
-                </div>  
+         $(document).on('ready', function() {
+                $("#photos").fileinput({
+                   
+                    maxFileCount: 2,
+                    uploadAsync: false,
+                    showUpload: true,
+                    /*
+                    previewFileType: "image",
+                    browseClass: "btn btn-success",
+                    browseLabel: "Pick Image",
+                    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                    removeClass: "btn btn-danger",
+                    removeLabel: "Delete",
+                    removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                    uploadClass: "btn btn-info",
+                    uploadLabel: "Upload",
+                    uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> "
+                    */
+                });
+            });
+         $(document).ready(
                 
-                <div class="form-group">
-                  <label for="rentperday" class="control-label col-md-3">Rent per day</label>
-                  <div class="input-group">
-                  <div class="input-group-addon">Rs</div>
-                  <input type="text"  class ="col-md-3" id="rentperday" name="rentperday" value="{{post.rentperday}}">
+            function(){
+            $("button").click(
+                function() {
+                    if ( $(this).attr("id") == "cancel") {
+                          
+                         $("#form1").attr("action","{% url 'myposts'  %}");
+                         $("#form1").attr("method","get");
+                    } else if ( $(this).attr("id") == "submit") {
+                         facilities = [];
+                    $('input:checkbox').each(function () {
+                      if (this.checked) {
+                        //alert($(this).val());
+                        facilities.push($(this).val())   
+         
+                      }
+                      //var sThisVal = (this.checked ? $(this).val() : "");
+                     });
+                      
+                 
+                    alert(facilities); 
+                         $("#form1").attr("action","{% url 'addpost'  %}");
+                         $("#form1").attr("method","post");
+                          $('<input />').attr('type', 'hidden')
+                          .attr('name', "facilities")
+                          .attr('value', facilities)
+                          .appendTo('#form1');
+                    }
+         
+         
+                    $("#form1").submit();
+                    //return false;
+                });
+         }
+         
+         
+         );
+         
+         
+         
+      </script>
+   </head>
+   <div id='header'>
+      {% include "header.html" %}
+   </div>
+   <body>
+      <div id="main">
+         <div class="container clear-top">
+            <form id ="form1" role="form" class="form-horizontal" enctype="multipart/form-data">
+               
+                  <!-- <div class="panel panel-default"> -->
                   
-                  </div>
+                     <div class="form-group">
+                        <label for="title" class="control-label col-md-2"><h3>Add Post</h3></label>
+                     </div>
+                     
+                 {{ msg }}
+                     <div class="form-group">
+                        <label for="title" class="control-label col-md-2">Title</label>
+                        <div class="col-md-6">
+                        <input type="text"  id="title" name="title" class="form-control" required title="Enter title" value="{{post.title}}">
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="description" class="control-label col-md-2">Description</label>
+                        <div class="col-md-6">
+                       <textarea  id="description" name="description" placeholder="Write something about property" class="form-control" required="required" rows="4"> </textarea>
+                       </div>
+                     </div>
+                     <div class="form-group">
+                        <label for="rentperday" class="control-label col-md-2">Rent per day</label>
+                        <div class="col-md-6">
+                        <div class="input-group">
+                           <div class="input-group-addon">Rs</div>
+                           <input type="text"  class ="col-md-3" id="rentperday" name="rentperday" value="{{post.rentperday}}">
+                        </div>
+                        </div>
+                     </div>
+                    <div class="form-group">
+                        <label for="deposit" class="control-label col-md-2">Security Deposit</label>
+                        <div class="col-md-6">
+                        <div class="input-group">
+                           <div class="input-group-addon">Rs</div>
+                           <input type="text"  class ="col-md-3" id="deposit" name="deposit" value="{{post.deposit}}">
+                        </div>
+                        </div>
+                     </div>
+                      <div class="form-group">
+                        <label for="deposit" class="control-label col-md-2">Max guests</label>
+                        <div class="col-md-6">
+                        
+                           <input type="text" id="guests" name="guests" value="{{post.guests}}">
+                        
+                        </div>
+                     </div>
+                     <!--
+                     <div class="form-group">
+                        <label for="avail_start_date" class="control-label col-md-3">Available start date</label>
+                        <div class="input-group">
+                           <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                           </div>
+                           <input type="text" class ="col-md-4" id="avail_start_date" name="avail_start_date" value="{{post.avail_start_date | date:"Y-m-d"}}" >
+                        </div>
+                     </div>
+                     <br/>  
+                     <div class="form-group">
+                        <label for="avail_end_date" class="control-label col-md-3">Available end date</label>
+                        <div class="input-group">
+                           <div class="input-group-addon">
+                              <span class="glyphicon glyphicon-calendar"></span>
+                           </div>
+                           <input type="text"  class ="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date | date:"Y-m-d" }}" >
+                        </div>
+                     </div>
+                     -->
+                    
+                     <!-- TODO Add checkboxes for facilities -->
+                     <!-- TODO add code to upload multiple photos -->
+                     <div class="form-group">
+                        <label for="address" class="control-label col-md-2">Address</label>
+                        <div class="row">
+                            <div class="col-md-3">
+                           <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
+                            </div>
+                        <div class="col-md-3">
+                           <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
+                        </div>
+                        <div class="col-md-3 col-md-offset-2">
+                           <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
+                        </div>
+                        <div class="col-md-3 ">
+                           <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{post.pincode}}">
+                        </div>
+                        <div class="col-md-3 col-md-offset-2">
+                           <input type="text" id="state" name="state" placeholder="State" value="{{post.state}}">
+                        </div>
+                        <div class="col-md-3">
+                           <input type="text" id="country" name="country" placeholder="Country" value="{{post.country}}">
+                        </div>
+                        </div>
+                     </div>
+                     <div class="clearfix"> </div>
 
-                </div>  
+                     <div class="form-group">
+                        <label for="facilities" class="control-label col-md-2">Available for</label>
+                        <br/>
+                        <div class="row">
 
+                           <div class="col-md-2 ">
 
+                              <input type="checkbox" value="men">Men
+                           </div>
+                            <div class="col-md-2 ">
 
-                <div class="form-group">
+                              <input type="checkbox" value="women">Women
+                           </div>
+                            <div class="col-md-2 ">
 
-                    <label for="avail_start_date" class="control-label col-md-3">Available start date</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    </div>
-                    <input type="text" class ="col-md-4" id="avail_start_date" name="avail_start_date" value="{{post.avail_start_date | date:"Y-m-d"}}" >
+                              <input type="checkbox" value="family">Family
+                           </div>
+                        </div>   
 
-                    </div>
-                </div>  
+                      </div>
 
-                <br/>  
-                <div class="form-group">
-                    <label for="avail_end_date" class="control-label col-md-3">Available end date</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    </div>
-                    <input type="text"  class ="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date | date:"Y-m-d" }}" >
-                    </div>
-                </div>  
-                
-                
-                <br/>
-
+                     <div class="form-group">
+                        <label for="facilities" class="control-label col-md-2">Facilities</label>
+                        <br/>
+                        <div class="row">
+                           <div class="col-md-2 ">
+                              <ul>
+                              <li> <input type="checkbox" value="tv">TV</li>
+                              <li> <input type="checkbox" value="refrigerator">Refrigerator</li>
+                              <li> <input type="checkbox" value="washingmachine">Washingmachine</li>
+                              <li> <input type="checkbox" value="microwave">Microwave</li>
+                              <li> <input type="checkbox" value="waterpurifier">Water Purifier</li>
+                              <li> <input type="checkbox" value="laundry">Laundry</li>
+                              </ul>
+                              
+                           </div>
+                           <div class="col-md-3">
+                               <ul>
+                              <li> <input type="checkbox" value="toilet">Western Toilet</li>
+                              <li> <input type="checkbox" value="bathroom">Attached Bathroom</li>
+                              <li> <input type="checkbox" value="watersupply">24 Hrs Water Supply</li>
+                              <li> <input type="checkbox" value="geyser">Geyser</li>
+                              <li> <input type="checkbox" value="wifi">WiFi</li>
+                              <li> <input type="checkbox" value="cooking">Cooking Allowed</li>
+                              <li> <input type="checkbox" value="sofa">Sofa</li>
+                              </ul>
+                           </div>
+                           <div class="col-md-2">
+                               <ul>
+                                <li> <input type="checkbox" value="elevator">Elevator</li>
+                              <li> <input type="checkbox" value="parking">Parking</li>
+                              <li> <input type="checkbox" value="gym">Gym</li>
+                              <li> <input type="checkbox" value="security">Security</li>
+                              <li> <input type="checkbox" value="powerbackup">Power Backup</li>
+                              <li> <input type="checkbox" value="housekeeping">House Keeping</li>
+                              <li> <input type="checkbox" value="cctv">CCTV</li>
+                              </ul>
+                           </div>
+                          
+                        </div>
+                       
+                     </div>
+                     <div class="form-group">
+                        <label class="control-label col-md-2">Upload Photos</label>
+                        <input id="photos" name="photos" type="file" accept="image/*" class="file-loading" multiple>
+                        <div id="errorBlock" class="help-block"></div>
+                     </div>
+                     <div class="form-group">
+                        <div class="col-md-offset-3">
+                           <button id="submit" type="submit" class="btn btn-info">Submit</button>
+                           <button id="cancel" type="submit" class="btn btn-info">Cancel</button>     
+                        </div>
+                     </div>
+                  
               
-
-                <!-- TODO Add checkboxes for facilities -->
-              
-                
-                <!-- TODO add code to upload multiple photos -->
-              
-
-            <div class="form-group">  
-                
-                  <label for="address" class="control-label col-md-3">Address</label>
-                  <div class="col-md-3">
-                     <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
-                  </div>   
-               
-              
-                
-                  <div class="col-md-3 col-md-offset-3">
-                  <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
-                  </div>
-                  <div class="col-md-3 ">
-                  <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{post.pincode}}">
-                  </div>
-                
-                
-                  <div class="col-md-3 col-md-offset-3">
-                  <input type="text" id="state" name="state" placeholder="State" value="{{post.state}}">
-                  </div>
-                  <div class="col-md-3">
-                    <input type="text" id="country" name="country" placeholder="Country" value="{{post.country}}">
-                  </div>
-                
-            </div>
-
-            <div class="clearfix"> </div>
-            
-            
-               
-                
-               
-              <div class="form-group">
-          
-                 <label for="facilities" class="control-label col-md-3">Facilities</label>
-              
-              </div>
-
-              <div class="clearfix"> </div>
-              
-              <div class="form-group">
-
-              <div class="row">
-              <div class="col-md-2 col-md-offset-1">
-             <label class="checkbox-inline"><input type="checkbox" value="hotwater">Hot water</label>
-             </div>
-             <div class="col-md-2">
-            <label class="checkbox-inline"><input type="checkbox" value="internet">Internet</label>
-            </div>
-            <div class="col-md-2">
-            <label class="checkbox-inline"><input type="checkbox" value="ac">AC</label>
-            </div>
-            <label class="checkbox-inline"><input type="checkbox" value="security">Security</label>
-            </div>
-            <div class="row">
-              <div class="col-md-2 col-md-offset-1">
-<label class="checkbox-inline"><input type="checkbox" value="cardaccepted">Card Accepted</label>
-</div>
-<div class="col-md-2">
-<label class="checkbox-inline"><input type="checkbox" value="elevator">Elevator</label>
-</div>
-<div class="col-md-2">
-<label class="checkbox-inline"><input type="checkbox" value="tv">Tv</label>
-</div>
-
-</div>
-    </div>
-        
-          
-        
-          
-         
-                
-              <div class="form-group">
-               <label class="control-label col-md-3">Upload Photos</label>
-               
-              <input id="photos" name="photos" type="file" accept="image/*" class="file-loading" multiple>
-              <div id="errorBlock" class="help-block"></div>
-    
-            
-            </div>
-          
-             <div class="form-group">
-                    <div class="col-md-offset-3">
-                    <button id="submit" type="submit" class="btn btn-info">Submit</button>
-                    <button id="cancel" type="submit" class="btn btn-info">Cancel</button>     
-                  </div>  
-             </div>
-
-
-          </div>   
-
-        </div>
-       
-             
-
-     
-        
-    </form>
-  
-</div>
-</div>
-
-   
-
-</body>
-<div id="footer">
-{% include "footer.html" %}
-</div>
-
+            </form>
+         </div>
+      </div>
+   </body>
+   <div id="footer">
+      {% include "footer.html" %}
+   </div>
 </html>
