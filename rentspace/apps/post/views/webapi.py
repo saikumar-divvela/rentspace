@@ -12,6 +12,36 @@ from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from post.models import Post,PostPhoto
 
 
+@login_required(login_url='/signin/')
+def contactpostowner(request):
+    print ("you hit contact post owner")
+    postid = request.GET.get("id")
+    print (postid)
+    return HttpResponseRedirect("/home")
+
+@login_required(login_url='/signin/')
+def shortlistpost(request):
+    print ("you hit shortlist post")
+    postid = request.GET.get("id")
+    print (postid)
+    return HttpResponseRedirect("/home")
+
+
+@csrf_exempt
+def searchposts(request):
+    print ("you hit search posts")
+    
+    location = request.GET.get("location","")
+    housetype = request.GET.get("housetype","")
+    bookingtype = request.GET.get("bookingtype","")
+    people = request.GET.get("people","")
+    
+    print (location, housetype,bookingtype,people)
+    postlist = Post.objects.all()
+    context ={}
+    context["posts"]=postlist
+    return render(request,'postlist.html',context)
+
 @csrf_exempt
 @login_required(login_url='/signin/')
 def showallpost(request):
@@ -21,7 +51,7 @@ def showallpost(request):
         print (post)
     context ={}
     context["posts"]=postlist
-    return render(request,'postlist.html',context)
+    return render(request,'myposts.html',context)
 
 @login_required(login_url='/signin/')
 def showpost(request):

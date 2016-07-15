@@ -37,7 +37,7 @@
               <br/>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-lg">Sign In</button> &nbsp;&nbsp; <a href="http://localhost:8000/resetpassword">Forgot Password</a>
+              <button type="submit" class="btn btn-primary btn-lg">Sign In</button> &nbsp;&nbsp; <a href="{% url 'reset_password' %}">Forgot Password</a>
             </div>
 
           </div>
@@ -51,7 +51,7 @@
           <div class="panel-body">
             <div class="text-center">
               <br/><br/>
-              <a class="btn btn-primary btn-lg" role="button" href="http://localhost:8000/signup">Create Account</a>
+              <a class="btn btn-primary btn-lg" role="button" href="{% url 'signup' %}">Create Account</a>
             </div>
           </div>
         </div>
