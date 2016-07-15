@@ -7,8 +7,13 @@ urlpatterns = [
     url(r'^myposts$',views.showallpost,name="myposts"),
     url(r'^addpost/?$',views.addpost,name="addpost"),
     url(r'^showpost/$',views.showpost,name="showpost"),
+    url(r'^searchposts/$',views.searchposts,name="searchposts"),
     url(r'^updatepost/$',views.updatepost,name="updatepost"),
     url(r'^deletepost/$',views.deletepost,name="deletepost"),
+
+    url(r'^contactpostowner/$',views.contactpostowner,name="contactpostowner"),
+    url(r'^shortlist/$',views.shortlistpost,name="shortlist"),
+    
 
     ### REST API ADMIN
 
