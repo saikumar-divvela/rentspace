@@ -34,12 +34,39 @@
          div .row {
          margin-top:10px;
          }
+         
+         .strike_service {
+            text-decoration: line-through; 
+            font-weight: lighter;
+          }
+
+          .heading2 {
+            color:  #595959;
+            font-size: 18px;
+            //text-decoration: underline;
+          }
+          .heading1 {
+            color:  #595959;
+            font-size: 20px;
+            //text-decoration: underline;
+          }
       </style>
       <script type="text/javascript">
         $(document).ready(function() {
-          alert('hello');
-          var services =  "{{ post.facilities }}";
-          alert (services);
+          //alert('hello');
+        
+
+          facilities = "{{post.facilities}}"
+          var fac = facilities.split(","); 
+
+          //alert (fac);
+          $('#services ul li').each(function () {
+          if ($.inArray($(this).attr("id"), fac) == -1){
+             //alert($(this).attr("id"));
+             $(this).addClass("strike_service");
+            }
+          });
+
         });
 
       </script>
@@ -52,8 +79,8 @@
          <div class="container">
             <div class="row">
                <div class="col-md-8">
-                   {{ post.facilities }}
-                   <h4> {{ post.title }} </h4>
+                 
+                   <div class="heading1"> {{ post.title }} </div>
                    <h5>  </h5>
                      <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
@@ -147,39 +174,39 @@
             </div>
             <div class="row">
                <div class="col-md-8">
-                  <h5> Amenities and Services </h5>
+                   <div class="heading2"> Amenities and Services </div>
                   <hr/>
-                  <div class="row">
+                  <div class="row" id="services">
                      <div class="col-md-4">
                         <ul>
-                           <li> TV </li>
-                           <li> Refrigerator </li>
-                           <li> Microwave </li>
-                           <li> Washing Machine </li>
-                           <li> Water Purifier </li>
-                           <li> Laundry </li>
+                           <li id="tv" > TV </li>
+                           <li id="refrigerator"> Refrigerator </li>
+                           <li id="microwave"> Microwave </li>
+                           <li id="washingmachine"> Washing Machine </li>
+                           <li id="waterpurifier"> Water Purifier </li>
+                           <li id="laundry"> Laundry </li>
                         </ul>
                      </div>
                      <div class="col-md-4">
                         <ul>
-                           <li> Western Toilet </li>
-                           <li> Attached Bathroom </li>
-                           <li> 24 Hrs Water Supply </li>
-                           <li> Geyser </li>
-                           <li> WiFi </li>
-                           <li> Sofa </li>
-                           <li> Cooking Allowed </li>
+                           <li id="toilet"> Western Toilet </li>
+                           <li id="bathroom"> Attached Bathroom </li>
+                           <li id="watersupply"> 24 Hrs Water Supply </li>
+                           <li id="geyser"> Geyser </li>
+                           <li id="wifi"> WiFi </li>
+                           <li id="sofa"> Sofa </li>
+                           <li id="cooking"> Cooking Allowed </li>
                         </ul>
                      </div>
                      <div class="col-md-4">
                         <ul>
-                           <li> Elevator </li>
-                           <li> Parking </li>
-                           <li> Gym </li>
-                           <li> Security </li>
-                           <li> Power Backup </li>
-                           <li> House Keeping </li>
-                           <li> CCTV </li>
+                           <li id="elevator"> Elevator </li>
+                           <li id="parking"> Parking </li>
+                           <li id="gym"> Gym </li>
+                           <li id="security"> Security </li>
+                           <li id="powerbackup"> Power Backup </li>
+                           <li id="housekeeping"> House Keeping </li>
+                           <li id="cctv"> CCTV </li>
                         </ul>
                      </div>
                   </div>
@@ -187,11 +214,26 @@
             </div>
             <div class="row">
                <div class="col-md-8">
-                  <h5> About this property </h5>
+                  <div class="heading2"> About this property </div>
                   <hr/>
                   <p> {{ post.description }} </p>
-               </div>
+               
+              </div>
             </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="heading2"> Rules </div>
+                  <hr/>
+                  <ul style="font-style: italic;">
+                     <li> No restrictions on entry </li>
+                     <li>Documents proof required </li>
+                     <li> Guests not allowed </li>
+                     <li>Drinking not allowed</li>
+                     <li>Smoking  not allowed </li>
+                  </ul>  
+
+               </div>
+              </div>
          </div>
       </div>
    </body>
