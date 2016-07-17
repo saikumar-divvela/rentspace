@@ -31,34 +31,39 @@ Version 1.1
     validate location using google map
 --->
 This week
-    Fix the issue related to navbar bottom
+    Add post
+        Add missing details (house type, accomdataion type, add landmark , for boys/girls)
+        User can add upto 5 images /User should see preview of uploaded images
 
-    Left side 
+    Edit Post
+        Show all the fields
+        User can edit/delete the images
+
+    Show post -> show valid details only
+
+    Implement search functionality
+
+    Pagination
+        search page
         my postings
-        my bookings
-        my requests
+        my shortlisted
 
-    Add post   (user can enter post details with 5 images)
-               User should see preview of uploaded images 
-               Give complete calendar to user
-
-    Show post    Display post images in Top            
-                 Display other details in bottom
-                 Right side show check in , checkout 
-                 Buttons Book
-
-    Search page  (display postings based on pagination)
-    Post list    (show post image with link) and address
-   
 
 TODO  tasks
-Login (Email verification)
-    For registered user send email notification
-    When user enters the email in broswer, email is verified. User can login
+Send email notification
+    For registered user
+    Contact operation
 
-Login (SMS verification)
-    Send a SMS to user
-    When user enters the SMS in browser, mobile number is verified
+Send SMS 
+    OTP
+    Contact operation
+
+
+Login (Email verification)
+     When user enters the email in broswer, email is verified. User can login
+
+Login/Update profile(Mobie verification)
+   When user enters the OTP in browser, mobile number is verified
 
 Login (session timeout (after fixed time)
 
@@ -67,47 +72,21 @@ Login (Change password)
 
 Login (Forgot password)
     Send a link to email to reset password
-    User opens the link in browser, he has to set a password    
-
-Add Post
-    User can enter the post details with 5 images
-    User should be able to see the preview of uploaded images
-    Give complete calendar to provide the availability for 45 days
-    
-Show Post  
-    Display the images with left and right button
-    Then show post details
-    Show calendar to enter required dates
-    Edit Delete (show book button for other users)
-    Display navigation bar in top
+    User opens the link in browser, he has to set a password  
 
 Delete Post
     User can not delete post if any pending orders are there
     Dont delete the post , just purge the post
 
-Update posting
-    Display the thumbnails of images, user can remove or add 
-    Update post details
-
-Post listing
-    Use pagination to display postings
-    Display image, address, rent per day
- 
 Search page
     Display postings based on pagination
     Left side display localities
 
-Menu (My postings)
-    Display links left side
-    Show one post in each line
+Admin (UI)
+    Verify/Reject posts
+    Verify users
+    Send email to anyone
 
-(My bookings)
-    Display image of post, booking date,
-    Cancel button
-(Pending requests)
-
-Email notification
-    
 #########UI#########################
 Validate input fields in each screen
     Login
@@ -122,7 +101,3 @@ Validate input fields in each screen
     
 Rest services
     Token based authentication login/logout
-
-
-
-
