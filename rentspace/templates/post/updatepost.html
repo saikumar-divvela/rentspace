@@ -96,35 +96,27 @@ $(document).ready(
             <label for="rentperday" class="control-label col-md-3">Rent per day</label>
             <div class="input-group">
                   <div class="input-group-addon">Rs</div>
-            <input type="text"  class="col-md-3" id="rentperday" name="rentperday" value="{{ post.rentperday}}">
+                  <input type="text"  class="col-md-3" id="rentperday" name="rentperday" value="{{ post.rentperday}}">
             </div>
           </div> 
-                
-          <div class="form-group">
-                    <label for="avail_start_date" class="control-label col-md-3">Available start date</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    </div>
-                    <input type="text" class="col-md-4"  id="avail_start_date" name="avail_start_date" value="{{ post.avail_start_date |date:"Y-m-d" }}" >
-                    </div>
-                </div>       
-          <br/>
 
           <div class="form-group">
-                    <label for="avail_end_date" class="control-label col-md-3">Available end date</label>
-                    <div class="input-group">
-                    <div class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                    </div>
-                    <input type="text"  class="col-md-4" id="avail_end_date" name="avail_end_date" value="{{post.avail_end_date |date:"Y-m-d"}}" >
-                    </div>
-                </div>  
-                <div class="clearfix visible-md"></div>
-                
-                <br/>
-
-      
+             <label for="deposit" class="control-label col-md-2">Security Deposit</label>
+             <div class="col-md-6">
+                <div class="input-group">
+                   <div class="input-group-addon">Rs</div>
+                   <input type="text"  class ="col-md-3" id="deposit" name="deposit" value="{{post.deposit}}">
+                </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="deposit" class="control-label col-md-2">Max guests</label>
+            <div class="col-md-6">
+                <input type="text" id="guests" name="guests" value="{{post.guests}}">
+             </div>
+          </div>
+        
           <!-- TODO Add checkboxes for facilities -->
       
           <!-- TODO add code to upload multiple photos -->
@@ -159,6 +151,92 @@ $(document).ready(
                   </div>
                 </div>
             </div>
+
+            
+            <div class="form-group">
+                <label for="accom_type" class="control-label col-md-2">Accomdation Type</label>
+                <div class="row">
+                    <div class="col-md-2 radio">
+                        <label><input type="radio" name="accom_type">Shared</label>
+                    </div>
+                    <div class="col-md-2 radio">
+                        <label><input type="radio" name="accom_type">Private</label>
+                    </div>
+                 </div>
+            </div>
+
+            <!-- check this tag -->                
+            </div>            
+
+
+            <div class="form-group">
+                <label for="house_type" class="control-label col-md-2">House Type</label>
+                <div class="row">
+                     <div class="col-md-2 radio">
+                         <label><input type="radio" name="house_type">PG</label>
+                     </div>
+
+                     <div class="col-md-2 radio">
+                         <label><input type="radio" name="house_type">Independent</label>
+                     </div>
+                     <div class="col-md-2 radio">
+                         <label><input type="radio" name="house_type">Flat</label>
+                     </div>
+                </div>
+             </div>
+
+             <div class="form-group">
+                 <label for="facilities" class="control-label col-md-2">Available for</label><br/>
+                     <div class="row">
+                         <div class="col-md-2 ">
+                             <input type="checkbox" value="men">Men
+                         </div>
+                         <div class="col-md-2 ">
+                             <input type="checkbox" value="women">Women
+                         </div>
+                         <div class="col-md-2 ">
+                            <input type="checkbox" value="family">Family
+                         </div>
+                    </div>   
+            </div> 
+    
+            <div class="form-group">
+                <label for="facilities" class="control-label col-md-2">Facilities</label><br/>
+                <div class="row">
+                     <div class="col-md-2 ">
+                     <ul>
+                     <li> <input type="checkbox" value="tv">TV</li>
+                     <li> <input type="checkbox" value="refrigerator">Refrigerator</li>
+                     <li> <input type="checkbox" value="washingmachine">Washingmachine</li>
+                     <li> <input type="checkbox" value="microwave">Microwave</li>
+                     <li> <input type="checkbox" value="waterpurifier">Water Purifier</li>
+                     <li> <input type="checkbox" value="laundry">Laundry</li>
+                     </ul>
+                     </div>
+                     <div class="col-md-3">
+                     <ul>
+                     <li> <input type="checkbox" value="toilet">Western Toilet</li>
+                     <li> <input type="checkbox" value="bathroom">Attached Bathroom</li>
+                     <li> <input type="checkbox" value="watersupply">24 Hrs Water Supply</li>
+                     <li> <input type="checkbox" value="geyser">Geyser</li>
+                     <li> <input type="checkbox" value="wifi">WiFi</li>
+                     <li> <input type="checkbox" value="cooking">Cooking Allowed</li>
+                     <li> <input type="checkbox" value="sofa">Sofa</li>
+                     </ul>
+                     </div>
+                     <div class="col-md-2">
+                     <ul>
+                     <li> <input type="checkbox" value="elevator">Elevator</li>
+                     <li> <input type="checkbox" value="parking">Parking</li>
+                     <li> <input type="checkbox" value="gym">Gym</li>
+                     <li> <input type="checkbox" value="security">Security</li>
+                     <li> <input type="checkbox" value="powerbackup">Power Backup</li>
+                     <li> <input type="checkbox" value="housekeeping">House Keeping</li>
+                     <li> <input type="checkbox" value="cctv">CCTV</li>
+                     </ul>
+                     </div>
+               </div>
+           </div>           
 
           
             <div class="form-group">
