@@ -31,19 +31,37 @@ Version 1.1
     validate location using google map
 --->
 This week
-    Add post
-        Add missing details (house type, accomdataion type, add landmark , for boys/girls)
-        User can add upto 5 images /User should see preview of uploaded images
+    Add post  (8 hrs)
+        Add missing details (house type, accomdataion type, add landmark , for boys/girls)  2hrs
+        User can add upto 5 images /User should see preview of uploaded images  6hrs
 
-    Edit Post
-        Show all the fields
-        User can edit/delete the images
+        
+        security deposit  added
+        max guests  added
+        accom_for  boys/girls/family added
 
-    Show post -> show valid details only
+        house_type pg/independent/flat  radio button added
+        accom_type shared/privateroom   radio button  added
+      
+        add landmark
 
-    Implement search functionality
+    Edit Post  (10hrs)
+        Show all the fields  4hrs
+        User can edit/delete the images  6hrs
 
-    Pagination
+    Show post -> show valid details only 3hrs
+
+    ---------------
+    Admin UI   6hrs
+        verify/reject post
+        verify/reject user
+        send email
+        log
+
+    Implement search functionality  6hrs
+
+
+    Pagination  (6hrs)
         search page
         my postings
         my shortlisted
