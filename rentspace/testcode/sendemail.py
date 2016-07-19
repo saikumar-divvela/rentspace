@@ -13,6 +13,11 @@ import smtplib
 # host email-smtp.us-west-2.amazonaws.com
 # SMTP Port—25, 587, or 2587 (to connect using STARTTLS), or 465 or 2465 (to connect using TLS Wrapper).
 
+# AKIAISGBA4OTFBJNTRCA
+# D4CDUE9AuF3qjY+PCODS5tLSKbtKX+yeWNmJ7XYC 
+
+# instance type i-047a6af666447c3ab
+# public dns    ec2-50-112-200-62.us-west-2.compute.amazonaws.com
 msg_header = 'From: Sender Name saikumar.divvela@gmail.com\n' \
              'To: Receiver Name saikumar.divvela@gmail.com\n' \
              'MIME-Version: 1.0\n' \

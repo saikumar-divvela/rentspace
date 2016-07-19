@@ -44,8 +44,8 @@ def searchposts(request):
 
 @csrf_exempt
 @login_required(login_url='/signin/')
-def showallpost(request):
-    print ("you hit show post")
+def myposts(request):
+    print ("you hit my posts")
     postlist = Post.objects.all()
     for post in postlist:
         print (post)
@@ -74,10 +74,12 @@ def addpost(request):
         title = request.POST.get("title","")
         description = request.POST.get("description","")
         rentperday  = request.POST.get("rentperday","")
-        avail_start_date = request.POST.get("avail_start_date",None)
-        avail_end_date   = request.POST.get("avail_end_date",None)
-        facilities = request.POST.get("facilities",None)
+        facilities = request.POST.getlist("facilities")
         print (facilities)
+        if facilities is not None:
+            facilities = ",".join(facilities)
+        else:
+            facilities = ""
 
         address = request.POST.get("address","")
         street  = request.POST.get("street","")
@@ -86,15 +88,24 @@ def addpost(request):
         state = request.POST.get("state","")
         country = request.POST.get("country","")
 
+        deposit = request.POST.get("deposit","")
+        guests  = request.POST.get("guests","")
+        house_type = request.POST.get("house_type","")
+        accom_type = request.POST.get("accom_type","")
+        accom_for =  request.POST.getlist("accom_for")
 
+        if accom_for is not None:
+            accom_for = ",".join(accom_for)
+        else:
+            accom_for = ""
+
+        print (deposit,guests,house_type,accom_type,accom_for)
 
         p = Post()
         p.description = description
         p.title = title
         p.user = request.user
         p.rentperday = rentperday
-        p.avail_start_date = avail_start_date
-        p.avail_end_date  = avail_end_date
         p.facilities = facilities
 
         p.address = address
@@ -104,25 +115,14 @@ def addpost(request):
         p.state = state
         p.country = country
 
-       
-
-   
+        p.deposit = deposit
+        p.guests = guests
+        p.housetype = house_type
+        p.accom_type = accom_type
+        p.accom_for = accom_for
+        
         p.save()
 
-        
-        print ('hello')
-        '''
-        if request.FILES:
-            print (request.FILES["postphoto"])
-            image = PostPhoto()
-            image.photo = request.FILES["postphoto"]
-            image.post = p
-            image.save()
-        else:
-            print ("something wrong no file data...........")
-        ''' 
-
-        
         if request.FILES.getlist("photos"):
             print (request.FILES.getlist("photos"))
             for f in request.FILES.getlist("photos"):
@@ -134,6 +134,7 @@ def addpost(request):
             
 
         return HttpResponseRedirect("/addpost/?msg=susscessfully added property&id="+str(p.id))
+        #return HttpResponseRedirect("/addpost")
         #return HttpResponse("POST object created successfully")
     else:
         context ={}
@@ -156,10 +157,12 @@ def updatepost(request):
         title = request.POST.get("title","")
         description = request.POST.get("description","")
         rentperday  = request.POST.get("rentperday","")
-        avail_start_date = request.POST.get("avail_start_date","")
-        avail_end_date   = request.POST.get("avail_end_date","")
-        facilities = request.POST.get("facilities",None)
+        facilities = request.POST.getlist("facilities")
         print (facilities)
+        if facilities is not None:
+            facilities = ",".join(facilities)
+        else:
+            facilities = ""
 
         address = request.POST.get("address","")
         street  = request.POST.get("street","")
@@ -168,7 +171,19 @@ def updatepost(request):
         state = request.POST.get("state","")
         country = request.POST.get("country","")
 
-       
+        deposit = request.POST.get("deposit","")
+        guests  = request.POST.get("guests","")
+        house_type = request.POST.get("house_type","")
+        accom_type = request.POST.get("accom_type","")
+        accom_for =  request.POST.getlist("accom_for")
+
+        if accom_for is not None:
+            accom_for = ",".join(accom_for)
+        else:
+            accom_for = ""
+
+
+        print (deposit,guests,house_type,accom_type,accom_for)
 
 
         print (postid,description)
@@ -178,9 +193,6 @@ def updatepost(request):
         #p.user = request.user
         p.rentperday = rentperday
         p.facilities = facilities
-        p.avail_start_date = avail_start_date
-        p.avail_end_date  = avail_end_date
-
 
 
         p.address = address
@@ -190,12 +202,19 @@ def updatepost(request):
         p.state = state
         p.country = country
 
+
+        p.deposit = deposit
+        p.guests = guests
+        p.house_type = house_type
+        p.accom_type = accom_type
+        p.accom_for = accom_for
+
         p.save()
         return HttpResponseRedirect("/updatepost/?msg=susscessfully updated&id="+postid)
     else:
         postid = request.GET.get("id")
         post =  Post.objects.get(id=postid)
-        print (post.rentperday,str(post.avail_start_date),post.avail_end_date)
+        print (post.rentperday)
         context ={}
         context["post"] = post
         context["msg"] = request.GET.get("msg","")

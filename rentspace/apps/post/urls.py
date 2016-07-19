@@ -4,7 +4,7 @@ from post import views
 
 urlpatterns = [
     
-    url(r'^myposts$',views.showallpost,name="myposts"),
+    url(r'^myposts$',views.myposts,name="myposts"),
     url(r'^addpost/?$',views.addpost,name="addpost"),
     url(r'^showpost/$',views.showpost,name="showpost"),
     url(r'^searchposts/$',views.searchposts,name="searchposts"),
