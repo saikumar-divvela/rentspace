@@ -36,9 +36,7 @@ class  Post(Address,object):
     accom_type = models.CharField(max_length=10,choices=ACCOM_TYPE,default=PRIVATE)
     accom_for = models.CharField(max_length=20,blank=True)
 
-    facilities = models.CharField(max_length=50,blank=True)
-    avail_start_date = models.DateField(null=True)
-    avail_end_date = models.DateField(null=True)
+    facilities = models.CharField(max_length=255,blank=True)
 
     status  =  models.CharField(max_length=10,choices=STATE,default=PENDING)
     is_active = models.BooleanField(default=True)
