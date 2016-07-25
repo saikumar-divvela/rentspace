@@ -30,15 +30,14 @@ STATE = (
 )
 
 
-
-
 class Address(models.Model):
-    address = models.CharField(max_length=50,blank=True)
-    street  = models.CharField(max_length=20,blank=True)
-    city    = models.CharField(max_length=20,blank=True)
-    state   = models.CharField(max_length=20,blank=True)
-    country = models.CharField(max_length=20,blank=True)
-    pincode = models.CharField(max_length=20,blank=True)
+    address  = models.CharField(max_length=50,blank=True)
+    street   = models.CharField(max_length=20,blank=True)
+    landmark = models.CharField(max_length=25,blank=True)
+    city     = models.CharField(max_length=20,blank=True)
+    state    = models.CharField(max_length=20,blank=True)
+    country  = models.CharField(max_length=20,blank=True)
+    pincode  = models.CharField(max_length=20,blank=True)
     google_map = models.CharField(max_length=20,blank=True)
 
     class Meta:

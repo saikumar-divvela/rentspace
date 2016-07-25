@@ -27,3 +27,6 @@ texttable==0.8.4
 wcwidth==0.1.6
 websocket-client==0.37.0
 whitenoise==3.2
+# installed by sendgrid
+sendgrid==3.0.6
+python-http-client==2.1.1 

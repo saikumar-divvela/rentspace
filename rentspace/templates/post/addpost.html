@@ -1,252 +1,250 @@
+
+
 <html lang="en">
-   <head>
-      <link href="/static/kk/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
-      <script src="/static/kk/js/fileinput.min.js"></script>
-      {% include "init_header.html" %}
-      <style>
-ul{
-  list-style-type:none;
-}
-li {
-  margin-top:6px;
-}
-      </style>
-      <script type="text/javascript">
-         $(function() {
-           $( "#avail_start_date" ).datepicker(
-                        { dateFormat: "yy-mm-dd" }
-                      );
-                    
-            $( "#avail_end_date" ).datepicker(
-                        { dateFormat: "yy-mm-dd" }
-                      );
-                 });
-         
-         $(document).on('ready', function() {
-                $("#photos").fileinput({
-                   
-                    maxFileCount: 2,
-                    uploadAsync: false,
-                    showUpload: true,
-                    /*
-                    previewFileType: "image",
-                    browseClass: "btn btn-success",
-                    browseLabel: "Pick Image",
-                    browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
-                    removeClass: "btn btn-danger",
-                    removeLabel: "Delete",
-                    removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
-                    uploadClass: "btn btn-info",
-                    uploadLabel: "Upload",
-                    uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> "
-                    */
-                });
-            });
-         $(document).ready(
+  <head>
+    <link href="/static/kk/css/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/kk/js/fileinput.min.js"></script>
+    {% include "init_header.html" %}
+    <style>
+      ul{
+      list-style-type:none;
+      }
+      li {
+      margin-top:6px;
+      }
+    </style>
+    <script type="text/javascript">
+      $(document).ready(function() {
+
+           var house_type = "{{ post.house_type }}";
+           $("#house_type").find(":radio").each(function () {
+                if ( $(this).val() ==  house_type) {
+                    this.checked = true;
+                }
+           });
+
+           var accom_type = "{{ post.accom_type }}";
+           $("#accom_type").find(":radio").each(function () {
+                if ( $(this).val() ==  accom_type) {
+                    this.checked = true;
+                }
+           });
+
+           var accomdation_for = "{{post.accom_for}}".split(","); 
+           $("#accom_for").find(":checkbox").each(function () {
+                if ($.inArray($(this).val(), accomdation_for) > -1){
+                    this.checked = true;
+                }
+           });
+
+           var facilities = "{{post.facilities}}".split(","); 
+           $("#facilities").find(":checkbox").each(function () {
+                if ($.inArray($(this).val(), facilities) > -1){
+                    this.checked = true;
+                }
+           });
+
+            
+        $("#cancelbtn").click(function() {
+              $("#form1").attr("action","{% url 'myposts'  %}");
+              $("#form1").attr("method","get");
+              $("#form1").submit();
+         });
+      
+         $("#submitbtn").click(function() {
+            $("#form1").attr("action","{% url 'addpost'  %}");
+            $("#form1").attr("method","post");
+            $("#form1").submit();   
+         });
+      
+      
+                      $("#photos").fileinput({
                 
-            function(){
-            $("button").click(
-                function() {
-                    if ( $(this).attr("id") == "cancel") {
-                          
-                         $("#form1").attr("action","{% url 'myposts'  %}");
-                         $("#form1").attr("method","get");
-                    } else if ( $(this).attr("id") == "submit") {
-                         facilities = [];
-                    $('input:checkbox').each(function () {
-                      if (this.checked) {
-                        //alert($(this).val());
-                        facilities.push($(this).val())   
-         
-                      }
-                      //var sThisVal = (this.checked ? $(this).val() : "");
-                     });
-                      
-                 
-                    alert(facilities); 
-                         $("#form1").attr("action","{% url 'addpost'  %}");
-                         $("#form1").attr("method","post");
-                          $('<input />').attr('type', 'hidden')
-                          .attr('name', "facilities")
-                          .attr('value', facilities)
-                          .appendTo('#form1');
-                    }
-         
-         
-                    $("#form1").submit();
-                    //return false;
-                });
-         }
-         
-         
-         );
-         
-         
-         
-      </script>
-   </head>
-   <div id='header'>
-      {% include "header.html" %}
-   </div>
-   <body>
-      <div id="main">
-         <div class="container clear-top">
-            <form id ="form1" role="form" class="form-horizontal" enctype="multipart/form-data">
-               
-                  <!-- <div class="panel panel-default"> -->
-                  
-                     <div class="form-group">
-                        <label for="title" class="control-label col-md-2"><h3>Add Post</h3></label>
-                     </div>
-                     
-                 {{ msg }}
-                     <div class="form-group">
-                        <label for="title" class="control-label col-md-2">Title</label>
-                        <div class="col-md-6">
-                        <input type="text"  id="title" name="title" class="form-control" required title="Enter title" value="{{post.title}}">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="description" class="control-label col-md-2">Description</label>
-                        <div class="col-md-6">
-                       <textarea  id="description" name="description" placeholder="Write something about property" class="form-control" required="required" rows="4"> </textarea>
-                       </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="rentperday" class="control-label col-md-2">Rent per day</label>
-                        <div class="col-md-6">
-                        <div class="input-group">
-                           <div class="input-group-addon">Rs</div>
-                           <input type="text"  class ="col-md-3" id="rentperday" name="rentperday" value="{{post.rentperday}}">
-                        </div>
-                        </div>
-                     </div>
-                    <div class="form-group">
-                        <label for="deposit" class="control-label col-md-2">Security Deposit</label>
-                        <div class="col-md-6">
-                        <div class="input-group">
-                           <div class="input-group-addon">Rs</div>
-                           <input type="text"  class ="col-md-3" id="deposit" name="deposit" value="{{post.deposit}}">
-                        </div>
-                        </div>
-                     </div>
-                      <div class="form-group">
-                        <label for="deposit" class="control-label col-md-2">Max guests</label>
-                        <div class="col-md-6">
-                        
-                           <input type="text" id="guests" name="guests" value="{{post.guests}}">
-                        
-                        </div>
-                     </div>
-
-                    
-                     <!-- TODO Add checkboxes for facilities -->
-                     <!-- TODO add code to upload multiple photos -->
-                     <div class="form-group">
-                        <label for="address" class="control-label col-md-2">Address</label>
-                        <div class="row">
-                            <div class="col-md-3">
-                           <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
-                            </div>
-                        <div class="col-md-3">
-                           <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
-                        </div>
-                        <div class="col-md-3 col-md-offset-2">
-                           <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
-                        </div>
-                        <div class="col-md-3 ">
-                           <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{post.pincode}}">
-                        </div>
-                        <div class="col-md-3 col-md-offset-2">
-                           <input type="text" id="state" name="state" placeholder="State" value="{{post.state}}">
-                        </div>
-                        <div class="col-md-3">
-                           <input type="text" id="country" name="country" placeholder="Country" value="{{post.country}}">
-                        </div>
-                        </div>
-                     </div>
-                     <div class="clearfix"> </div>
-
-                     <div class="form-group">
-                        <label for="facilities" class="control-label col-md-2">Available for</label>
-                        <br/>
-                        <div class="row">
-
-                           <div class="col-md-2 ">
-
-                              <input type="checkbox" value="men">Men
-                           </div>
-                            <div class="col-md-2 ">
-
-                              <input type="checkbox" value="women">Women
-                           </div>
-                            <div class="col-md-2 ">
-
-                              <input type="checkbox" value="family">Family
-                           </div>
-                        </div>   
-
-                      </div>
-
-                     <div class="form-group">
-                        <label for="facilities" class="control-label col-md-2">Facilities</label>
-                        <br/>
-                        <div class="row">
-                           <div class="col-md-2 ">
-                              <ul>
-                              <li> <input type="checkbox" value="tv">TV</li>
-                              <li> <input type="checkbox" value="refrigerator">Refrigerator</li>
-                              <li> <input type="checkbox" value="washingmachine">Washingmachine</li>
-                              <li> <input type="checkbox" value="microwave">Microwave</li>
-                              <li> <input type="checkbox" value="waterpurifier">Water Purifier</li>
-                              <li> <input type="checkbox" value="laundry">Laundry</li>
-                              </ul>
-                              
-                           </div>
-                           <div class="col-md-3">
-                               <ul>
-                              <li> <input type="checkbox" value="toilet">Western Toilet</li>
-                              <li> <input type="checkbox" value="bathroom">Attached Bathroom</li>
-                              <li> <input type="checkbox" value="watersupply">24 Hrs Water Supply</li>
-                              <li> <input type="checkbox" value="geyser">Geyser</li>
-                              <li> <input type="checkbox" value="wifi">WiFi</li>
-                              <li> <input type="checkbox" value="cooking">Cooking Allowed</li>
-                              <li> <input type="checkbox" value="sofa">Sofa</li>
-                              </ul>
-                           </div>
-                           <div class="col-md-2">
-                               <ul>
-                                <li> <input type="checkbox" value="elevator">Elevator</li>
-                              <li> <input type="checkbox" value="parking">Parking</li>
-                              <li> <input type="checkbox" value="gym">Gym</li>
-                              <li> <input type="checkbox" value="security">Security</li>
-                              <li> <input type="checkbox" value="powerbackup">Power Backup</li>
-                              <li> <input type="checkbox" value="housekeeping">House Keeping</li>
-                              <li> <input type="checkbox" value="cctv">CCTV</li>
-                              </ul>
-                           </div>
-                          
-                        </div>
-                       
-                     </div>
-                     <div class="form-group">
-                        <label class="control-label col-md-2">Upload Photos</label>
-                        <input id="photos" name="photos" type="file" accept="image/*" class="file-loading" multiple>
-                        <div id="errorBlock" class="help-block"></div>
-                     </div>
-                     <div class="form-group">
-                        <div class="col-md-offset-3">
-                           <button id="submit" type="submit" class="btn btn-info">Submit</button>
-                           <button id="cancel" type="submit" class="btn btn-info">Cancel</button>     
-                        </div>
-                     </div>
-                  
-              
-            </form>
-         </div>
+                 maxFileCount: 2,
+                 uploadAsync: false,
+                 showUpload: true,
+                 /*
+                 previewFileType: "image",
+                 browseClass: "btn btn-success",
+                 browseLabel: "Pick Image",
+                 browseIcon: "<i class=\"glyphicon glyphicon-picture\"></i> ",
+                 removeClass: "btn btn-danger",
+                 removeLabel: "Delete",
+                 removeIcon: "<i class=\"glyphicon glyphicon-trash\"></i> ",
+                 uploadClass: "btn btn-info",
+                 uploadLabel: "Upload",
+                 uploadIcon: "<i class=\"glyphicon glyphicon-upload\"></i> "
+                 */
+             });
+      
+         });
+      
+      
+      
+      
+      
+    </script>
+  </head>
+  <div id='header'>
+    {% include "header.html" %}
+  </div>
+  <body>
+    <div id="main">
+      <div class="container clear-top">
+        <form id ="form1" role="form" class="form-horizontal" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="title" class="control-label col-md-2">
+              <h3>Add Post</h3>
+            </label>
+          </div>
+          {{ msg }}
+          <div class="form-group">
+            <label for="title" class="control-label col-md-2">Title</label>
+            <div class="col-md-6">
+              <input type="text"  id="title" name="title" class="form-control" required title="Enter title" value="{{post.title}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="description" class="control-label col-md-2">Description</label>
+            <div class="col-md-6">
+              <textarea  id="description" name="description" placeholder="Write something about property" class="form-control" required="required" rows="4"> </textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="rentperday" class="control-label col-md-2">Rent per day</label>
+            <div class="col-md-6">
+              <div class="input-group">
+                <div class="input-group-addon">Rs</div>
+                <input type="text"  class ="col-md-3" id="rentperday" name="rentperday" value="{{post.rentperday}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="deposit" class="control-label col-md-2">Security Deposit</label>
+            <div class="col-md-6">
+              <div class="input-group">
+                <div class="input-group-addon">Rs</div>
+                <input type="text"  class ="col-md-3" id="deposit" name="deposit" value="{{post.deposit}}">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="deposit" class="control-label col-md-2">Max guests</label>
+            <div class="col-md-6">
+              <input type="text" id="guests" name="guests" value="{{post.guests}}">
+            </div>
+          </div>
+          <!-- TODO add code to upload multiple photos -->
+          <div class="form-group">
+            <label for="address" class="control-label col-md-2">Address</label>
+            <div class="row">
+              <div class="col-md-3">
+                <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
+              </div>
+              <div class="col-md-3">
+                <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
+              </div>
+              <div class="col-md-3 ">
+                <input type="text" id="pincode" name="pincode" placeholder="Pincode" value="{{post.pincode}}">
+              </div>
+              <div class="col-md-3 col-md-offset-2">
+                <input type="text" id="state" name="state" placeholder="State" value="{{post.state}}">
+              </div>
+              <div class="col-md-3">
+                <input type="text" id="country" name="country" placeholder="Country" value="{{post.country}}">
+              </div>
+            </div>
+          </div>
+          <div class="clearfix"> </div>
+          <div id="accom_type" class="form-group">
+            <label for="accom_type" class="control-label col-md-2">Accomdation Type</label>
+            <div class="col-md-2 radio">
+              <label><input type="radio" name="accom_type" value="SHARED">Shared</label>
+            </div>
+            <div class="col-md-2 radio">
+              <label><input type="radio" name="accom_type" value="PRIVATE">Private</label>
+            </div>
+          </div>
+          <div id="house_type" class="form-group">
+            <label for="house_type" class="control-label col-md-2">House Type</label>
+            <div class="col-md-2 radio">
+              <label><input type="radio" name="house_type" value="PG">PG</label>
+            </div>
+            <div class="col-md-2 radio">
+              <label><input type="radio" name="house_type" value="HOUSE">Independent</label>
+            </div>
+            <div class="col-md-2 radio">
+              <label><input type="radio" name="house_type" value="FLAT">Flat</label>
+            </div>
+          </div>
+          
+          <div id="accom_for" class="form-group">
+            <label for="accom_for" class="control-label col-md-2">Available for</label>
+            <div class="col-md-2 ">
+              <input type="checkbox" name="accom_for" value="men">Men
+            </div>
+            <div class="col-md-2 ">
+              <input type="checkbox" name="accom_for" value="women">Women
+            </div>
+            <div class="col-md-2 ">
+              <input type="checkbox" name="accom_for" value="family">Family
+            </div>
+          </div>
+          <div id="facilities" class="form-group">
+            <label for="facilities" class="control-label col-md-2">Facilities</label>
+            <div class="col-md-2 ">
+              <ul>
+                <li> <input type="checkbox" name="facilities" value="tv">TV</li>
+                <li> <input type="checkbox" name="facilities" value="refrigerator">Refrigerator</li>
+                <li> <input type="checkbox" name="facilities" value="washingmachine">Washingmachine</li>
+                <li> <input type="checkbox" name="facilities" value="microwave">Microwave</li>
+                <li> <input type="checkbox" name="facilities" value="waterpurifier">Water Purifier</li>
+                <li> <input type="checkbox" name="facilities" value="laundry">Laundry</li>
+              </ul>
+            </div>
+            <div class="col-md-3">
+              <ul>
+                <li> <input type="checkbox" name="facilities" value="toilet">Western Toilet</li>
+                <li> <input type="checkbox" name="facilities" value="bathroom">Attached Bathroom</li>
+                <li> <input type="checkbox" name="facilities" value="watersupply">24 Hrs Water Supply</li>
+                <li> <input type="checkbox" name="facilities" value="geyser">Geyser</li>
+                <li> <input type="checkbox" name="facilities" value="wifi">WiFi</li>
+                <li> <input type="checkbox" name="facilities" value="cooking">Cooking Allowed</li>
+                <li> <input type="checkbox" name="facilities" value="sofa">Sofa</li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+              <ul>
+                <li> <input type="checkbox" name="facilities" value="elevator">Elevator</li>
+                <li> <input type="checkbox" name="facilities" value="parking">Parking</li>
+                <li> <input type="checkbox" name="facilities" value="gym">Gym</li>
+                <li> <input type="checkbox" name="facilities" value="security">Security</li>
+                <li> <input type="checkbox" name="facilities" value="powerbackup">Power Backup</li>
+                <li> <input type="checkbox" name="facilities" value="housekeeping">House Keeping</li>
+                <li> <input type="checkbox" name="facilities" value="cctv">CCTV</li>
+              </ul>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-md-2">Upload Photos</label>
+            <input id="photos" name="photos" type="file" accept="image/*" class="file-loading" multiple>
+            <div id="errorBlock" class="help-block"></div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-3">
+              <button id="submitbtn" type="submit" class="btn btn-info">Submit</button>
+              <button id="cancelbtn" type="submit" class="btn btn-info">Cancel</button>     
+            </div>
+          </div>
+        </form>
       </div>
-   </body>
-   <div id="footer">
-      {% include "footer.html" %}
-   </div>
+    </div>
+  </body>
+  <div id="footer">
+    {% include "footer.html" %}
+  </div>
 </html>
+

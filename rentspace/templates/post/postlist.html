@@ -36,7 +36,7 @@
                   <div class="col-md-5 postdetails" >
                      <div class="row">
                         <a href="/showpost/?id={{post.id}}"> <h4> {{ post.title }} </h4> </a>
-                        <h5> Available for Individual/Family</h5>
+                        <h5> Available for {{ post.accom_for }}</h5>
                      </div>
                      <div class="row">
                         <address>{{post.address}} &nbsp; {{post.street}} &nbsp; {{post.city}} &nbsp; {{post.pincode}}</address>
@@ -51,10 +51,10 @@
                      </div>
                      <div class="row">
                         <div class="col-md-3">
-                           <i> {{ post.rentperday }} </i>
+                           <i> Rs {{ post.rentperday }} </i>
                         </div>
                         <div class="col-md-6">
-                           Rs 1000
+                           <i> Rs {{ post.deposit }} </i>
                         </div>
                      </div>
                   </div>

@@ -129,7 +129,9 @@
                 </div>
                <div class="col-md-3">
                   <div class="row" style="text-align:center; margin-top:30px" >
-                     <b>Available for Boys/Girls/Family</b> 
+                      Available for <b>{{ post.accom_for }}</b> <br/>
+                      Accomdation type <b>{{ post.accom_type }}</b> <br/>
+                      House type <b>{{ post.house_type }}</b>
                      <hr/>
                   </div>
                   <div class="row">
@@ -151,19 +153,19 @@
                         <b> Rs {{ post.rentperday }} </b>
                      </div>
                      <div class="col-md-6">
-                        <b> Rs 1000 </b>
+                        <b> Rs {{ post.deposit }} </b>
                      </div>
                   </div>
                   <hr/>
                   <div class="row">
                      
                         <div class="col-md-4">
-                          <a href="/updatepost/?id={{post.id}}" class="btn btn-info btn-block" role="button">Edit</a>
+                          <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Edit</a> 
                         </div>
                      
                      
                         <div class="col-md-4">
-                           <a href="/deletepost/?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a> 
+                           <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a> 
                         </div>
 
                         <div class="col-md-4">
