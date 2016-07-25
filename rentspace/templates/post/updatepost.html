@@ -2,7 +2,11 @@
 
 <html lang="en">
   <head>
+     
     {% include "init_header.html" %}
+    
+    <link href="/static/kk/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
+    <script src="/static/kk/js/fileinput.js"></script> 
     <style>
       ul{
       list-style-type:none;
@@ -54,6 +58,18 @@
            $("#form1").attr("method","post");
            $("#form1").submit();
          });
+
+         $("#photos").fileinput({
+          overwriteInitial: false,
+          showUpload: false,
+          initialPreviewAsData: true,
+            initialPreview: [
+              {% for image in  post.postphotos.all %}
+                "{{image.photo.url}}",
+              {% endfor %}
+            ],
+             
+         });
       });
       
     </script>
@@ -64,7 +80,7 @@
   <body>
     <div id="main">
       <div class="container clear-top">
-        <form id ="form1" class="form-horizontal" role="form">
+        <form id ="form1" class="form-horizontal" role="form" enctype="multipart/form-data">
           <div class="form-group">
             <label for="title" class="control-label col-md-2">
               <h3>Update Post</h3>
@@ -81,7 +97,7 @@
           <div class="form-group">
             <label for="description" class="control-label col-md-2">Description</label>
             <div class="col-md-6">
-              <textarea  id="description" name="description" class="form-control" required value="{{post.description}} rows="4"> </textarea>
+              <textarea  id="description" name="description" class="form-control" required value="{{post.description}}" rows="4"> </textarea>
             </div>
           </div>
           <div class="form-group">
@@ -200,6 +216,12 @@
                 <li> <input type="checkbox" name="facilities" value="cctv">CCTV</li>
               </ul>
             </div>
+          </div>
+           <div class="form-group">
+           <input id="photos" name="photos" type="file" multiple class="file-loading" data-upload-url="#">
+           
+
+
           </div>
           <div class="form-group">
             <div class="col-md-offset-3">
