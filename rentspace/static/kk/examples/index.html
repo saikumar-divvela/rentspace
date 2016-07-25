@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- release v4.3.2, copyright 2014 - 2015 Kartik Visweswaran -->
+<!-- release v4.3.4, copyright 2014 - 2016 Kartik Visweswaran -->
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
@@ -117,12 +117,19 @@
         alert('File Selected. Name: ' + l + ', Num: ' + n);
     });
     */
+
+    $("#file-5").fileinput({
+        maxFileCount:2,
+        maxFileSize:10,
+
+    }); 
 	$("#file-3").fileinput({
 		showUpload: false,
 		showCaption: false,
 		browseClass: "btn btn-primary btn-lg",
 		fileType: "any",
-        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>"
+        previewFileIcon: "<i class='glyphicon glyphicon-king'></i>",
+        maxFileCount:2
 	});
 	$("#file-4").fileinput({
 		uploadExtraData: {kvId: '10'}
