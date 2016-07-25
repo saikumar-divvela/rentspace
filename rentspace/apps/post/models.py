@@ -10,7 +10,7 @@ class  Post(Address,object):
     title = models.CharField(max_length=100)
     description  = models.CharField(max_length=40)
     rentperday  = models.IntegerField(default=0,blank=True)
-    facilities = models.CharField(max_length=50,blank=True)
+    facilities = models.CharField(max_length=512,blank=True)
     avail_start_date = models.DateField(null=True)
     avail_end_date = models.DateField(null=True)
     status  =  models.CharField(max_length=10,choices=STATE,default=PENDING)
