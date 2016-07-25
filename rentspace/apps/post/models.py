@@ -3,6 +3,25 @@ from django.db import models
 from homepage.models import *
 from userprofile.models import User
 
+PG ='PG'
+HOUSE='HOUSE'
+VILLA='VILLA'
+FLAT='FLAT'
+
+HOUSE_TYPE = (
+    (PG,'PG'),  #
+    (HOUSE,'HOUSE'),
+    (VILLA,'VILLA'),
+    (FLAT,'FLAT'),
+)
+
+SHARED  = 'SHARED'
+PRIVATE = 'PRIVATE'
+
+ACCOM_TYPE = (
+    (SHARED,'SHARED'),
+    (PRIVATE,'PRIVATE'),
+)
 
 
 class  Post(Address,object):
@@ -10,9 +29,15 @@ class  Post(Address,object):
     title = models.CharField(max_length=100)
     description  = models.CharField(max_length=40)
     rentperday  = models.IntegerField(default=0,blank=True)
-    facilities = models.CharField(max_length=512,blank=True)
-    avail_start_date = models.DateField(null=True)
-    avail_end_date = models.DateField(null=True)
+    deposit     = models.IntegerField(default=0,blank=True)
+    guests   = models.IntegerField(default=0,blank=True)
+
+    house_type =  models.CharField(max_length=10,choices=HOUSE_TYPE,default=PG)
+    accom_type = models.CharField(max_length=10,choices=ACCOM_TYPE,default=PRIVATE)
+    accom_for = models.CharField(max_length=20,blank=True)
+
+    facilities = models.CharField(max_length=255,blank=True)
+
     status  =  models.CharField(max_length=10,choices=STATE,default=PENDING)
     is_active = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
