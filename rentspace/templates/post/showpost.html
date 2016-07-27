@@ -85,30 +85,27 @@
                      <div id="myCarousel" class="carousel slide" data-ride="carousel">
                         <!-- Indicators -->
                         <ol class="carousel-indicators">
-                           <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                           <li data-target="#myCarousel" data-slide-to="1"></li>
-                           <li data-target="#myCarousel" data-slide-to="2"></li>
+
+                          {% for image in post.postphotos.all %}
+                            {% if forloop.first %}
+                                <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                            {% else %}
+                           <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+                            {% endif %}
+                           {% endfor %}
                         </ol>
                         <!-- Wrapper for slides -->
                         <div class="carousel-inner" role="listbox">
-                           <!--
-                              <div class="item active">
-                                  <img src="{{post.postphotos.0.url}}" alt="{{post.postphotos.first.name}}">
-                              </div>
-                              -->
-                      {% with post.postphotos.all|first as image %}
-                  <div class="item active">
-                    <img src="{{ image.photo.url }}">
-                    <div class="carousel-caption">
-                      <h3> {{post.title}} </h3>
-                    </div>
-                  </div>
-                {% endwith %}
+                  
+                
                            
 
-                            {% for image in post.postphotos.all|slice:"1:"  %}
-    
-                  <div class="item">
+                {% for image in post.postphotos.all  %}
+                    {% if forloop.first %}
+                        <div class="item active">
+                    {% else %}
+                        <div class="item">
+                    {% endif %}
                   <img src="{{image.photo.url}}" alt="{{image.photo.name}}">
                   <div class="carousel-caption">
                     <h3> {{post.title}} </h3>

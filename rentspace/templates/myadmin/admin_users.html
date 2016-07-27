@@ -1,0 +1,46 @@
+<style>
+	td {
+		font-size: 12px;
+	}
+</style>
+<table class="table">
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Phone Number</th>
+        <th>Address</th>
+        <th>Is email verified</th>
+        <th>Is phone verified</th>
+        <th>Is Id verified</th>
+        <th>Is Active</th>
+        <th>Idcard Uploaded</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+      	<tr>
+        <td>{{ user.email}}</td>
+        <td>{{ user.first_name}}</td>
+        <td>{{ user.last_name}}</td>
+        <td>{{ user.phone_number}}</td>
+        <td>{{ user.address }}</td>
+        <td>{{ user.is_email_verified }}</td>
+        <td>{{ user.is_phone_verified }}</td>
+        <td>{{ user.is_id_verified }}</td>
+        <td>{{ user.is_active }}</td>
+         {% if user.idphoto  and user.idphoto.url %}
+        	<td>Uploaded</td>
+         {% else %}
+         	<td> Not Uploaded </td>
+        {% endif %}
+      	</tr>
+      {% empty %}
+        <tr>
+        No Data Found
+        </tr>
+      {% endfor %}
+
+    </tbody>
+  </table>

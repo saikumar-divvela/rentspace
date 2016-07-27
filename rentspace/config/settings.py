@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'userprofile.apps.UserprofileConfig',
     'post.apps.PostConfig',
+    'myadmin.apps.MyadminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -73,7 +74,8 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
             os.path.join (PROJECT_ROOT , 'templates') , 
-            os.path.join (PROJECT_ROOT , 'templates/homepage'), 
+            os.path.join (PROJECT_ROOT , 'templates/homepage'),
+            os.path.join (PROJECT_ROOT , 'templates/myadmin'),  
             os.path.join (PROJECT_ROOT , 'templates/user'),
             os.path.join (PROJECT_ROOT , 'templates/post')],
         'APP_DIRS': True,

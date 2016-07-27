@@ -1,0 +1,188 @@
+<html lang="en">
+<head>
+    {% include "init_header.html" %}
+<style>
+
+
+
+
+#sidebar-wrapper {
+   	z-index: 1000;
+    position: absolute;
+    margin-left: 0px;
+    left: 10px;
+    width: 200px;
+    height: 65%;
+    margin-left: -10px;
+  	overflow-y: absolute;
+  	background: #337AB7;
+ }
+
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 200px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #ffff00;
+    background: rgba(0,0,0,0.5);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    color: #ffff00;
+    font-style: italic;
+}
+
+#page-content-wrapper {
+    position: relative;
+    margin-left:200px;
+}
+
+.subitems > a {
+	margin-top: 1px;
+	text-align: center;
+	background: #121212;
+}
+
+
+  
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		//alert('hello');
+		$("#allusers").click(function(e){
+			$.get( "admin/users", function( data ) {
+				//alert(data);
+  			$( "#result" ).html( data );
+  			//alert( "Load was performed." );
+			});
+
+		});
+
+        $("#unverifiedemail").click(function(e){
+            $.get( "admin/users?isemailverified=false", function( data ) {
+                //alert(data);
+            $( "#result" ).html( data );
+            //alert( "Load was performed." );
+            });
+
+        });
+        $("#unverifiedphone").click(function(e){
+            $.get( "admin/users?isphoneverified=false", function( data ) {
+                //alert(data);
+            $( "#result" ).html( data );
+            //alert( "Load was performed." );
+            });
+
+        });
+        $("#inactiveusers").click(function(e){
+            $.get( "admin/users?isactive=false", function( data ) {
+              
+            $( "#result" ).html( data );
+            
+            });
+
+        });
+
+        $("#allposts").click(function(e){
+            $.get( "admin/posts", function( data ) {
+              
+            $( "#result" ).html( data );
+            
+            });
+
+        });
+
+        $("#unverifiedposts").click(function(e){
+            $.get( "admin/posts?isverified=false", function( data ) {
+              
+            $( "#result" ).html( data );
+            
+            });
+
+        });
+
+        $("#inactiveposts").click(function(e){
+            $.get( "admin/posts?isactive=false", function( data ) {
+              
+            $( "#result" ).html( data );
+            
+            });
+
+        });
+	});
+
+</script>
+</head>
+
+<div id="header">
+{% include "header.html" %}
+</div>
+<body>
+<div id="main">
+<div class="container-fluid">
+       <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                
+                <li>
+                    <a data-toggle="collapse" href="#collapseUsers">Users</a>
+        			 <div class="subitems collapse" id="collapseUsers">
+						<a href="#" id="allusers" class="btn">All Users</a>
+						<a href="#" id="unverifiedemail" class="btn">New Users</a>
+						<a href="#" id ="unverifiedphone" class="btn">Not Verified users(Phone)</a>
+						<a href="#" id ="inactiveusers" class="btn">Inactive Users</a>
+					</div>          
+		
+                </li>
+                <li>
+                    <a data-toggle="collapse" href="#collapsePosts">Posts</a>
+                    <div class="subitems collapse" id="collapsePosts">
+						<a href="#" id="allposts" class="btn">All Posts</a>
+						<a href="#" id="unverifiedposts" class="btn">Not Verified Posts(Email)</a>
+						<a href="#" id="inactiveposts"class="btn">Deleted Posts</a>
+					</div>
+                </li>
+                <li>
+                    <a href="#">Send Email</a>
+                </li>
+          	</ul>
+      
+        </div>
+            <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="result"></div>
+                    </div>
+                </div>
+            </div>
+         </div>
+        
+</div>
+</div>
+</body>
+<div id="footer">
+{% include "footer.html" %}
+</div>
+</html>

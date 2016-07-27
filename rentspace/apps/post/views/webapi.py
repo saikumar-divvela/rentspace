@@ -210,6 +210,17 @@ def updatepost(request):
         p.accom_for = accom_for
 
         p.save()
+
+        if request.FILES.getlist("photos"):
+            print (request.FILES.getlist("photos"))
+            for f in request.FILES.getlist("photos"):
+                print (f)
+                
+                image = PostPhoto()
+                image.photo = f
+                image.post = p
+                image.save()
+                
         return HttpResponseRedirect("/updatepost/?msg=susscessfully updated&id="+postid)
     else:
         postid = request.GET.get("id")
