@@ -6,16 +6,22 @@
 <script type="text/javascript">
             $(".verify").click(function(e){
             var userid = $(this).attr('id');  
+            var link = $(this);
 
             $.ajax({
                 url: "verifyuseridcard",
                 type: "get", 
                 data:{userid:userid},
                 success: function(response) {
-                   $( "#result" ).html( response.text );
+                   alert(response); 
+                   alert(link.attr('id'));
+                   $( "#status" ).html( response);
+                   link.text("Verified");
+                   link.contents().unwrap();
                 },
                 error: function(xhr) {
-                    $( "#result" ).html( "error occurred");
+                    $( "#status" ).html( "error occurred");
+                    $link.text("Error:Try Again");
                 }
             });
 
@@ -39,7 +45,7 @@
     </thead>
     <tbody>
         <tr>
-          <div id="result"> </div>
+          <div id="status"> </div>
         </tr>
       {% for user in users %}
       	<tr>
@@ -60,7 +66,7 @@
         {% if user.is_id_verified %}
           <td>Verified</td>
         {% else %}
-          <td><a href="#" id="{{user.email}}" class="btn verify">Verify</a></td>
+          <td><a href="#" id="{{user.email}}" class="btn btn-info verify">Verify</a></td>
         {% endif %}
 
       	</tr>

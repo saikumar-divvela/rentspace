@@ -6,16 +6,22 @@
 <script>
           $(".verify").click(function(e){
             var postid = $(this).attr('id');  
-
+            var link = $(this);
             $.ajax({
                 url: "verifypost",
                 type: "get", 
                 data:{postid:postid},
                 success: function(response) {
-                   $( "#result" ).html( response.text );
+                   //alert(response); 
+                   //alert(link.attr('id'));
+                   $( "#status" ).html( response);
+                   link.text("Verified");
+                   link.contents().unwrap();
+
                 },
                 error: function(xhr) {
-                    $( "#result" ).html( "error occurred");
+                    $( "#status" ).html( "error occurred");
+                    $link.text("Error:Try Again");
                 }
             });
 
@@ -39,7 +45,7 @@
     </thead>
     <tbody>
         <tr>
-          <div id="result"> </div>
+          <div id="status"> </div>
         </tr>
       {% for post in posts %}
       	<tr>
@@ -50,12 +56,13 @@
         <td>{{ post.house_type}}</td>
         <td>{{ post.accom_type}}</td>
         <td>{{ post.accom_for}}</td>
+        <td>{{ post.address}}</td>
         <td>{{ post.status}}</td>
         <td>{{ post.is_active}}</td>
         {% if post.is_verified %}
           <td>Verified</td>
         {% else %}
-          <td><a href="#" id="{{post.id}}" class="btn verify">Verify</a></td>
+          <td><a href="#" id="{{post.id}}" class="btn btn-info verify">Verify</a></td>
         {% endif %}
         </tr>
       {% empty %}
