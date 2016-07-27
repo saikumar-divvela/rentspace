@@ -1,0 +1,65 @@
+*** This info is for developers only
+
+*** Tasks
+*** Todo
+*** Issues/Bugs
+*** Notes
+
+***** Tasks *****
+* Development
+* Plan for backup data
+* Plan for upgrading web site
+* Mailing Service
+* Integration with SMS gateway
+
+***** TODO *****
+* Add my shortlisting link
+* Implement backend for search
+* Pagination for required pages (Search/My Postings etc)
+* Admin UI  
+   verify post   
+   verify user 
+
+* send email
+    for registered users
+    contact operation
+* send sms
+    otp
+    contact operation
+
+* verify email id (When user enters the email in broswer, email is verified. User can login)
+* verify sms (otp) (When user enters the OTP in browser, mobile number is verified)
+* change password (After changing the password, Logout the user. User has to login back)
+* forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)  
+
+** Add Post (missing landmark)
+** Edit Post (description is missing )
+** delete post (Dont delete the post , just purge the post)
+
+** validate input fields on each page
+    Login
+    Change password
+    Forgot password
+    
+    Add Post
+    Update Post
+    Delete Post
+
+*** Add maps
+*** Admin UI
+    send email to any user
+    quick notes
+    user log
+
+*** Search results
+    Display popular localilities in left side
+
+**** Issues/Bugs/Fix Later *****
+
+? Number of pics to be uploaded and size of each image
+? what to do with invalid posts (with incorrect details)
+* Edit Post (can not delete already added images)
+
+**** Notes *****
+Rest services
+    Token based authentication login/logout

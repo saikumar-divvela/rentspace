@@ -1,5 +1,4 @@
 Technologies: Python, DJango , Mysql
-Tools:
 Following software is required for development
 
 Python 3.4.x
@@ -8,7 +7,6 @@ virtualenv       (This is virtual environment tool python to keep the packages r
 
 Django 1.9.6     (this has inbuilt web server that we can use for development and local testing)
 Django rest framework (3.3.3)
-
 mysql-server  (Ver 14.14 Distrib 5.5.49)
 mysql work bench (to connect to mysql server)
 
