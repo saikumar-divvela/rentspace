@@ -269,6 +269,8 @@ def deletepost(request):
 def verifypost(request):
     print ("You hit verify post")
     postid = request.GET.get("postid")
+    print(postid)
     post = Post.objects.get(pk=postid)
     post["is_verified"] = True
+    post.save()
     return HttpResponse("success")
