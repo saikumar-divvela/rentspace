@@ -1,0 +1,90 @@
+*** Requirements
+*** Functionality/Design
+*** Plan
+***** Requirements *****
+Objective: Temporary accomdation (budget accomdation) for students,working people etc.  Accomdation in PGs, Independent houses, Flats are targeted. 
+User searches the website for accomdation. See list of Ads. Clicks contact button and gets the sms/email with owner details of post.  Owner and customer communicate offline.
+Login is required to post an Ad, Contact, Shortlist the property. 
+
+Main Features
+    Add Post
+    My Postings
+    Shortlisted Posts
+    Search Post
+    Locate property in google map
+    Send Alerts using SMS/Email
+
+Add form for looking for Tenant
+we will maintain this info in our database
+
+
+***** Design ******
+### Fields for property (Add/Edit Post)
+    rent
+    security deposit
+
+    Housing Type sharing/private room
+    Accomdation Type PG/Flat/Independent
+    Accomdation for Men/Women/Family
+
+    Amenities
+        TV       Washing Machine         A/C         Fridge         Geyser
+        Microwave WIFI  Sofa Bed Cooking Allowed    Laundry Parking
+        CCTV  Elevator Power Backup  Attached bathroom Food
+
+
+    About this property
+
+
+    Rules
+    -------
+        No restrictions on entry 
+        Documents proof required 
+        Guests not allowed 
+        Drinking not allowed
+        Smoking  not allowed
+
+### Search Results  
+    Show main post details with buttons Contact, Shortlist
+
+### Search criteria
+    Budget
+	location
+	boys/girls/family
+	PG/Home
+    sharing/private
+
+* Verification is mandatory
+
+***** Plan  ******
+Version 1.0 
+iteration 1 (basic features)
+    UI development and API development
+    Login/New user registration
+    Post an Ad
+    Search for Ad
+    Display list of Ads
+    Show info of seleced Ad
+
+About the site
+    FAQ, Contact us, Privacy policy, Guest policies, User agreement,Terms and conditions
+
+About company
+    About us/Team, Blog, Social Responsibility
+
+iteration 2 
+    Forgot password
+    OTP/Email verification/ID card verificaion
+    Admin UI 
+        Verify post (details and pics)
+        Send an email to any user
+        Verify User (id card)
+
+iteration 3
+    Connect using facebook/gmail
+    Offers page/ Promotions
+    follow us on facebook, twitter, google play etc
+
+Version 1.1
+    Integration with payment gateway
+    validate location using google map

@@ -1,0 +1,10 @@
+### Enter here the bugs found in testing. Bug can be anything but it has to be very specific
+    The priority of following bugs is in descending order    
+    Examples: Error in functionality
+              Button/Links are not working or taking to wrong page
+              Form is accepting wrong data (like text in mobile number etc, accepting empty data)      
+              In correct or no error/status messages
+              UI is not intuitive
+              UI layout/fonts/colors not good (for this mention the exact page and text )
+                
+
