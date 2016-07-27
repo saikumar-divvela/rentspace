@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^register$',views.create_user,name="register"),
     url(r'^login/?$',views.login_user,name="login"),
     #url(r'^logout/$',views.logout_user),  # TODO not working
-    url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'}),
+    url(r'^logout/?$', 'django.contrib.auth.views.logout', {'next_page': '/'},name="logout"),
     url(r'^myaccount$',TemplateView.as_view(template_name='myaccount.html'),name="myaccount"),
     url(r'^changepassword$',TemplateView.as_view(template_name='changepassword.html'),name="change_password"),
     url(r'^updatepassword$',views.change_password,name="update_password"),
