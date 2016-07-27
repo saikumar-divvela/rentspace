@@ -19,6 +19,8 @@ urlpatterns = [
     url(r'^help$',TemplateView.as_view(template_name='help.html'),name="help"),
     url(r'^faq$',TemplateView.as_view(template_name='faq.html'),name="faq"),
     url(r'^terms$',TemplateView.as_view(template_name='terms.html'),name="terms"),
+
+    
 ]
 
 

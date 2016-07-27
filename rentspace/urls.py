@@ -39,6 +39,7 @@ urlpatterns = [
     url(r'^', include('homepage.urls')),
     url(r'^', include('userprofile.urls')),
     url(r'^', include('post.urls')),
+    url(r'^', include('myadmin.urls')),
 
 #    url(r'^polls/', include('polls.urls')),
 #    url(r'^', include(router.urls)),
