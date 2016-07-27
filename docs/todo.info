@@ -31,6 +31,25 @@ Version 1.1
     validate location using google map
 --->
 This week
+<<<<<<< HEAD
+    Add post
+        Add missing details (house type, accomdataion type, add landmark , for boys/girls)
+        User can add upto 5 images /User should see preview of uploaded images
+
+    Edit Post
+        Show all the fields
+        User can edit/delete the images
+
+    Show post -> show valid details only
+
+    Implement search functionality
+
+    Pagination
+        search page
+        my postings
+        my shortlisted
+
+=======
     add landmark
     description is missing in pages
 
@@ -56,6 +75,7 @@ This week
         my postings
         my shortlisted
 
+>>>>>>> c68c679ea7926d5ed9e9099f1210cd31036a4b1a
 
 TODO  tasks
 Send email notification
