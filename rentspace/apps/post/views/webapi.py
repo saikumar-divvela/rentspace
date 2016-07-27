@@ -11,7 +11,7 @@ from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 
 from post.models import Post,PostPhoto
 
-
+#TODO  Send SMS/Email of owner details to owner and customer
 @login_required(login_url='/signin/')
 def contactpostowner(request):
     print ("you hit contact post owner")
@@ -19,6 +19,7 @@ def contactpostowner(request):
     print (postid)
     return HttpResponseRedirect("/home")
 
+# TODO bookmark the post
 @login_required(login_url='/signin/')
 def shortlistpost(request):
     print ("you hit shortlist post")
@@ -26,6 +27,13 @@ def shortlistpost(request):
     print (postid)
     return HttpResponseRedirect("/home")
 
+# TODO remove bookmark for the post
+@login_required(login_url='/signin/')
+def delistpost(request):
+    print ("you hit delistpost ")
+    postid = request.GET.get("id")
+    print (postid)
+    return HttpResponseRedirect("/home")
 
 @csrf_exempt
 def searchposts(request):
@@ -52,6 +60,20 @@ def myposts(request):
     context ={}
     context["posts"]=postlist
     return render(request,'myposts.html',context)
+
+#TODO get shortlisted posts
+@csrf_exempt
+@login_required(login_url='/signin/')
+def shortlistedposts(request):
+    print ("you hit shortlistedposts")
+    postlist = Post.objects.all()
+    for post in postlist:
+        print (post)
+    context ={}
+    context["posts"]=postlist
+    context["shortlistedposts"] = True
+    return render(request,'myposts.html',context)        
+
 
 @login_required(login_url='/signin/')
 def showpost(request):
@@ -243,3 +265,10 @@ def deletepost(request):
         #return render(request,'postlist.html',context)
         return HttpResponseRedirect("/posts")
 
+@login_required(login_url='/signin/')
+def verifypost(request):
+    print ("You hit verify post")
+    postid = request.GET.get("postid")
+    post = Post.objects.get(pk=postid)
+    post["is_verified"] = True
+    return HttpResponse("success")

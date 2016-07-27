@@ -3,6 +3,25 @@
 		font-size: 12px;
 	}
 </style>
+<script type="text/javascript">
+            $(".verify").click(function(e){
+            var userid = $(this).attr('id');  
+
+            $.ajax({
+                url: "verifyuseridcard",
+                type: "get", 
+                data:{userid:userid},
+                success: function(response) {
+                   $( "#result" ).html( response.text );
+                },
+                error: function(xhr) {
+                    $( "#result" ).html( "error occurred");
+                }
+            });
+
+        });
+
+</script>
 <table class="table">
     <thead>
       <tr>
@@ -13,12 +32,15 @@
         <th>Address</th>
         <th>Is email verified</th>
         <th>Is phone verified</th>
-        <th>Is Id verified</th>
         <th>Is Active</th>
         <th>Idcard Uploaded</th>
+        <th>Is Id verified</th>
       </tr>
     </thead>
     <tbody>
+        <tr>
+          <div id="result"> </div>
+        </tr>
       {% for user in users %}
       	<tr>
         <td>{{ user.email}}</td>
@@ -28,13 +50,19 @@
         <td>{{ user.address }}</td>
         <td>{{ user.is_email_verified }}</td>
         <td>{{ user.is_phone_verified }}</td>
-        <td>{{ user.is_id_verified }}</td>
         <td>{{ user.is_active }}</td>
          {% if user.idphoto  and user.idphoto.url %}
         	<td>Uploaded</td>
          {% else %}
          	<td> Not Uploaded </td>
         {% endif %}
+
+        {% if user.is_id_verified %}
+          <td>Verified</td>
+        {% else %}
+          <td><a href="#" id="{{user.email}}" class="btn verify">Verify</a></td>
+        {% endif %}
+
       	</tr>
       {% empty %}
         <tr>

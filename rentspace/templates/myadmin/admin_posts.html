@@ -3,6 +3,24 @@
 		font-size: 12px;
 	}
 </style>
+<script>
+          $(".verify").click(function(e){
+            var postid = $(this).attr('id');  
+
+            $.ajax({
+                url: "verifypost",
+                type: "get", 
+                data:{postid:postid},
+                success: function(response) {
+                   $( "#result" ).html( response.text );
+                },
+                error: function(xhr) {
+                    $( "#result" ).html( "error occurred");
+                }
+            });
+
+        });
+</script>
 <table class="table">
     <thead>
       <tr>
@@ -13,14 +31,32 @@
         <th>House Type</th>
         <th>Accomdation Type</th>
         <th>Accomdation For</th>
-        <th>Address </th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>IsActive</th>
+        <th>IsVerified</th>
       </tr>
     </thead>
     <tbody>
+        <tr>
+          <div id="result"> </div>
+        </tr>
       {% for post in posts %}
       	<tr>
         <td>{{ post.title}}</td>
         <td>{{ post.description}}</td>
+        <td>{{ post.rentperday}}</td>
+        <td>{{ post.deposit}}</td>
+        <td>{{ post.house_type}}</td>
+        <td>{{ post.accom_type}}</td>
+        <td>{{ post.accom_for}}</td>
+        <td>{{ post.status}}</td>
+        <td>{{ post.is_active}}</td>
+        {% if post.is_verified %}
+          <td>Verified</td>
+        {% else %}
+          <td><a href="#" id="{{post.id}}" class="btn verify">Verify</a></td>
+        {% endif %}
         </tr>
       {% empty %}
         <tr>

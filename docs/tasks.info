@@ -13,13 +13,13 @@
 * Integration with SMS gateway
 
 ***** TODO *****
-* Add my shortlisting link
-* Implement backend for search
-* Pagination for required pages (Search/My Postings etc)
-* Admin UI  
-   verify post   
+* Admin UI           1Hr
    verify user 
+   verify post
+* Add my shortlisting link  1Hr
 
+* Implement backend for search  1Hr
+* Pagination for required pages (Search/My Postings etc)
 * send email
     for registered users
     contact operation
@@ -27,9 +27,9 @@
     otp
     contact operation
 
+* change password (After changing the password, Logout the user. User has to login back)
 * verify email id (When user enters the email in broswer, email is verified. User can login)
 * verify sms (otp) (When user enters the OTP in browser, mobile number is verified)
-* change password (After changing the password, Logout the user. User has to login back)
 * forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)  
 
 ** Add Post (missing landmark)

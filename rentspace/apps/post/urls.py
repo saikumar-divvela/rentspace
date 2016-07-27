@@ -10,10 +10,14 @@ urlpatterns = [
     url(r'^searchposts/$',views.searchposts,name="searchposts"),
     url(r'^updatepost/$',views.updatepost,name="updatepost"),
     url(r'^deletepost/$',views.deletepost,name="deletepost"),
+    url(r'^shortlistedposts/$',views.shortlistedposts,name="shortlistedposts"),
 
     url(r'^contactpostowner/$',views.contactpostowner,name="contactpostowner"),
-    url(r'^shortlist/$',views.shortlistpost,name="shortlist"),
+    url(r'^shortlistpost/$',views.shortlistpost,name="shortlistpost"),
+    url(r'^delistpost/$',views.delistpost,name="delistpost"),
     
+
+    url(r'^verifypost$',views.verifypost,name="verifypost"),
 
     ### REST API ADMIN
 

@@ -12,8 +12,9 @@
             <ul class="dropdown-menu">
                 <li><a href="{% url 'myaccount' %}" >My Account</a></li>
                 <li><a href="{% url 'change_password' %}" >Change Password</a></li>
-                <li><a href="{% url 'myposts' %}">Manage Listings</a></li>
-                <li><a href="/logout">Logout</a></li>
+                <li><a href="{% url 'myposts' %}">Manage Postings</a></li>
+                <li><a href="{% url 'shortlistedposts' %}">Shortlisted</a></li>
+                <li><a href="{% url 'logout' %}"">Logout</a></li>
             </ul>
         </div>
       {% else %}
