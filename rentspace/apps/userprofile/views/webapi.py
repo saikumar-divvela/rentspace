@@ -31,7 +31,6 @@ def test_login(request):
     context["msg"]= "if you see this message. it means you are logged in"
     return HttpResponse(template.render(context, request))
 
-
 @login_required(login_url='/signin/')
 def test_file_upload(request):
     if request.method == 'POST':
@@ -171,6 +170,9 @@ def reset_password(request):
 @csrf_exempt
 @login_required(login_url='/signin/')
 def edit_profile(request):
+    print ('You hit edit profile')
+    print (request.method)
+    print (request.POST.get("firstname",""))
     if request.method == 'POST':
         first_name = request.POST.get("firstname","")
         last_name =  request.POST.get("lastname","")   
@@ -226,7 +228,7 @@ def edit_profile(request):
         output = {}
         output["status"]= "success"
         output["msg"]= "User details are updated successfully"
-        return HttpResponseRedirect("/editprofile")
+        return HttpResponseRedirect("/editprofile?msg="+output["msg"])
     else:
         context = {}
         context["status"]= "success"

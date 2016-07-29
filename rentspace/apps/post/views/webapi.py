@@ -257,6 +257,14 @@ def updatepost(request):
 @login_required(login_url='/signin/')
 def deletepost(request):
     print ("you hit delete post")
+
+    postid = request.GET.get("id")
+    post = Post.objects.get(pk=postid)
+    post["is_active"] = False
+    post.save()
+    return HttpResponseRedirect("/myposts")
+
+    '''
     if request.method == 'POST':
         print ("got post request")
         # add post to db
@@ -264,13 +272,5 @@ def deletepost(request):
         context ={}
         #return render(request,'postlist.html',context)
         return HttpResponseRedirect("/posts")
-
-@login_required(login_url='/signin/')
-def verifypost(request):
-    print ("You hit verify post")
-    postid = request.GET.get("postid")
-    print(postid)
-    post = Post.objects.get(pk=postid)
-    post["is_verified"] = True
-    post.save()
-    return HttpResponse("success")
+    '''
+        

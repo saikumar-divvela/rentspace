@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^register_success$',views.register_success,name="register_success"),
     url(r'^test_login$',views.test_login,name="test_login"),
     url(r'^test_file_upload$',views.test_file_upload,name="test_file_upload"),
+   
 
 
     # REST api  (ADMIN)
