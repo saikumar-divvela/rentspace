@@ -104,6 +104,9 @@ class User(AbstractBaseUser,Address):
         # Simplest possible answer: Yes, always
         return True
 
+    def __setitem__(self, key, value):
+        object.__setattr__(self, key, value)
+
     @property
     def is_staff(self):
         "Is the user a member of staff?"

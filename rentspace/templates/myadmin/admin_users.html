@@ -2,32 +2,65 @@
 	td {
 		font-size: 12px;
 	}
+  .errormsg {
+    color:red;
+  }
 </style>
 <script type="text/javascript">
-            $(".verify").click(function(e){
+ 
+        $(".verifyid").click(function(e){
             var userid = $(this).attr('id');  
             var link = $(this);
-
             $.ajax({
-                url: "verifyuseridcard",
+                url: "verifyidcard",
                 type: "get", 
                 data:{userid:userid},
                 success: function(response) {
-                   alert(response); 
-                   alert(link.attr('id'));
-                   $( "#status" ).html( response);
                    link.text("Verified");
                    link.contents().unwrap();
                 },
                 error: function(xhr) {
-                    $( "#status" ).html( "error occurred");
-                    $link.text("Error:Try Again");
+                    $( "#status" ).html( "Error occurred");
+                    link.text("Error:Try Again");
+                }
+            });
+        });
+
+        $(".verifyphone").click(function(e){
+            var userid = $(this).attr('id');  
+            var link = $(this);
+            $.ajax({
+                url: "verifyphone",
+                type: "get", 
+                data:{userid:userid},
+                success: function(response) {
+                   link.text("Verified");
+                   link.contents().unwrap();
+                },
+                error: function(xhr) {
+                    $( "#status" ).html( "Error occurred");
+                    link.text("Error:Try Again");
                 }
             });
 
         });
 
+        $(".viewimage").click(function(e){
+            var link = $(this);
+            $("#imagemodal img").attr("src",link.attr("href"));
+            $("#imagemodal").modal("show");
+            return false;
+        });
+
+        /*
+        $(function(){
+           
+        });
+        */
+
 </script>
+
+Records count: {{ users.count }}
 <table class="table">
     <thead>
       <tr>
@@ -35,7 +68,6 @@
         <th>First Name</th>
         <th>Last Name</th>
         <th>Phone Number</th>
-        <th>Address</th>
         <th>Is email verified</th>
         <th>Is phone verified</th>
         <th>Is Active</th>
@@ -45,20 +77,26 @@
     </thead>
     <tbody>
         <tr>
-          <div id="status"> </div>
+          <div id="status" class="errormsg"> </div>
         </tr>
       {% for user in users %}
       	<tr>
-        <td>{{ user.email}}</td>
+        <td><a href="#usermodal" data-toggle="modal"> {{ user.email}} </a></td>
         <td>{{ user.first_name}}</td>
         <td>{{ user.last_name}}</td>
         <td>{{ user.phone_number}}</td>
-        <td>{{ user.address }}</td>
         <td>{{ user.is_email_verified }}</td>
-        <td>{{ user.is_phone_verified }}</td>
+
+        {% if user.is_phone_verified %}
+          <td>Verified</td>
+        {% else %}
+          <td><a href="#" id="{{user.id}}" class="btn btn-info verifyphone">Verify</a></td>
+        {% endif %}
+
+
         <td>{{ user.is_active }}</td>
          {% if user.idphoto  and user.idphoto.url %}
-        	<td>Uploaded</td>
+        	<td><a href="{{user.idphoto.url}}" data-toggle="modal" id="{{user.id}}" class="btn btn-info viewimage">View Image</a></td>
          {% else %}
          	<td> Not Uploaded </td>
         {% endif %}
@@ -66,7 +104,7 @@
         {% if user.is_id_verified %}
           <td>Verified</td>
         {% else %}
-          <td><a href="#" id="{{user.email}}" class="btn btn-info verify">Verify</a></td>
+          <td><a href="#" id="{{user.id}}" class="btn btn-info verifyid">Verify</a></td>
         {% endif %}
 
       	</tr>
@@ -78,3 +116,17 @@
 
     </tbody>
   </table>
+
+  <div id="test">
+
+  </div>
+
+  <div id="imagemodal" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-body">
+                  <img src="" class="img-responsive">
+              </div>
+          </div>
+        </div>
+  </div>

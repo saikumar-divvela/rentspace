@@ -61,22 +61,24 @@
                   </div>
 
                   {% if shortlistedposts %}
-
-                  <div class="col-md-2" >
-                     <div class="row  button">
-                        <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Edit</a>
-                     </div>
-                     <div class="row button">
-                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a> 
-                     </div>
-                  </div>
-                  {% else  %}   
+                  
                   <div class="col-md-2" >
                      <div class="row  button">
                         <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Contact</a>
                      </div>
                      <div class="row button">
                         <a href="{% url 'delistpost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delist</a> 
+                     </div>
+                  </div>
+
+
+                  {% else  %}   
+                  <div class="col-md-2" >
+                     <div class="row  button">
+                        <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Edit</a>
+                     </div>
+                     <div class="row button">
+                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a> 
                      </div>
                   </div>
                   {% endif %}

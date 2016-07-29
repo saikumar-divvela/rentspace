@@ -12,21 +12,18 @@
                 type: "get", 
                 data:{postid:postid},
                 success: function(response) {
-                   //alert(response); 
-                   //alert(link.attr('id'));
-                   $( "#status" ).html( response);
                    link.text("Verified");
                    link.contents().unwrap();
-
                 },
                 error: function(xhr) {
                     $( "#status" ).html( "error occurred");
-                    $link.text("Error:Try Again");
+                    link.text("Error:Try Again");
                 }
             });
 
         });
 </script>
+Records count: {{ posts.count }}
 <table class="table">
     <thead>
       <tr>
@@ -34,8 +31,7 @@
         <th>Description</th>
         <th>RentPerDay</th>
         <th>deposit</th>
-        <th>House Type</th>
-        <th>Accomdation Type</th>
+        <th>House/Accomdation Type</th>
         <th>Accomdation For</th>
         <th>Address</th>
         <th>Status</th>
@@ -53,8 +49,7 @@
         <td>{{ post.description}}</td>
         <td>{{ post.rentperday}}</td>
         <td>{{ post.deposit}}</td>
-        <td>{{ post.house_type}}</td>
-        <td>{{ post.accom_type}}</td>
+        <td>{{ post.house_type}}/{{ post.accom_type}}</td>
         <td>{{ post.accom_for}}</td>
         <td>{{ post.address}}</td>
         <td>{{ post.status}}</td>

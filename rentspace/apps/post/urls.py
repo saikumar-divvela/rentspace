@@ -17,8 +17,6 @@ urlpatterns = [
     url(r'^delistpost/$',views.delistpost,name="delistpost"),
     
 
-    url(r'^verifypost$',views.verifypost,name="verifypost"),
-
     ### REST API ADMIN
 
     # url(r'^api/users/(?P<user_pk>[0-9]+)/posts/$', views.PostList.as_view()),
