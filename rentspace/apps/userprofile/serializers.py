@@ -12,7 +12,7 @@ class UserRegSerializer(serializers.ModelSerializer):
 
 class UserSerializer(serializers.ModelSerializer):
     #posts = PostSerializer(read_only=True,many=True)
-    
+
     class Meta:
         model = User
         fields = ( 'id','email','first_name','last_name','phone_number','date_of_birth','gender','is_staff','address','street','city','pincode','state','country')

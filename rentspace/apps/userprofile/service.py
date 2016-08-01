@@ -7,7 +7,6 @@ def createuser(username,password,first_name,last_name,phone_number):
 	response = {}
 	response["status"] = message.SUCCESS
 	try: 
-
 		if username is None or password is None or first_name is None or last_name is None or phone_number is None:
 			raise Exception(message.MISSING_INPUT_FIELD)
 
