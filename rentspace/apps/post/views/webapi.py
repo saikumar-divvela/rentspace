@@ -6,21 +6,19 @@ import os
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 
 from post.models import Post,PostPhoto
 
 #TODO  Send SMS/Email of owner details to owner and customer
-@login_required(login_url='/signin/')
+@login_required
 def contactpostowner(request):
     print ("you hit contact post owner")
     postid = request.GET.get("id")
     print (postid)
     return HttpResponseRedirect("/home")
 
-# TODO bookmark the post
-@login_required(login_url='/signin/')
+@login_required
 def shortlistpost(request):
     print ("you hit shortlist post")
     postid = request.GET.get("id")
@@ -28,7 +26,7 @@ def shortlistpost(request):
     return HttpResponseRedirect("/home")
 
 # TODO remove bookmark for the post
-@login_required(login_url='/signin/')
+@login_required
 def delistpost(request):
     print ("you hit delistpost ")
     postid = request.GET.get("id")
@@ -51,7 +49,7 @@ def searchposts(request):
     return render(request,'postlist.html',context)
 
 @csrf_exempt
-@login_required(login_url='/signin/')
+@login_required
 def myposts(request):
     print ("you hit my posts")
     postlist = Post.objects.all()
@@ -61,9 +59,8 @@ def myposts(request):
     context["posts"]=postlist
     return render(request,'myposts.html',context)
 
-#TODO get shortlisted posts
 @csrf_exempt
-@login_required(login_url='/signin/')
+@login_required
 def shortlistedposts(request):
     print ("you hit shortlistedposts")
     postlist = Post.objects.all()
@@ -75,7 +72,7 @@ def shortlistedposts(request):
     return render(request,'myposts.html',context)        
 
 
-@login_required(login_url='/signin/')
+@login_required
 def showpost(request):
     print ("you hit show post")
     postid = request.GET.get("id")
@@ -88,7 +85,7 @@ def showpost(request):
 
 
 @csrf_exempt
-@login_required(login_url='/signin')
+@login_required
 def addpost(request):
     print ("you hit add post")
     if request.method == 'POST':
@@ -170,7 +167,7 @@ def addpost(request):
         return render(request,'addpost.html',context)
     
 @csrf_exempt    
-@login_required(login_url='/signin/')
+@login_required
 def updatepost(request):
     print ("you hit update post")
     if request.method == 'POST':
@@ -254,7 +251,7 @@ def updatepost(request):
         return render(request,'updatepost.html',context)
 
 
-@login_required(login_url='/signin/')
+@login_required
 def deletepost(request):
     print ("you hit delete post")
 
@@ -263,14 +260,4 @@ def deletepost(request):
     post["is_active"] = False
     post.save()
     return HttpResponseRedirect("/myposts")
-
-    '''
-    if request.method == 'POST':
-        print ("got post request")
-        # add post to db
-    else:
-        context ={}
-        #return render(request,'postlist.html',context)
-        return HttpResponseRedirect("/posts")
-    '''
         

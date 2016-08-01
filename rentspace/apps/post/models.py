@@ -58,14 +58,6 @@ class  Post(Address,object):
         ordering = ('id',)
         db_table = "post"
 
-class PostAttributes(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='attributes')
-    name = models.CharField(max_length=40,blank=True)
-    value = models.CharField(max_length=40,blank=True)
-    class Meta:
-        ordering = ('id',)
-        db_table = "post_attribute"
-
 
 class  PostPhoto(models.Model):
     photo = models.ImageField()
@@ -74,15 +66,3 @@ class  PostPhoto(models.Model):
         ordering = ('id',)
         db_table = "images"
 
-'''
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
-    reviewedby = models.ForeignKey(User, null=True, on_delete=models.CASCADE,related_name='comments')
-    username  = models.CharField(max_length=50,blank=True)
-    description = models.CharField(max_length=100,blank=True)
-    status = models.CharField(max_length=10,blank=True,choices=STATE,default=PENDING)
-
-    class Meta:
-        ordering = ('id',)
-        db_table = "comment"
-'''

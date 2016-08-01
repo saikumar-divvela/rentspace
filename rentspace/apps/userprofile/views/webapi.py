@@ -3,51 +3,15 @@ import json
 import os
 
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 from django.template import loader
-from django.http import HttpResponseRedirect
-
 from django.conf import settings
-
+from django.views.decorators.csrf import csrf_exempt
 
 from userprofile.models import User
-from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth.decorators import login_required
-from django import forms
-# Create your views here.
 
-
-class UploadFileForm(forms.Form):
-    #title = forms.CharField(max_length=50)
-    file = forms.FileField()
-
-
-@login_required(login_url='/signin/')
-def test_login(request):
-    
-    template = loader.get_template('index.html')
-    context ={}
-    context["msg"]= "if you see this message. it means you are logged in"
-    return HttpResponse(template.render(context, request))
-
-@login_required(login_url='/signin/')
-def test_file_upload(request):
-    if request.method == 'POST':
-        form = UploadFileForm(request.POST, request.FILES)
-        print (request)
-        print (request.FILES)
-        if form.is_valid():
-            f = request.FILES['file']
-            print (f)
-            with open(os.path.join(settings.MEDIA_ROOT,str(f)), 'wb+') as dest:
-                for chunk in f.chunks():
-                    dest.write(chunk)
-            return HttpResponse('file upload success')
-           
-    else:
-        form = UploadFileForm()
-    return render(request, 'upload.html', {'form': form})
 
 @csrf_exempt
 def create_user(request):
@@ -82,8 +46,8 @@ def register_success(request):
     context["msg"]= "User is created successfully"
     return render(request,'register_success.html',context)
 
-@csrf_exempt
 # Retun success page if success else show same page with error message
+@csrf_exempt
 def login_user(request):
     print ('You hit login user')
     if request.method == 'POST':
@@ -126,7 +90,7 @@ def logout_user(request):
     return render(request,'index.html',context)
 
 @csrf_exempt
-@login_required(login_url='/signin')
+@login_required
 def change_password(request):
     old_password = request.POST.get("old_password","")
     new_password = request.POST.get("new_password","")
@@ -168,7 +132,7 @@ def reset_password(request):
     return HttpResponse("you hit reset password change page")
 
 @csrf_exempt
-@login_required(login_url='/signin/')
+@login_required
 def edit_profile(request):
     print ('You hit edit profile')
     print (request.method)
@@ -194,18 +158,7 @@ def edit_profile(request):
         if request.FILES:
             saveuser.idphoto = request.FILES['idphoto']
 
-        '''
-        if request.FILES:
-            f = request.FILES['idcard']
-            print (str)
-
-            with open(os.path.join(settings.MEDIA_ROOT,str(f)), 'wb+') as dest:
-                for chunk in f.chunks():
-                    dest.write(chunk)
-
-            saveuser.id_card_data = str(f)    
-        '''    
-        
+       
         if saveuser.idphoto:
             print (saveuser.idphoto.url)
             print (saveuser.idphoto.name,saveuser.idphoto.size)
@@ -222,8 +175,6 @@ def edit_profile(request):
         saveuser.state = state
         saveuser.country = country
         saveuser.save()
-
-   
     
         output = {}
         output["status"]= "success"
