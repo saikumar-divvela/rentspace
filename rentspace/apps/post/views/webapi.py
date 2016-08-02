@@ -9,7 +9,8 @@ from django.shortcuts import render
 
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 
-from post.models import Post,PostPhoto
+from post.models import Post,PostPhoto,ShortlistedPosts
+from django.db.models import Q
 
 #TODO  Send SMS/Email of owner details to owner and customer
 @login_required(login_url='/signin/')
@@ -24,8 +25,16 @@ def contactpostowner(request):
 def shortlistpost(request):
     print ("you hit shortlist post")
     postid = request.GET.get("id")
-    print (postid)
-    return HttpResponseRedirect("/home")
+
+    bookmark = ShortlistedPosts()
+    post = Post.objects.get(id=postid)
+    bookmark.post = post
+    bookmark.user  = request.user
+    bookmark.save()
+
+ 
+    return HttpResponseRedirect("/shortlistedposts")
+
 
 # TODO remove bookmark for the post
 @login_required(login_url='/signin/')
@@ -33,7 +42,8 @@ def delistpost(request):
     print ("you hit delistpost ")
     postid = request.GET.get("id")
     print (postid)
-    return HttpResponseRedirect("/home")
+    ShortlistedPosts.objects.filter(post_id=postid).delete()
+    return HttpResponseRedirect("/shortlistedposts")
 
 @csrf_exempt
 def searchposts(request):
@@ -41,11 +51,12 @@ def searchposts(request):
     
     location = request.GET.get("location","")
     housetype = request.GET.get("housetype","")
-    bookingtype = request.GET.get("bookingtype","")
-    people = request.GET.get("people","")
+    accomtype = request.GET.get("accomtype","")
+    accomfor = request.GET.get("accomfor","")
     
-    print (location, housetype,bookingtype,people)
-    postlist = Post.objects.all()
+    print (location, housetype,accomtype,accomfor)
+    #postlist = Post.objects.all()
+    postlist = Post.objects.filter(house_type=housetype,accom_type=accomtype,accom_for__contains=accomfor)
     context ={}
     context["posts"]=postlist
     return render(request,'postlist.html',context)
@@ -66,7 +77,11 @@ def myposts(request):
 @login_required(login_url='/signin/')
 def shortlistedposts(request):
     print ("you hit shortlistedposts")
-    postlist = Post.objects.all()
+    bookmarks = ShortlistedPosts.objects.filter(user_id=request.user.id)
+    print (bookmarks)
+    postlist = []
+    for bookmark in bookmarks:
+        postlist.append(Post.objects.get(id=bookmark.post_id))
     for post in postlist:
         print (post)
     context ={}
@@ -264,13 +279,14 @@ def deletepost(request):
     post.save()
     return HttpResponseRedirect("/myposts")
 
-    '''
-    if request.method == 'POST':
-        print ("got post request")
-        # add post to db
-    else:
-        context ={}
-        #return render(request,'postlist.html',context)
-        return HttpResponseRedirect("/posts")
-    '''
+@login_required(login_url='/signin/')
+def activatepost(request):
+    print ("you hit activate post")
+
+    postid = request.GET.get("id")
+    post = Post.objects.get(pk=postid)
+    post["is_active"] = True
+    post.save()
+    return HttpResponseRedirect("/myposts")
+
         

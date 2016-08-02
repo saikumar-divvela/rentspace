@@ -71,6 +71,12 @@
                      </div>
                   </div>
 
+                  {% elif not post.is_active   %} 
+                  <div class="col-md-2" >
+                     <div class="row  button">
+                        <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Activate</a>
+                     </div>
+                  </div>
 
                   {% else  %}   
                   <div class="col-md-2" >

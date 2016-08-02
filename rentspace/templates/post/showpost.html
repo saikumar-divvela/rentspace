@@ -155,7 +155,7 @@
                   </div>
                   <hr/>
                   <div class="row">
-                     
+                        {%  if post.is_active    %}
                         <div class="col-md-4">
                           <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Edit</a> 
                         </div>
@@ -168,7 +168,16 @@
                         <div class="col-md-4">
                           <a href="/myposts" class="btn btn-info btn-block" role="button">Back</a>    
                         </div>
-                     </a>
+                        {% else  %}
+                        <div class="col-md-4">
+                           <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Activate</a> 
+                        </div>
+
+                        <div class="col-md-4">
+                          <a href="/myposts" class="btn btn-info btn-block" role="button">Back</a>    
+                        </div>
+
+                        {% endif %}
                   </div>
                </div>
             </div>
