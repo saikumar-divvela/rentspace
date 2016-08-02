@@ -35,6 +35,11 @@ urlpatterns = [
     url(r'^api-token-auth$', authviews.obtain_auth_token),
     # REST api for testing
     url(r'^api/photoid$', views.photoid),  #POST
+
+
+    # test
+    url(r'^register_success$',views.register_success,name="register_success"),
+    url(r'^pagination$',views.pagination,name="pagination"),    
     
 ]
 
