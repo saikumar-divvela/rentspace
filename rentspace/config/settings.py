@@ -40,10 +40,10 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
+    'myadmin.apps.MyadminConfig',
     'homepage.apps.HomepageConfig',
     'userprofile.apps.UserprofileConfig',
     'post.apps.PostConfig',
-    'myadmin.apps.MyadminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

@@ -12,6 +12,28 @@ from django.views.decorators.csrf import csrf_exempt
 
 from userprofile.models import User
 
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
+def pagination(request):
+    print ('you hit pagination')
+    records_list =[]
+    for i in range(1,20):
+        records_list.append(i)
+    print (records_list)
+    print (len (records_list))
+    paginator = Paginator(records_list, 4) # Show 25 contacts per page
+    
+    page = request.GET.get('page')
+    try:
+        records = paginator.page(page)
+    except PageNotAnInteger:
+        records = paginator.page(1)
+    except EmptyPage:
+        records = paginator.page(paginator.num_pages)    
+
+    context ={}
+    context["records"] = records
+    return render(request,'pagination.html',context)
 
 @csrf_exempt
 def create_user(request):
