@@ -1,16 +1,7 @@
          <script type="text/javascript">
          $(function() {
-            /*
-           $( "#from_date" ).datepicker(
-                        { dateFormat: "yy-mm-dd" }
-                      );
-                    
-            $( "#to_date" ).datepicker(
-                        { dateFormat: "yy-mm-dd" }
-                      );
-               */
 
-            $("#search" ).click(function() {
+$("#search" ).click(function() {
                 //alert( "Handler for .click() called." );
                 $("#searchform").submit();
             });
@@ -26,18 +17,18 @@
             <div class="row" style="margin-top:0px;">
                <div class="col-md-12 col-md-offset-3">
                   <input type="text" id="location" placeholder="Enter the locality or City" name="location">
-                  <select class="selectpicker show-tick" name="bookingtype" id="bookingtype">
+                  <select class="selectpicker show-tick" name="accomtype" id="accomtype">
                      <option value="shared">Shared</option>
-                     <option value="room">Private Room</option>
+                     <option value="private">Private Room</option>
                   </select>
                   <select class="selectpicker" name="housetype" id="housetype">
                      <option value="pg">PG</option>
                      <option value="house">Independent</option>
                      <option value="flat">Flat</option>
                   </select>
-                  <select class="selectpicker" name="people" id="people">
-                     <option value="boys">Boys</option>
-                     <option value="girls">Girls</option>
+                  <select class="selectpicker" name="accomfor" id="accomfor">
+                     <option value="men">Boys</option>
+                     <option value="women">Girls</option>
                      <option value="family">Family</option>
                   </select>
                   <a href="#" id="search" class="btn btn-primary">Search</a> <br/>

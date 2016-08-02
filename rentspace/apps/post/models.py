@@ -74,6 +74,13 @@ class  PostPhoto(models.Model):
         ordering = ('id',)
         db_table = "images"
 
+class  ShortlistedPosts(Address,object):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='bookmarks')
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    class Meta:
+        ordering = ('id',)
+        db_table = "post_shortlistings"
+
 '''
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')

@@ -9,7 +9,10 @@ urlpatterns = [
     url(r'^showpost/$',views.showpost,name="showpost"),
     url(r'^searchposts/$',views.searchposts,name="searchposts"),
     url(r'^updatepost/$',views.updatepost,name="updatepost"),
+    
     url(r'^deletepost/$',views.deletepost,name="deletepost"),
+    url(r'^activatepost/$',views.activatepost,name="activatepost"),
+
     url(r'^shortlistedposts/$',views.shortlistedposts,name="shortlistedposts"),
 
     url(r'^contactpostowner/$',views.contactpostowner,name="contactpostowner"),

@@ -14,18 +14,12 @@
 
 ***** TODO *****
 ** Add Post (missing landmark)
-** Edit Post (description is missing )
-** delete post (Dont delete the post , just purge the post)
-
-* Implement backend for search 
-* Add my shortlisting link 
 
 * Admin UI       
     verify post
-
 * Pagination for required pages (Search/My Postings etc)
-* change password (After changing the password, Logout the user. User has to login back)
 ---------------------------------------------
+* change password (After changing the password, Logout the user. User has to login back)
 * send email
     for registered users
     contact operation
@@ -64,3 +58,6 @@
 **** Notes *****
 Rest services
     Token based authentication login/logout
+
+Bootstrap
+
