@@ -58,14 +58,6 @@ class  Post(Address,object):
         ordering = ('id',)
         db_table = "post"
 
-class PostAttributes(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='attributes')
-    name = models.CharField(max_length=40,blank=True)
-    value = models.CharField(max_length=40,blank=True)
-    class Meta:
-        ordering = ('id',)
-        db_table = "post_attribute"
-
 
 class  PostPhoto(models.Model):
     photo = models.ImageField()
@@ -73,6 +65,7 @@ class  PostPhoto(models.Model):
     class Meta:
         ordering = ('id',)
         db_table = "images"
+
 
 class  ShortlistedPosts(Address,object):
     user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='bookmarks')
@@ -93,3 +86,4 @@ class Comment(models.Model):
         ordering = ('id',)
         db_table = "comment"
 '''
+

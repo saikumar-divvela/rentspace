@@ -1,14 +1,7 @@
 from rest_framework import serializers
 from post.models import User
 from post.models import Post
-from post.models import PostAttributes
 from userprofile.serializers import UserSerializer
-
-
-class PostAttributeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PostAttributes
-        fields = ( 'id','name','value')
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -20,10 +13,3 @@ class PostSerializer(serializers.ModelSerializer):
         read_only_fields = ('id','is_active','is_verified')         
         #exclude=('user',)
 
-'''
-class CommentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Comment
-        #fields = ( 'emailid','phone_number','first_name','last_name','posts')
-        #read_only_fields = ('id',)
-'''

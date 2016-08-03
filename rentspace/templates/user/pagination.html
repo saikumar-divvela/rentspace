@@ -1,0 +1,70 @@
+<html lang="en">
+<head>
+    {% include "init_header.html" %}
+    {% load mytemplatetags %}
+<style>
+.active {
+	background-color: cyan;
+}
+</style>
+<script type="text/javascript">
+
+</script>
+</head>
+<body>
+<div id="main">
+<div class="container">
+
+	{{ records.paginator.count }}
+	{% for x in records %}
+		<p> {{ x }} </p>
+	{% endfor %}
+	
+	<!--
+	<div class="pagination">
+		<span class="step-links">
+	 		{%  if records.has_previous %}
+	 			<a href="pagination?page={{ records.previous_page_number}}"> Previous </a>
+	 		{% endif %} 	
+
+	 		<spin class="current">
+	 			Page {{records.number}} of {{records.paginator.num_pages}}
+	 		</spin>
+
+	 		{%  if records.has_next %}
+	 			<a href="pagination?page={{ records.next_page_number}}"> Next </a>
+	 		{% endif %} 	
+
+	 	</span>
+	</div>
+	-->
+
+	<ul class="pagination">
+		<li>
+				{%  if records.has_previous %}
+					<a href="pagination?page={{records.previous_page_number}}">&laquo;</a>
+				{% else %}
+					<a href="#">&laquo;</a>
+				{% endif %}
+		</li>
+		{% for i in records.paginator.num_pages|get_range %}
+			{% if records.number == i   %}
+				<li><a href="pagination?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+			{% else %}
+				<li><a href="pagination?page={{i}}"> {{ i }}</a></li>
+			{% endif %}
+		{% endfor %}
+
+		<li>
+			{%  if records.has_next %}
+				<a href="pagination?page={{records.next_page_number}}">&raquo;</a>
+			{% else %}
+				<a href="#">&raquo;</a>
+			{% endif %}
+		</li>
+	</ul>
+
+</div>
+</div>
+</body>
+</html>
