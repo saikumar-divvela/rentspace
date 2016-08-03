@@ -3,53 +3,34 @@ from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
 )
 
-from homepage.models import *
-
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
-# Create your models here.
+from homepage.models import *
 
-'''
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=10,blank=True,db_index=True,unique=True)
-
-
-    class Meta:
-        ordering = ('id',)
-        db_table = "userprofile"
-
-'''
+"""
+Ceates and saves a User with the given email, date of birth and password.
+"""
 class MyUserManager(BaseUserManager):
     def create_user(self, email,password,phone_number):
-        """
-        Creates and saves a User with the given email, date of
-        birth and password.
-        """
         if not email:
             raise ValueError('Users must have an email address')
-
         user = self.model(email=self.normalize_email(email))
         user.phone_number = phone_number
         user.set_password(password)
         user.save(using=self._db)
         return user
 
+    """
+        Creates and saves a superuser with the given email, date of birth and password.
+    """
     def create_superuser(self, email, password,phone_number):
-        """
-        Creates and saves a superuser with the given email, date of
-        birth and password.
-        """
         user = self.create_user(email,password=password,phone_number=phone_number)
         user.is_admin = True
         user.save(using=self._db)
         return user
 
 class User(AbstractBaseUser,Address):
-
     email = models.EmailField(max_length=50,verbose_name='email address',db_index=True,unique=True)    
     first_name = models.CharField(max_length=40,blank=True)
     last_name = models.CharField(max_length=40,blank=True)
@@ -75,7 +56,7 @@ class User(AbstractBaseUser,Address):
 
 
     objects = MyUserManager()
-    
+
     USERNAME_FIELD='email'
     REQUIRED_FIELDS=[phone_number]
 
@@ -85,7 +66,6 @@ class User(AbstractBaseUser,Address):
         db_table = "user"
 
     def get_full_name(self):
-        # The user is identified by their email address
         return self.first_name+" "+self.last_name    
 
     def get_short_name(self):
@@ -94,33 +74,41 @@ class User(AbstractBaseUser,Address):
     def __str__(self):   
         return self.email
 
+    """Does the user have a specific permission? # Simplest possible answer: Yes, always"""
     def has_perm(self, perm, obj=None):
-        "Does the user have a specific permission?"
-        # Simplest possible answer: Yes, always
         return True
 
+    """Does the user have permissions to view the app `app_label`? # Simplest possible answer: Yes, always"""
     def has_module_perms(self, app_label):
-        "Does the user have permissions to view the app `app_label`?"
-        # Simplest possible answer: Yes, always
         return True
 
     def __setitem__(self, key, value):
         object.__setattr__(self, key, value)
 
+    "Is the user a member of staff?# Simplest possible answer: All admins are staff"
     @property
     def is_staff(self):
-        "Is the user a member of staff?"
-        # Simplest possible answer: All admins are staff
         return self.is_admin
 
 '''
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-'''
 
-'''
+
 for user in User.objects.all():
     Token.objects.get_or_create(user=user)
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=10,blank=True,db_index=True,unique=True)
+
+
+    class Meta:
+        ordering = ('id',)
+        db_table = "userprofile"
+
 '''

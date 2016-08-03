@@ -1,37 +1,33 @@
-from userprofile.models import User
-from userprofile.serializers import UserSerializer
-
 from django.http import HttpResponse
-
 from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework import status
-
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view,permission_classes
-
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from rest_framework.parsers import JSONParser
 from  rest_framework.parsers import FileUploadParser
 from  rest_framework.parsers import MultiPartParser,FormParser
-
 from rest_framework.authtoken.models import Token
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
-import userprofile.service as service
-import userprofile.error_codes as message
 from django.conf import settings
 
 import django.contrib.auth.views as view1
-
 from wsgiref.util import FileWrapper
 
 import traceback
 import os
+
+from userprofile.models import User
+from userprofile.serializers import UserSerializer
+import userprofile.service as service
+import userprofile.error_codes as message
+
 
 '''
 def token_request(request):
@@ -285,11 +281,10 @@ def testlogin(request):
     output["message"] ="If you see this it means you are logged in"
     return JSONResponse(output)    
 
-
-class JSONResponse(HttpResponse):
-    """
+"""
     An HttpResponse that renders its content into JSON.
-    """
+"""
+class JSONResponse(HttpResponse):
     def __init__(self, data, **kwargs):
         content = JSONRenderer().render(data)
         kwargs['content_type'] = 'application/json'

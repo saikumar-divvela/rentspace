@@ -17,16 +17,13 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
 
 ROOT_URLCONF = 'urls'
-
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 MEDIA_URL = '/media/'
 
-
 APPEND_SLASH = True
-print("before")
 print (PROJECT_ROOT)
 print (APPEND_SLASH)
-print ("after")
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -34,22 +31,19 @@ print ("after")
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '5dd-iq(ao0($b_40sp_-+^q*4sl+ajexk098-c09#_&1lu=#3t'
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
 # Application definition
-
 INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
-#   'polls.apps.PollsConfig',
+    'myadmin.apps.MyadminConfig',
     'homepage.apps.HomepageConfig',
     'userprofile.apps.UserprofileConfig',
     'post.apps.PostConfig',
-    'myadmin.apps.MyadminConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -95,7 +89,6 @@ WSGI_APPLICATION = 'wsgi.application'
 
 
 # Database https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -150,7 +143,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
+# STATIC_ROOT = 
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_ROOT, "static"),
+]
+
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -171,13 +171,10 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'userprofile.User'
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_ROOT, "static"),
-    '/var/www/static/',
-]
+LOGIN_URL = '/signin/'
+
 
 # sets the dateformat for applicationwise
-
 DATE_FORMAT = "Y-m-d"
 #USE_L10N = False
 

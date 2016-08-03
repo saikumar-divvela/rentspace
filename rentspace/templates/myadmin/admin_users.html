@@ -5,8 +5,37 @@
   .errormsg {
     color:red;
   }
+  
 </style>
+
 <script type="text/javascript">
+
+          $(".pagination a").click(function(e){
+   
+            var isphonenotverified = $("input[name^='phone_not_verified']").is(':checked');
+            var isidproofnotverified = $("input[name^='idproof_not_verified']").is(':checked'); 
+            var link =  $(this).prop("href");
+         
+            if (link.endsWith("admin#")){
+              return false;
+            }
+
+            $.ajax({
+                url: link,
+                type: "get", 
+                data:{isphonenotverified:isphonenotverified,isidproofnotverified:isidproofnotverified},
+                success: function(response) {
+              
+                   $( "#result" ).html( response );
+                },
+                error: function(xhr) {
+      
+                    $( "#result" ).html("some error occurred");
+                }
+            });
+            return false;
+            
+        });
  
         $(".verifyid").click(function(e){
             var userid = $(this).attr('id');  
@@ -60,7 +89,8 @@
 
 </script>
 
-Records count: {{ users.count }}
+{% load mytemplatetags %}
+Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.paginator.num_pages}}
 <table class="table table-striped table-hover">
     <thead>
       <tr>
@@ -117,8 +147,31 @@ Records count: {{ users.count }}
     </tbody>
   </table>
 
-  <div id="test">
+  <div align="center">
+  <ul class="pagination">
+    <li>
+        {%  if users.has_previous %}
+          <a href="admin/users?page={{users.previous_page_number}}">&laquo;</a>
+        {% else %}
+          <a href="#">&laquo;</a>
+        {% endif %}
+    </li>
+    {% for i in users.paginator.num_pages|get_range %}
+      {% if users.number == i   %}
+        <li><a href="admin/users?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+      {% else %}
+        <li><a href="admin/users?page={{i}}"> {{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
 
+    <li>
+      {%  if users.has_next %}
+        <a href="admin/users?page={{users.next_page_number}}">&raquo;</a>
+      {% else %}
+        <a href="#">&raquo;</a>
+      {% endif %}
+    </li>
+  </ul>
   </div>
 
   <div id="imagemodal" class="modal fade">
