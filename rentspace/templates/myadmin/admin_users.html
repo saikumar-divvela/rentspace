@@ -5,44 +5,43 @@
   .errormsg {
     color:red;
   }
-  
+
 </style>
 
 <script type="text/javascript">
 
           $(".pagination a").click(function(e){
-   
+
             var isphonenotverified = $("input[name^='phone_not_verified']").is(':checked');
-            var isidproofnotverified = $("input[name^='idproof_not_verified']").is(':checked'); 
+            var isidproofnotverified = $("input[name^='idproof_not_verified']").is(':checked');
             var link =  $(this).prop("href");
-         
+
             if (link.endsWith("admin#")){
               return false;
             }
 
             $.ajax({
                 url: link,
-                type: "get", 
+                type: "get",
                 data:{isphonenotverified:isphonenotverified,isidproofnotverified:isidproofnotverified},
                 success: function(response) {
-              
                    $( "#result" ).html( response );
                 },
                 error: function(xhr) {
-      
+
                     $( "#result" ).html("some error occurred");
                 }
             });
             return false;
-            
+
         });
- 
+
         $(".verifyid").click(function(e){
-            var userid = $(this).attr('id');  
+            var userid = $(this).attr('id');
             var link = $(this);
             $.ajax({
                 url: "verifyidcard",
-                type: "get", 
+                type: "get",
                 data:{userid:userid},
                 success: function(response) {
                    link.text("Verified");
@@ -56,11 +55,11 @@
         });
 
         $(".verifyphone").click(function(e){
-            var userid = $(this).attr('id');  
+            var userid = $(this).attr('id');
             var link = $(this);
             $.ajax({
                 url: "verifyphone",
-                type: "get", 
+                type: "get",
                 data:{userid:userid},
                 success: function(response) {
                    link.text("Verified");
@@ -83,7 +82,7 @@
 
         /*
         $(function(){
-           
+
         });
         */
 
@@ -151,22 +150,22 @@ Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.p
   <ul class="pagination">
     <li>
         {%  if users.has_previous %}
-          <a href="admin/users?page={{users.previous_page_number}}">&laquo;</a>
+          <a href="{{ page_url }}?page={{users.previous_page_number}}">&laquo;</a>
         {% else %}
           <a href="#">&laquo;</a>
         {% endif %}
     </li>
     {% for i in users.paginator.num_pages|get_range %}
       {% if users.number == i   %}
-        <li><a href="admin/users?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+        <li><a href="{{ page_url }}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
       {% else %}
-        <li><a href="admin/users?page={{i}}"> {{ i }}</a></li>
+        <li><a href="{{ page_url }}?page={{i}}"> {{ i }}</a></li>
       {% endif %}
     {% endfor %}
 
     <li>
       {%  if users.has_next %}
-        <a href="admin/users?page={{users.next_page_number}}">&raquo;</a>
+        <a href="{{ page_url }}?page={{users.next_page_number}}">&raquo;</a>
       {% else %}
         <a href="#">&raquo;</a>
       {% endif %}
@@ -175,7 +174,7 @@ Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.p
   </div>
 
   <div id="imagemodal" class="modal fade">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
               <div class="modal-body">
                   <img src="" class="img-responsive">

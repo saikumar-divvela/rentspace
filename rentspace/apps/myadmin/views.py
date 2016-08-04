@@ -5,6 +5,8 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
 
 from userprofile.models import User
 from post.models import Post
@@ -12,64 +14,105 @@ from post.models import Post
 # Create your views here.
 
 
-def getusers(request):
-    isemailnotverified = request.GET.get("isemailnotverified","")
+def all_users(request):
+    print ("You hit all_users")
     isphonenotverified = request.GET.get("isphonenotverified","")
     isidproofnotverified = request.GET.get("isidproofnotverified","")
-
-    print (isphonenotverified,isidproofnotverified)
+    page = request.GET.get('page')
 
     userlist = None;
-    
-    if (isemailnotverified =='true'): 
-        userlist = User.objects.filter(is_email_verified=False)
-    
-    elif (isphonenotverified == 'true'):
+    print ("Phone not verified:"+isphonenotverified,"Idproof not verified:"+isidproofnotverified)
+
+    if (isphonenotverified == 'true'):
         userlist = User.objects.filter(is_phone_verified=False)
         print ('executing is not phone verified')
-    
+
     elif (isidproofnotverified == 'true'):
         userlist = User.objects.filter(is_id_verified  =False)
-    
+
     else:
         print ('executing all')
         userlist = User.objects.all()
 
-    paginator = Paginator(userlist, 4) # Show 25 contacts per page
-    
-    page = request.GET.get('page')
-    try:
-        records = paginator.page(page)
-    except PageNotAnInteger:
-        records = paginator.page(1)
-    except EmptyPage:
-        records = paginator.page(paginator.num_pages)    
-
-    context ={} 
-    context["users"]=records
-
+    context ={}
+    context["page_url"]= "admin/users/all"
+    context["users"]=getpagerecords(userlist,page)
 
     return render(request,'admin_users.html',context)
 
-def getposts(request):
-    isverified = request.GET.get("isverified","")
-    isactive = request.GET.get("isactive","")
+def inactive_users(request):
+    print ("You hit inactive_users")
+    page = request.GET.get('page')
+    userlist = User.objects.filter(is_email_verified=False)
 
-    print (isactive,isverified)
-    postlist = None;
-    if (isverified =='false'): 
-        postlist = Post.objects.filter(is_verified=False)
-    elif (isactive == 'false'):
-        print ('getting deleted posts') 
-        postlist = Post.objects.filter(is_active=False)
-    else:
-        postlist = Post.objects.all()
-    for post in postlist:
-        print (post)
     context ={}
-    context["posts"]=postlist
+    context["page_url"]= "admin/users/inactive"
+    context["users"]=getpagerecords(userlist,page)
+
+    return render(request,'admin_users.html',context)
+
+
+
+def getpagerecords(object_list,page_no):
+    paginator = Paginator(object_list,settings.PAGE_SIZE)
+    try:
+        records = paginator.page(page_no)
+    except PageNotAnInteger:
+        records = paginator.page(1)
+    except EmptyPage:
+        records = paginator.page(paginator.num_pages)
+
+    return records
+
+
+def post_images(request):
+    print ("you hit post_images")
+    postid = request.GET.get('postid',"")
+    print (postid)
+    post = Post.objects.get(id=postid)
+    context ={}
+    context["post"] = post
+
+    return render(request,'post_images.html',context)
+
+def all_posts(request):
+    page = request.GET.get('page')
+    postlist = Post.objects.all()
+
+    context = {}
+    context["page_url"]= "admin/posts/all"
+    context["posts"] = getpagerecords(postlist,page)
     return render(request,'admin_posts.html',context)
 
+def unverified_posts(request):
+    page = request.GET.get('page')
+    postlist = Post.objects.filter(is_verified=False)
+
+    context = {}
+    context["page_url"]= "admin/posts/unverified"
+    context["posts"] = getpagerecords(postlist,page)
+    return render(request,'admin_posts.html',context)
+
+def inactive_posts(request):
+    page = request.GET.get('page')
+    postlist = Post.objects.filter(is_active=False)
+
+    context = {}
+    context["page_url"]= "admin/posts/inactive"
+    context["posts"] = getpagerecords(postlist,page)
+    return render(request,'admin_posts.html',context)
+
+#TODO need to fix this
+@csrf_exempt
+@login_required(login_url='/signin/')
+def verifypost(request):
+    print ("You hit verify post")
+    postid = request.POST.get("postid")
+    print(postid)
+    post = Post.objects.get(pk=postid)
+    post["is_verified"] = True
+    post.save()
+    return HttpResponse("success")
 
 
 @login_required(login_url='/signin/')
@@ -92,12 +135,3 @@ def verifyphone(request):
     user.save()
     return HttpResponse("success")
 
-@login_required(login_url='/signin/')
-def verifypost(request):
-    print ("You hit verify post")
-    postid = request.GET.get("postid")
-    print(postid)
-    post = Post.objects.get(pk=postid)
-    post["is_verified"] = True
-    post.save()
-    return HttpResponse("success")
