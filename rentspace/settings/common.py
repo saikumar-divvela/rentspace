@@ -67,9 +67,9 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join (PROJECT_ROOT , 'templates') , 
+            os.path.join (PROJECT_ROOT , 'templates') ,
             os.path.join (PROJECT_ROOT , 'templates/homepage'),
-            os.path.join (PROJECT_ROOT , 'templates/myadmin'),  
+            os.path.join (PROJECT_ROOT , 'templates/myadmin'),
             os.path.join (PROJECT_ROOT , 'templates/user'),
             os.path.join (PROJECT_ROOT , 'templates/post')],
         'APP_DIRS': True,
@@ -100,18 +100,6 @@ DATABASES = {
     }
 }
 
-'''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saikumar$rentspace',
-        'USER':'saikumar',
-        'PASSWORD':'rentspace',
-        'PORT':3306,
-        'HOST': 'saikumar.mysql.pythonanywhere-services.com',
-    }
-}
-'''
 # Password validation https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -143,7 +131,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
-# STATIC_ROOT = 
+# STATIC_ROOT =
 
 STATIC_URL = '/static/'
 
@@ -165,7 +153,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
-        'rest_framework.parsers.FormParser',        
+        'rest_framework.parsers.FormParser',
         'rest_framework.parsers.MultiPartParser' ,
     )
 }
@@ -178,3 +166,6 @@ LOGIN_URL = '/signin/'
 DATE_FORMAT = "Y-m-d"
 #USE_L10N = False
 
+
+## Following settings are used in application
+PAGE_SIZE = 10

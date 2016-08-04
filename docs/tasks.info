@@ -13,29 +13,27 @@
 * Integration with SMS gateway
 
 ***** TODO *****
-** Add Post (missing landmark)
-
-* Admin UI       
-    verify post
-* Pagination for required pages (Search/My Postings etc)
----------------------------------------------
 * change password (After changing the password, Logout the user. User has to login back)
+* forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)
 * send email
     for registered users
     contact operation
+
+** Pagination for search results and my postings
+** Add Post (missing landmark)
+---------------------------------------------
 * send sms
     otp
     contact operation
 * verify email id (When user enters the email in broswer, email is verified. User can login)
 * verify sms (otp) (When user enters the OTP in browser, mobile number is verified)
-* forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)  
 ---------------------------------------------  3hrs
 
 ** validate input fields on each page
     Login
     Change password
     Forgot password
-    
+
     Add Post
     Update Post
     Delete Post

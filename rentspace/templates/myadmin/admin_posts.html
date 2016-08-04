@@ -4,12 +4,35 @@
 	}
 </style>
 <script>
-          $(".verify").click(function(e){
-            var postid = $(this).attr('id');  
-            var link = $(this);
+
+         $(".pagination a").click(function(e){
+           var link =  $(this).prop("href");
+
+            if (link.endsWith("admin#")){
+              return false;
+            }
+
             $.ajax({
-                url: "verifypost",
-                type: "get", 
+                url: link,
+                type: "get",
+                success: function(response) {
+                   $( "#result" ).html( response );
+                },
+                error: function(xhr) {
+                   $( "#result" ).html("some error occurred");
+                }
+            });
+            return false;
+
+        });
+
+         $(".verify").click(function(e){
+            var postid = $(this).attr('id');
+            var link = $(this);
+            alert(postid);
+            $.ajax({
+                url: "{% url 'verifypost' %}",
+                type: "post",
                 data:{postid:postid},
                 success: function(response) {
                    link.text("Verified");
@@ -22,8 +45,29 @@
             });
 
         });
+
+        $(".viewimage").click(function(e){
+            var postid = $(this).prop("id");
+
+             $.ajax({
+                url: "{% url 'post_images' %}",
+                type: "get",
+                data:{postid:postid},
+                success: function(response) {
+                   $( "#images" ).html( response );
+                },
+                error: function(xhr) {
+                   $( "#images" ).html("some error occurred");
+                }
+            });
+            $("#imagemodal").modal("show");
+            return false;
+        });
+
 </script>
-Records count: {{ posts.count }}
+{% load mytemplatetags %}
+{% csrf_token %}
+Total records: {{ posts.paginator.count }} ## Page {{posts.number}} of {{posts.paginator.num_pages}}
 <table class="table">
     <thead>
       <tr>
@@ -34,6 +78,7 @@ Records count: {{ posts.count }}
         <th>House/Accomdation Type</th>
         <th>Accomdation For</th>
         <th>Address</th>
+        <th>Images</th>
         <th>Status</th>
         <th>IsActive</th>
         <th>IsVerified</th>
@@ -52,6 +97,12 @@ Records count: {{ posts.count }}
         <td>{{ post.house_type}}/{{ post.accom_type}}</td>
         <td>{{ post.accom_for}}</td>
         <td>{{ post.address}}</td>
+
+        {% if post.postphotos.all %}
+          <td><a href="#" data-toggle="modal" id="{{post.id}}" class="btn btn-info viewimage">View Image</a></td>
+         {% else %}
+          <td> Not Uploaded </td>
+        {% endif %}
         <td>{{ post.status}}</td>
         <td>{{ post.is_active}}</td>
         {% if post.is_verified %}
@@ -68,3 +119,42 @@ Records count: {{ posts.count }}
 
     </tbody>
   </table>
+
+
+  <div align="center">
+  <ul class="pagination">
+    <li>
+        {%  if posts.has_previous %}
+          <a href="{{ page_url }}?page={{posts.previous_page_number}}">&laquo;</a>
+        {% else %}
+          <a href="#">&laquo;</a>
+        {% endif %}
+    </li>
+    {% for i in posts.paginator.num_pages|get_range %}
+      {% if posts.number == i   %}
+        <li><a href="{{ page_url }}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+      {% else %}
+        <li><a href="{{ page_url }}?page={{i}}"> {{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    <li>
+      {%  if posts.has_next %}
+        <a href="{{ page_url }}?page={{posts.next_page_number}}">&raquo;</a>
+      {% else %}
+        <a href="#">&raquo;</a>
+      {% endif %}
+    </li>
+  </ul>
+  </div>
+
+
+
+    <div id="imagemodal" class="modal fade">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+              <div id="images" class="modal-body">
+              </div>
+          </div>
+        </div>
+  </div>

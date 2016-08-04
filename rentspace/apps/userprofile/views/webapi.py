@@ -22,14 +22,14 @@ def pagination(request):
     print (records_list)
     print (len (records_list))
     paginator = Paginator(records_list, 4) # Show 25 contacts per page
-    
+
     page = request.GET.get('page')
     try:
         records = paginator.page(page)
     except PageNotAnInteger:
         records = paginator.page(1)
     except EmptyPage:
-        records = paginator.page(paginator.num_pages)    
+        records = paginator.page(paginator.num_pages)
 
     context ={}
     context["records"] = records
@@ -37,7 +37,7 @@ def pagination(request):
 
 @csrf_exempt
 def create_user(request):
-    try: 
+    try:
         print ("You hit create user")
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -45,7 +45,7 @@ def create_user(request):
         phone_number =  request.POST.get("phone_number","")
         first_name = request.POST.get("first_name","")
         last_name = request.POST.get("last_name","")
-        
+
 
         print (username,password,password_repeat,phone_number,first_name,last_name)
         user = User.objects.create_user(email=username,password=password,phone_number=phone_number)  # Only pass the required fields defined in models.py
@@ -62,7 +62,7 @@ def create_user(request):
         return render(request,'signup.html',context)
 
     return HttpResponseRedirect("/register_success")
-    
+
 def register_success(request):
     context ={}
     context["msg"]= "User is created successfully"
@@ -85,14 +85,14 @@ def login_user(request):
        else:
             context ={}
             context["msg"]= "Either login name or password is incorrect"
-            return render(request,'signin.html',context)        
+            return render(request,'signin.html',context)
     else: # Return an 'invalid login' error message.
        return render(request,'signin.html',context)
 
 
 def login_success(request):
     return render(request,'index.html')
-    
+
 
 # TODO for some unknown reason this is not working
 def logout_user(request):
@@ -105,7 +105,7 @@ def logout_user(request):
         print (request.user)
     except KeyError:
         pass
-  
+
 
     context ={}
     context["msg"]= "successfully logged out"
@@ -161,11 +161,11 @@ def edit_profile(request):
     print (request.POST.get("firstname",""))
     if request.method == 'POST':
         first_name = request.POST.get("firstname","")
-        last_name =  request.POST.get("lastname","")   
-        phone_number =  request.POST.get("phonenumber","")   
-        id_card_type =  request.POST.get("idcardtype","")  
+        last_name =  request.POST.get("lastname","")
+        phone_number =  request.POST.get("phonenumber","")
+        id_card_type =  request.POST.get("idcardtype","")
         date_of_birth = request.POST.get("date_of_birth","")
-        gender =  request.POST.get("gender","")  
+        gender =  request.POST.get("gender","")
 
         address = request.POST.get("address","")
         street  = request.POST.get("street","")
@@ -173,14 +173,14 @@ def edit_profile(request):
         pincode = request.POST.get("pincode","")
         state = request.POST.get("state","")
         country = request.POST.get("country","")
-        
+
         print (date_of_birth)
         print (id_card_type)
         saveuser = User.objects.get(email=request.user.email)
         if request.FILES:
             saveuser.idphoto = request.FILES['idphoto']
 
-       
+
         if saveuser.idphoto:
             print (saveuser.idphoto.url)
             print (saveuser.idphoto.name,saveuser.idphoto.size)
@@ -197,7 +197,7 @@ def edit_profile(request):
         saveuser.state = state
         saveuser.country = country
         saveuser.save()
-    
+
         output = {}
         output["status"]= "success"
         output["msg"]= "User details are updated successfully"
@@ -207,4 +207,4 @@ def edit_profile(request):
         context["status"]= "success"
         context["msg"]= "User details are updated successfully"
         return render(request,'myaccount.html',context)
-        
+
