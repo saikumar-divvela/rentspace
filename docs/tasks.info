@@ -13,14 +13,13 @@
 * Integration with SMS gateway
 
 ***** TODO *****
-* change password (After changing the password, Logout the user. User has to login back)
+* change password (After changing the password, Logout the user. User has to login back) 1HR
+** Add Post (Missing Landmark)  1HR
+
 * forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)
 * send email
     for registered users
     contact operation
-
-** Pagination for search results and my postings
-** Add Post (missing landmark)
 ---------------------------------------------
 * send sms
     otp

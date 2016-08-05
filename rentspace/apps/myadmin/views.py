@@ -4,10 +4,10 @@ from django.template import loader
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
 
+
+from common import getpagerecords
 from userprofile.models import User
 from post.models import Post
 
@@ -50,20 +50,6 @@ def inactive_users(request):
     context["users"]=getpagerecords(userlist,page)
 
     return render(request,'admin_users.html',context)
-
-
-
-def getpagerecords(object_list,page_no):
-    paginator = Paginator(object_list,settings.PAGE_SIZE)
-    try:
-        records = paginator.page(page_no)
-    except PageNotAnInteger:
-        records = paginator.page(1)
-    except EmptyPage:
-        records = paginator.page(paginator.num_pages)
-
-    return records
-
 
 def post_images(request):
     print ("you hit post_images")

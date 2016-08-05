@@ -8,6 +8,14 @@
       </style>
       <script type="text/javascript">
 
+         $(function() {
+          $(".pagination a").click(function(e) {
+               //e.preventDefault();
+               var newhref = $(this).attr('href') +"&accomtype="+$("#accomtype").val()+"&accomfor="+$("#accomfor").val()+"&housetype="+$("#housetype").val();
+                $(this).attr("href",newhref);
+             });
+         });
+
       </script>
    </head>
    <div id='header'>
@@ -15,6 +23,7 @@
       {% include "searchposts.html" %}
    </div>
    <body>
+      {% load mytemplatetags %}
       <div id="main">
          <div class="container clear-top">
             <form role="form" >
@@ -67,9 +76,35 @@
                      </div>
                   </div>
                </div>
-               {% endfor %}    
+               {% endfor %}
             </form>
          </div>
+           <div align="center">
+            <ul class="pagination">
+         <li>
+        {%  if posts.has_previous %}
+          <a href="{% url 'searchposts' %}?page={{posts.previous_page_number}}">&laquo;</a>
+        {% else %}
+          <a href="#">&laquo;</a>
+        {% endif %}
+    </li>
+    {% for i in posts.paginator.num_pages|get_range %}
+      {% if posts.number == i   %}
+        <li><a href="{% url 'searchposts' %}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+      {% else %}
+        <li><a href="{% url 'searchposts' %}?page={{i}}"> {{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    <li>
+      {%  if posts.has_next %}
+        <a href="{% url 'searchposts' %}?page={{posts.next_page_number}}">&raquo;</a>
+      {% else %}
+        <a href="#">&raquo;</a>
+      {% endif %}
+    </li>
+  </ul>
+  </div>
       </div>
    </body>
    <div id="footer">

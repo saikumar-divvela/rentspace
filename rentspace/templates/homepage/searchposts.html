@@ -1,18 +1,32 @@
          <script type="text/javascript">
-         $(function() {
 
-$("#search" ).click(function() {
-                //alert( "Handler for .click() called." );
+         $(function() {
+          var accomfor = "{{ request.session.accomfor }}";
+          var housetype =  "{{ request.session.housetype }}"
+          var accomtype = "{{ request.session.accomtype }}"
+          if (accomfor && accomfor.trim() !=""){
+            $("#accomfor").val(accomfor);
+          }
+          if (accomtype && accomtype.trim() !="") {
+            $("#accomtype").val(accomtype);
+          }
+
+          if (housetype  && housetype.trim() !=""){
+            $("#housetype").val(housetype);
+          }
+
+          $("#search" ).click(function() {
                 $("#searchform").submit();
-            });
-        
+          });
+
+
         });
 
-      
+
       </script>
 
          <div id="searchbar" class="container-fluid">
-            <!-- daily rent min or maximum -->       
+            <!-- daily rent min or maximum -->
             <form id="searchform" action="{% url 'searchposts' %}" role="form" class="no-margin">
             <div class="row" style="margin-top:0px;">
                <div class="col-md-12 col-md-offset-3">

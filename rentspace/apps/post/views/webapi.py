@@ -9,6 +9,8 @@ from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse,HttpResponseRedirect
 
 from post.models import Post,PostPhoto,ShortlistedPosts
+from common import getpagerecords
+
 from django.db.models import Q
 
 #TODO  Send SMS/Email of owner details to owner and customer
@@ -30,7 +32,7 @@ def shortlistpost(request):
     bookmark.user  = request.user
     bookmark.save()
 
- 
+
     return HttpResponseRedirect("/shortlistedposts")
 
 
@@ -46,18 +48,25 @@ def delistpost(request):
 @csrf_exempt
 def searchposts(request):
     print ("you hit search posts")
-    
+
     location = request.GET.get("location","")
     housetype = request.GET.get("housetype","")
     accomtype = request.GET.get("accomtype","")
     accomfor = request.GET.get("accomfor","")
-    
-    print (location, housetype,accomtype,accomfor)
-    #postlist = Post.objects.all()
-    postlist = Post.objects.filter(house_type=housetype,accom_type=accomtype,accom_for__contains=accomfor)
+    page = request.GET.get('page')
+
+    print (location, accomtype,housetype,accomfor)
+    request.session["accomtype"] = accomtype
+    request.session["housetype"] = housetype
+    request.session["accomfor"]  = accomfor
+
+    postlist = Post.objects.all()
+    #postlist = Post.objects.filter(house_type=housetype,accom_type=accomtype,accom_for__contains=accomfor)
     context ={}
-    context["posts"]=postlist
+    context["posts"]=getpagerecords(postlist,page)
     return render(request,'postlist.html',context)
+
+
 
 @csrf_exempt
 @login_required
@@ -84,7 +93,7 @@ def shortlistedposts(request):
     context ={}
     context["posts"]=postlist
     context["shortlistedposts"] = True
-    return render(request,'myposts.html',context)        
+    return render(request,'myposts.html',context)
 
 
 @login_required
@@ -154,7 +163,7 @@ def addpost(request):
         p.housetype = house_type
         p.accom_type = accom_type
         p.accom_for = accom_for
-        
+
         p.save()
 
         if request.FILES.getlist("photos"):
@@ -165,7 +174,7 @@ def addpost(request):
                 image.photo = f
                 image.post = p
                 image.save()
-            
+
 
         return HttpResponseRedirect("/addpost/?msg=susscessfully added property&id="+str(p.id))
         #return HttpResponseRedirect("/addpost")
@@ -178,10 +187,10 @@ def addpost(request):
             context["post"] = post
 
         context["msg"] = request.GET.get("msg","")
-        
+
         return render(request,'addpost.html',context)
-    
-@csrf_exempt    
+
+@csrf_exempt
 @login_required
 def updatepost(request):
     print ("you hit update post")
@@ -221,7 +230,7 @@ def updatepost(request):
 
 
         print (postid,description)
-        p =  Post.objects.get(id=postid)        
+        p =  Post.objects.get(id=postid)
         p.description = description
         p.title = title
         #p.user = request.user
@@ -249,12 +258,12 @@ def updatepost(request):
             print (request.FILES.getlist("photos"))
             for f in request.FILES.getlist("photos"):
                 print (f)
-                
+
                 image = PostPhoto()
                 image.photo = f
                 image.post = p
                 image.save()
-                
+
         return HttpResponseRedirect("/updatepost/?msg=susscessfully updated&id="+postid)
     else:
         postid = request.GET.get("id")
@@ -288,4 +297,4 @@ def activatepost(request):
     return HttpResponseRedirect("/myposts")
 
 
-        
+
