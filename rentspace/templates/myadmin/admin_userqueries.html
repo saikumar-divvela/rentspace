@@ -1,0 +1,91 @@
+<style>
+	td {
+		font-size: 12px;
+	}
+  .errormsg {
+    color:red;
+  }
+
+</style>
+<script type="text/javascript">
+
+          $(".pagination a").click(function(e){
+            var link =  $(this).prop("href");
+            if (link.endsWith("admin#")){
+              return false;
+            }
+
+            $.ajax({
+                url: link,
+                type: "get",
+                success: function(response) {
+                   $( "#result" ).html( response );
+                },
+                error: function(xhr) {
+                   $( "#result" ).html("Some error occurred");
+                }
+            });
+            return false;
+
+        });
+</script>
+{% load mytemplatetags %}
+Total records: {{ userqueries.paginator.count }} ## Page {{userqueries.number}} of {{userqueries.paginator.num_pages}}
+<table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Sent Date</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+          <div id="status" class="errormsg"> </div>
+        </tr>
+      {% for query in userqueries %}
+      	<tr>
+        <td>{{ query.name}}</td>
+        <td>{{ query.email}}</td>
+        <td>{{ query.phone_number}}</td>
+        <td>{{ query.subject }}</td>
+        <td>{{ query.message }}</td>
+        <td>{{ query.sent_date }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+        No Data Found
+        </tr>
+      {% endfor %}
+
+    </tbody>
+</table>
+  <div align="center">
+  <ul class="pagination">
+    <li>
+        {%  if userqueries.has_previous %}
+          <a href="{{ page_url }}?page={{userqueries.previous_page_number}}">&laquo;</a>
+        {% else %}
+          <a href="#">&laquo;</a>
+        {% endif %}
+    </li>
+    {% for i in userqueries.paginator.num_pages|get_range %}
+      {% if userqueries.number == i   %}
+        <li><a href="{{ page_url }}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+      {% else %}
+        <li><a href="{{ page_url }}?page={{i}}"> {{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+
+    <li>
+      {%  if userqueries.has_next %}
+        <a href="{{ page_url }}?page={{userqueries.next_page_number}}">&raquo;</a>
+      {% else %}
+        <a href="#">&raquo;</a>
+      {% endif %}
+    </li>
+  </ul>
+  </div>

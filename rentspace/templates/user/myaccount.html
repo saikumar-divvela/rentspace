@@ -8,17 +8,17 @@
       var idcardtype = "{{ user.id_card_type}}";
         $(function(){
             if (idcardtype == "PAN"){
-                $('#idcardtype option[value="PAN"]').prop('selected', true);            
+                $('#idcardtype option[value="PAN"]').prop('selected', true);
             } else if (idcardtype == "AADHAR"){
-                $('#idcardtype option[value="AADHAR"]').prop('selected', true);            
+                $('#idcardtype option[value="AADHAR"]').prop('selected', true);
             }
             $( "#date_of_birth" ).datepicker(
                 { dateFormat: "yy-mm-dd" }
               );
 
-          
-          $("#submit123").click(function(event){    
-                event.preventDefault(); 
+
+          $("#submit123").click(function(event){
+                event.preventDefault();
                 var data = $("#form1").serialize();
                 alert(data);
                 $.ajax({
@@ -29,7 +29,7 @@
                       type:'put'
                   }).done(handle_success)
                     .fail(handle_fail);
-           }); 
+           });
 
 
           $("#submit1").click(function(){
@@ -37,7 +37,7 @@
               var postData = $("#form1").serialize();
               alert(postData);
               $.ajax({
-                url: "/editprofile", 
+                url: "/editprofile",
                 type: "post",
                 contentType: "multipart/form-data",
                 data: postData,
@@ -50,7 +50,7 @@
               });
             });
 
-        });  
+        });
 
 
         function handle_success(data,statusText,xhr){
@@ -61,23 +61,23 @@
 
         function  handle_fail(xhr, statusText, errorThrown){
             alert(xhr)
-            console.log(xhr);        
+            console.log(xhr);
             var resp = xhr.responseJSON
             $("div#alert").text(resp.message)
         }
-  
+
     </script>
   </head>
    <div id='header'>
       {% include "header.html" %}
     </div>
- 
-  <body>
-   
 
-   
+  <body>
+
+
+
     <div id="main">
-    <form  id="form1" method="post" action="/editprofile  " class="form-horizontal" enctype="multipart/form-data">
+    <form  id="form1" method="post" action="/editprofile" class="form-horizontal" enctype="multipart/form-data">
        {% csrf_token %}
       <div class="container clear-top">
         <div class="row">
@@ -91,15 +91,15 @@
             <div id="statusmsg"> {{ msg }} </div>
             <div class="form-group">
               <label for="username" class="control-label col-md-3">User name </label>
-               <p class="form-control-static">{{ user }}</p>     
+               <p class="form-control-static">{{ user }}</p>
             </div>
             <div class="form-group">
               <label for="firstname" class="control-label col-md-3">First name</label>
-               <input type="text" id="firstname" name="firstname" value="{{user.first_name}}" >    
+               <input type="text" id="firstname" name="firstname" value="{{user.first_name}}" >
             </div>
             <div class="form-group">
               <label for="lastname" class="control-label col-md-3">Last name</label>
-               <input type="text" id="lastname" name="lastname" value="{{user.last_name}}" >    
+               <input type="text" id="lastname" name="lastname" value="{{user.last_name}}" >
             </div>
 
             <div class="form-group">
@@ -108,45 +108,45 @@
             </div>
 
             <div class="form-group">
-              <label for="idcardtype" class="control-label col-md-3">ID Card</label>  
-              <select  id="idcardtype" name="idcardtype">  
+              <label for="idcardtype" class="control-label col-md-3">ID Card</label>
+              <select  id="idcardtype" name="idcardtype">
                 <option value="AADHAR">Aadhar</option>
                 <option value="PAN">Pan</option>
-              </select>   
-            </div>
- 
-            <div class="form-group">
-              <label for="idphoto" class="control-label col-md-3">Upload ID card</label> 
-
-    
-
-           <input id="idphoto" name="idphoto" type="file" /> 
+              </select>
             </div>
 
             <div class="form-group">
-              <label for="gender" class="control-label col-md-3">Gender</label>  
+              <label for="idphoto" class="control-label col-md-3">Upload ID card</label>
+
+
+
+           <input id="idphoto" name="idphoto" type="file" />
+            </div>
+
+            <div class="form-group">
+              <label for="gender" class="control-label col-md-3">Gender</label>
               <label class="radio-inline"> <input type="radio" name="gender" value="M" {% if user.gender in "M" %} checked {% endif %}>Male</label>
               <label class="radio-inline"> <input type="radio" name="gender" value="F" {% if user.gender in "F" %} checked {% endif %}>Female</label>
             </div>
-            <div class="form-group">            
-                 <label for="date_of_birth" class="control-label col-md-3">DOB</label> 
-                 <input type="text" id="date_of_birth"  name="date_of_birth" value="{{user.date_of_birth | date:"Y-m-d" }}"> 
+            <div class="form-group">
+                 <label for="date_of_birth" class="control-label col-md-3">DOB</label>
+                 <input type="text" id="date_of_birth"  name="date_of_birth" value="{{user.date_of_birth | date:"Y-m-d" }}">
 
                  <!-- TODO use datepicker -->
             </div>
-            <div class="form-group">  
-                <div class="row"> 
+            <div class="form-group">
+                <div class="row">
                   <label for="address" class="control-label col-md-3">Address</label>
                   <div class="col-md-3">
                      <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{user.address}}">
                   </div>
                   <div class="col-md-3 col-md-offset-1">
-                    <input type="text" id="street" name="street" placeholder="Street" value="{{user.street}}">   
-                  </div>   
+                    <input type="text" id="street" name="street" placeholder="Street" value="{{user.street}}">
+                  </div>
                 </div>
-                <div class="row"> 
-                  
-                </div>   
+                <div class="row">
+
+                </div>
                 <div class="row">
                   <div class="col-md-3 col-md-offset-3">
                   <input type="text" id="city" name="city" placeholder="City" value="{{user.city}}">
@@ -168,17 +168,17 @@
 
             <div class="col-md-offset-3">
             <div class="form-group">
-                <input type="submit" id="submit" class="btn btn-primary btn-lg" value="Update"></input> 
+                <input type="submit" id="submit" class="btn btn-primary btn-lg" value="Update"></input>
             </div>
           </div>
         </div>
       </div>
 
-     </div> 
+     </div>
      <div class="col-md-6">
         {% if user.idphoto and user.idphoto.url %}
-          <img class="img-responsive" src="{{user.idphoto.url}}" alt="{{user.idphoto.name}}"> 
-        {% endif %}  
+          <img class="img-responsive" src="{{user.idphoto.url}}" alt="{{user.idphoto.name}}">
+        {% endif %}
      </div>
      </div>
      </div>

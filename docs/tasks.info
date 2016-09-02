@@ -13,44 +13,40 @@
 * Integration with SMS gateway
 
 ***** TODO *****
-* change password (After changing the password, Logout the user. User has to login back) 1HR
-** Add Post (Missing Landmark)  1HR
-
-* forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)
 * send email
+* verify email id (When user enters the email in broswer, email is verified. User can login)
     for registered users
     contact operation
+
+* Add Post(Missing Landmark)  1HR
+* forgot password (Send a link to email to reset password,User opens the link in browser, he has to set a password)
 ---------------------------------------------
 * send sms
     otp
     contact operation
-* verify email id (When user enters the email in broswer, email is verified. User can login)
 * verify sms (otp) (When user enters the OTP in browser, mobile number is verified)
 ---------------------------------------------  3hrs
-
-** validate input fields on each page
+* validate input fields on each page
     Login
     Change password
     Forgot password
-
     Add Post
     Update Post
     Delete Post
 
+** Issues/Bugs/Fix Later **
+    ? Number of pics to be uploaded and size of each image
+    ? what to do with invalid posts (with incorrect details)
+    * Edit Post (can not delete already added images)
+
+-----------------------------------------
 *** Add maps
 *** Admin UI
     send email to any user
     quick notes
     user log
-
 *** Search results
     Display popular localilities in left side
-
-**** Issues/Bugs/Fix Later *****
-
-? Number of pics to be uploaded and size of each image
-? what to do with invalid posts (with incorrect details)
-* Edit Post (can not delete already added images)
 
 **** Notes *****
 Rest services
