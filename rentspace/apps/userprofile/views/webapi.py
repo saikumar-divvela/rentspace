@@ -114,11 +114,12 @@ def logout_user(request):
 @csrf_exempt
 @login_required
 def change_password(request):
+    print("*** You Hit Change Password ***")
     old_password = request.POST.get("old_password","")
     new_password = request.POST.get("new_password","")
-    reset_password = request.POST.get("reset_password","")
+    repeat_new_password = request.POST.get("repeat_new_password","")
 
-    print (old_password,new_password,reset_password)
+    print (old_password,new_password,repeat_new_password)
     output = {}
     output["status"]= "fail"
 
@@ -128,7 +129,7 @@ def change_password(request):
     elif new_password == "":
         output["msg"]= "New password is empty"
         return JsonResponse(output)
-    elif reset_password  == "":
+    elif repeat_new_password  == "":
         output["msg"]= "Repeated password is empty"
         return JsonResponse(output)
 
@@ -136,16 +137,16 @@ def change_password(request):
         output["msg"]= "Incorrect current password"
         return JsonResponse(output)
 
-    if new_password != reset_password:
+    if new_password != repeat_new_password:
         output["msg"]= "New password and repeated password doesn't match."
         return JsonResponse(output)
 
-    saveuser = User.objects.get(email=request.user.email)
-    saveuser.set_password(reset_password);
-    saveuser.save()
+    request.user.set_password(repeat_new_password);
+    request.user.save();
 
     output["status"]= "success"
     output["msg"]= "Password is changed successfully"
+
     return JsonResponse(output)
 
 

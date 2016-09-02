@@ -70,6 +70,25 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
+        $("#search").click(function(e){
+            var searchby = "";
+            $( "#searchuserby option:selected" ).each(function() {
+                searchby += $( this ).text() + " ";
+            });
+            var searchdata = $("#searchdata").val();
+            $.ajax({
+                url: "{% url 'all_users' %}",
+                type: "get",
+                data:{command:"search",searchby:searchby,searchdata:searchdata},
+                success: function(response) {
+                   $( "#result" ).html( response );
+                },
+                error: function(xhr) {
+                    alert('error');
+                    $( "#result" ).html("some error occurred");
+                }
+            });
+        });
 
         $("#allusers").click(function(e){
             $("#filterusers").show();
@@ -88,7 +107,7 @@
             $.ajax({
                 url: "{% url 'all_users' %}",
                 type: "get",
-                data:{isphonenotverified:isphonenotverified,isidproofnotverified:isidproofnotverified},
+                data:{command:"filter",isphonenotverified:isphonenotverified,isidproofnotverified:isidproofnotverified},
                 success: function(response) {
                    $( "#result" ).html( response );
                 },
@@ -98,6 +117,7 @@
                 }
             });
         });
+
 
 
         $("#email_not_verified").click(function(e){
@@ -110,6 +130,7 @@
 
 
         $("#allposts").click(function(e){
+            $("#filterusers").hide();
             $.get( "{% url 'all_posts' %}?", function( data ) {
                 $( "#result" ).html( data );
             });
@@ -117,6 +138,7 @@
         });
 
         $("#unverifiedposts").click(function(e){
+            $("#filterusers").hide();
             $.get( "{% url 'unverified_posts' %}", function( data ) {
                 $( "#result" ).html( data );
             });
@@ -124,11 +146,21 @@
         });
 
         $("#inactiveposts").click(function(e){
+            $("#filterusers").hide();
             $.get( "{% url 'inactive_posts' %}", function( data ) {
                 $( "#result" ).html( data );
             });
 
         });
+
+        $("#postbox").click(function(e){
+            $("#filterusers").hide();
+            $.get( "{% url 'user_queries' %}?", function( data ) {
+                $( "#result" ).html( data );
+            });
+
+        });
+
 	});
 
 </script>
@@ -164,21 +196,36 @@
 					</div>
                 </li>
                 <li>
+                    <a href="#" id="postbox">User Queries</a>
+                </li>
+                <!--
+                <li>
                     <a href="#">Send Email</a>
                 </li>
+                -->
           	</ul>
 
         </div>
             <div id="page-content-wrapper" class="container-fluid">
                 <div id="filterusers" class ="row" hidden>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <input type="checkbox" name="phone_not_verified"  value="true">Not verified phone
-                     </div>
-                    <div class="col-md-2">
+                        &nbsp;&nbsp;&nbsp;
                         <input type="checkbox" name="idproof_not_verified" value="true">Not verified idproof
-                    </div>
-                    <div class="col-md-2">
+                        &nbsp;&nbsp;&nbsp;
                         <a href="#" id="filter" class="btn btn-sm btn-info">Filter</a>
+                     </div>
+
+                    <div class="col-md-5">
+                        <label> Search by </label>
+                        <select class="selectpicker" name="searchuserby" id="searchuserby">
+                            <option>Username</option>
+                            <option>Phonenumber</option>
+                            <option>FirstName</option>
+                            <option>LastName</option>
+                        </select>
+                        <input type="text" id="searchdata" name="searchdata">
+                        <a href="#" id="search" class="btn btn-sm btn-info">Search</a>
                     </div>
                 </div>
 

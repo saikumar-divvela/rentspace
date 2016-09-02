@@ -20,8 +20,10 @@ urlpatterns = [
 	url(r'^admin/posts/images$',views.post_images,name="post_images"),
 
 
-
     url(r'^admin/posts/verifypost$',views.verifypost,name="verifypost"),
+
+    url(r'^sendquery$',views.sendquery,name="sendquery"),
+    url(r'^admin/user/queries$',views.get_userqueries,name="user_queries"),
 ]
 
 

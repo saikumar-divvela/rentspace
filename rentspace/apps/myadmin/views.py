@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,JsonResponse
 from django.template import loader
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,JsonResponse
 from django.contrib.auth.decorators import login_required
 
 from django.views.decorators.csrf import csrf_exempt
@@ -10,26 +10,40 @@ from django.views.decorators.csrf import csrf_exempt
 from common import getpagerecords
 from userprofile.models import User
 from post.models import Post
+from myadmin.models import Postbox
 
 # Create your views here.
 
 
 def all_users(request):
     print ("You hit all_users")
+
+    command = request.GET.get("command","").lower().strip()
     isphonenotverified = request.GET.get("isphonenotverified","")
     isidproofnotverified = request.GET.get("isidproofnotverified","")
+    searchby = request.GET.get("searchby","").lower().strip()
+    searchdata = request.GET.get("searchdata","").strip()
+
     page = request.GET.get('page')
+    userlist = [];
 
-    userlist = None;
-    print ("Phone not verified:"+isphonenotverified,"Idproof not verified:"+isidproofnotverified)
+    if (command == "filter"):
+        print ("Filter users by ## Phone not verified:"+isphonenotverified," and Idproof not verified:"+isidproofnotverified)
+        if (isphonenotverified == 'true'):
+            userlist = User.objects.filter(is_phone_verified=False)
+        elif (isidproofnotverified == 'true'):
+            userlist = User.objects.filter(is_id_verified  =False)
 
-    if (isphonenotverified == 'true'):
-        userlist = User.objects.filter(is_phone_verified=False)
-        print ('executing is not phone verified')
-
-    elif (isidproofnotverified == 'true'):
-        userlist = User.objects.filter(is_id_verified  =False)
-
+    elif (command == "search"):
+        print ("Search users by ##"+searchby+" and search data:"+searchdata)
+        if (searchby == "username"):
+            userlist = User.objects.filter(email__icontains = searchdata)
+        elif (searchby == "phonenumber"):
+            userlist = User.objects.filter(phone_number__icontains = searchdata)
+        elif (searchby == "firstname"):
+            userlist = User.objects.filter(first_name__icontains = searchdata)
+        elif (searchby == "lastname"):
+            userlist = User.objects.filter(last_name__icontains = searchdata)
     else:
         print ('executing all')
         userlist = User.objects.all()
@@ -39,6 +53,7 @@ def all_users(request):
     context["users"]=getpagerecords(userlist,page)
 
     return render(request,'admin_users.html',context)
+
 
 def inactive_users(request):
     print ("You hit inactive_users")
@@ -120,4 +135,32 @@ def verifyphone(request):
     user["is_phone_verified"] = True
     user.save()
     return HttpResponse("success")
+
+@login_required(login_url='/signin/')
+def get_userqueries(request):
+    page = request.GET.get('page')
+    postbox = Postbox.objects.all().order_by("-sent_date")
+    context = {}
+    context["page_url"]= "admin/user/queries"
+    context["userqueries"] = getpagerecords(postbox,page)
+    return render(request,'admin_userqueries.html',context)
+
+def sendquery(request):
+   name = request.POST.get("name","").strip()
+   email = request.POST.get("email","").strip()
+   phone_number = request.POST.get("phone","").strip()
+   subject = request.POST.get("subject","").strip()
+   message = request.POST.get("message","").strip()
+   p = Postbox()
+   p.name = name
+   p.email = email
+   p.phone_number = phone_number
+   p.subject = subject
+   p.message = message
+   p.save()
+
+   output = {}
+   output["status"] = "success"
+   output["msg"] = "Thanks for getting in touch with us. We’ll get back to you shortly."
+   return JsonResponse(output)
 
