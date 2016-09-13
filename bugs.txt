@@ -16,9 +16,9 @@
 
 3. Edit Profile Submit giving slow response ( Image uploading takes too much time. we can restrict size(in MB) of image for better performance) 
 
-4. Manage postings gives all entries
+4. Manage postings gives all entries    [Fixed]
 
-5. After Changing password successfully, if i go home, I am logged out automatically
+5. After Changing password successfully, if i go home, I am logged out automatically  [Message is displayed and redirected to Login page]
 
 6. Forgot password on login page -> Remove link or implement
                 
