@@ -53,13 +53,15 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE_CLASSES = [
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',  # provides session support in Django
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',  # provides session support in Django
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+
+    'django.middleware.security.SecurityMiddleware',
+    'common.auth.LoginMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
@@ -92,7 +94,7 @@ WSGI_APPLICATION = 'wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'rentspace',
+        'NAME': 'rahilodb',
         'USER':'root',
         'PASSWORD':'root',
         'PORT':'3306',
@@ -162,6 +164,18 @@ AUTH_USER_MODEL = 'userprofile.User'
 LOGIN_URL = '/signin/'
 
 
+STAFF_REQUIRED_URLS = (
+    '/verifyidcard',
+    '/verifyphone',
+    '/admin/(.*)$',
+)
+
+LOGIN_REQUIRED_URLS = (
+)
+
+LOGIN_REQUIRED_URLS_EXCEPTIONS = ()
+
+
 # sets the dateformat for applicationwise
 DATE_FORMAT = "Y-m-d"
 #USE_L10N = False
@@ -169,3 +183,4 @@ DATE_FORMAT = "Y-m-d"
 
 ## Following settings are used in application
 PAGE_SIZE = 10
+

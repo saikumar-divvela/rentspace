@@ -1,15 +1,13 @@
 from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser,FileUploadParser,MultiPartParser, FormParser
+
+from rest_framework.decorators import api_view
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 
 
 from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status,generics
-from rest_framework.decorators import api_view
+from rest_framework import status
 
-from django.views.decorators.csrf import csrf_exempt
 from django.http import Http404
 from django.http import HttpResponse
 
@@ -42,7 +40,7 @@ class PostDetail(APIView):
     def get(self, request, pk, format=None):
         print ("You hit Get POST REQUEST")
         response = {}
-        response["status"] = message.SUCCESS     
+        response["status"] = message.SUCCESS
 
         try:
             post = self.get_object(pk)
@@ -52,25 +50,25 @@ class PostDetail(APIView):
 
         except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
-            response["message"]=str(exp)        
+            response["message"]=str(exp)
 
 
         if response["status"] == message.SUCCESS:
-            return JSONResponse(response,status=status.HTTP_200_OK)    
+            return JSONResponse(response,status=status.HTTP_200_OK)
         else:
-            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
 
-    
+
     def put(self, request, pk, format=None):
         response = {}
-        response["status"] = message.SUCCESS     
+        response["status"] = message.SUCCESS
 
         try:
             post = self.get_object(pk)
             request.data["user"]=request.user.id
-            serializer = PostSerializer(post,data=request.data)     
+            serializer = PostSerializer(post,data=request.data)
             if serializer.is_valid():
                 serializer.save()
                 response["data"] = serializer.data
@@ -80,40 +78,40 @@ class PostDetail(APIView):
             else:
                 response["message"] = serializer.errors
 
-        except Exception as exp:   
+        except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
-            response["message"]=str(exp)        
+            response["message"]=str(exp)
 
         if response["status"] == message.SUCCESS:
-            return JSONResponse(response,status=status.HTTP_200_OK)    
+            return JSONResponse(response,status=status.HTTP_200_OK)
         else:
-            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
-    
+            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
+
 
     def delete(self,request,pk,format=None):
         print('You hit delete post request')
         response = {}
-        response["status"] = message.SUCCESS     
+        response["status"] = message.SUCCESS
 
         try:
             post = self.get_object(pk)
             post.is_active = False
             post.save()
-            response["message"]= message.DELETE_POST_SUCCESS        
-            
+            response["message"]= message.DELETE_POST_SUCCESS
+
         except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
             response["message"] = str(exp)
 
-        print (response)     
+        print (response)
         if response["status"] == message.SUCCESS:
-            return JSONResponse(response,status=status.HTTP_204_NO_CONTENT)    
+            return JSONResponse(response,status=status.HTTP_204_NO_CONTENT)
         else:
-            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)           
+            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
 
 
 #Handles add post, get posts
@@ -121,34 +119,34 @@ class PostDetail(APIView):
 class Posts(APIView):
     def get(self,request,format=None):
         print('You hit Posts get request')
-        
+
         response = {}
-        response["status"] = message.SUCCESS        
+        response["status"] = message.SUCCESS
 
         try:
             posts = Post.objects.filter(user__id=request.user.id,is_active=True);
             serializer = PostSerializer(posts,many=True)
             response["data"]= serializer.data
-        
+
         except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
-            response["message"]=str(exp)        
+            response["message"]=str(exp)
 
         if response["status"] == message.SUCCESS:
-            return JSONResponse(response,status=status.HTTP_200_OK)    
+            return JSONResponse(response,status=status.HTTP_200_OK)
         else:
-            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)   
+            return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
 
 
-    def post(self,request,format=None):    
+    def post(self,request,format=None):
         print ('You hit add post')
         response ={}
         response["status"] = message.SUCCESS
 
         try:
-            
+
             data = request.data
             data["user"] = request.user.id
             print(data)
@@ -159,23 +157,23 @@ class Posts(APIView):
 
                 response["data"] = serializer.data
                 response["message"] = message.CREATE_POST_SUCCESS
-            
+
             else:
                 response["message"] = serializer.errors
 
 
         except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
             response["message"]=str(exp)
-        
-        
+
+
         if response["status"] == message.SUCCESS:
-            return JSONResponse(response,status=status.HTTP_201_CREATED)    
+            return JSONResponse(response,status=status.HTTP_201_CREATED)
         else:
             return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
-            
+
 
 
 @api_view(['GET','PUT'])
@@ -183,7 +181,7 @@ class Posts(APIView):
 def post_status(request,pk):
     response ={}
     response["status"] = message.SUCCESS
-   
+
     try:
         post = Post.objects.get(pk=pk)
         if request.method == "GET":
@@ -199,18 +197,18 @@ def post_status(request,pk):
             post.save()
 
             serializer = PostSerializer(post)
-            response["data"] = serializer.data 
+            response["data"] = serializer.data
 
     except Exception as exp:
             print (exp)
-            traceback.print_exc() 
+            traceback.print_exc()
             response["status"]= message.ERROR
             response["message"]=str(exp)
-        
-        
+
+
     if response["status"] == message.SUCCESS:
-        return JSONResponse(response,status=status.HTTP_200_OK)    
+        return JSONResponse(response,status=status.HTTP_200_OK)
     else:
         return JSONResponse(response,status=status.HTTP_400_BAD_REQUEST)
-        
-         
+
+

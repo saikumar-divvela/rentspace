@@ -31,17 +31,17 @@ class MyUserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser,Address):
-    email = models.EmailField(max_length=50,verbose_name='email address',db_index=True,unique=True)    
+    email = models.EmailField(max_length=50,verbose_name='email address',db_index=True,unique=True)
     first_name = models.CharField(max_length=40,blank=True)
     last_name = models.CharField(max_length=40,blank=True)
     phone_number = models.CharField(max_length=10,blank=True,db_index=True,unique=True)
-    gender = models.CharField(max_length=1,blank=True,choices=GENDER,default=MALE)    
+    gender = models.CharField(max_length=1,blank=True,choices=GENDER,default=MALE)
     date_of_birth = models.DateField(null=True)
 
     id_card_type = models.CharField(max_length=20,blank=True)
     idphoto = models.ImageField(blank=True)
 
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
 
@@ -49,16 +49,16 @@ class User(AbstractBaseUser,Address):
     last_login_date = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    is_email_verified =  models.BooleanField(default=True)
-    is_phone_verified =  models.BooleanField(default=True)
-    is_id_verified =  models.BooleanField(default=True)
+    is_email_verified = models.BooleanField(default=True)
+    is_phone_verified = models.BooleanField(default=True)
+    is_id_verified = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=True)
 
 
     objects = MyUserManager()
 
-    USERNAME_FIELD='email'
-    REQUIRED_FIELDS=[phone_number]
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = [phone_number]
 
 
     class Meta:
@@ -66,12 +66,12 @@ class User(AbstractBaseUser,Address):
         db_table = "user"
 
     def get_full_name(self):
-        return self.first_name+" "+self.last_name    
+        return self.first_name+" "+self.last_name
 
     def get_short_name(self):
         return self.first_name
 
-    def __str__(self):   
+    def __str__(self):
         return self.email
 
     """Does the user have a specific permission? # Simplest possible answer: Yes, always"""
@@ -85,10 +85,7 @@ class User(AbstractBaseUser,Address):
     def __setitem__(self, key, value):
         object.__setattr__(self, key, value)
 
-    "Is the user a member of staff?# Simplest possible answer: All admins are staff"
-    @property
-    def is_staff(self):
-        return self.is_admin
+
 
 '''
 from django.db.models.signals import post_save

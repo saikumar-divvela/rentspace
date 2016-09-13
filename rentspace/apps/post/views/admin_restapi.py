@@ -11,16 +11,16 @@ class XPostDetail(APIView):
         post = self.get_object(pk)
         serializer = PostSerializer(post)
         return Response(serializer.data)
-    
+
     def put(self, request,user_pk, pk, format=None):
          post = self.get_object(pk)
          print (post)
-         request.data["user"]=user_pk   
-         serializer = PostSerializer(post,data=request.data)     
+         request.data["user"]=user_pk
+         serializer = PostSerializer(post,data=request.data)
          if serializer.is_valid():
             serializer.save()
             update_post_attributes(request.data["attributes"],serializer.data["id"])
-            return Response(serializer.data)   
+            return Response(serializer.data)
          return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self,request,user_pk,pk,format=None):
@@ -34,7 +34,7 @@ def add_post_attributes(attributelist,post_id):
     for attribute in attributelist:
         attr_data = {}
         attr_data["post"]=post_id
-        for name,value in attribute.items():    
+        for name,value in attribute.items():
             attr_data["name"]=name
             attr_data["value"]=value
             attr_serializer = PostAttributeSerializer(data=attr_data)
@@ -50,19 +50,18 @@ def update_post_attributes(attributelist,post_id):
         attribute.delete()
     add_post_attributes(attributelist,post_id)
 
-@csrf_exempt
 def post_status(request,user_pk,pk):
     try:
         post = Post.objects.get(pk=pk)
     except Post.DoesNotExist:
         raise Http404
-    
+
     if request.method == "GET":
         output = {}
         output["status"] = post.status
         output["is_verified"] = post.is_verified
         output["is_active"] = post.is_active
-                
+
         serializer = PostSerializer(post)
         return JSONResponse(output)
 
@@ -70,12 +69,12 @@ def post_status(request,user_pk,pk):
     elif request.method == "PUT":
          data = JSONParser().parse(request)
          for key,value in data.items():
-            post[key]=value    
+            post[key]=value
          post.save()
 
          serializer = PostSerializer(post)
-         return JSONResponse(serializer.data)  
-         #return Response(serializer.data) 
+         return JSONResponse(serializer.data)
+         #return Response(serializer.data)
 
 
 
@@ -86,14 +85,14 @@ class XPostAttributeList(APIView):
         serializer = PostAttributeSerializer(postattributes,many=True)
         return Response(serializer.data)
 
-    def post(self,request,user_pk,post_pk,format=None):    
+    def post(self,request,user_pk,post_pk,format=None):
         print (request.data)
         update_post_attributes(request.data["attributes"],post_pk)
         postattributes = PostAttributes.objects.filter(post__id=post_pk)
         serializer = PostAttributeSerializer(postattributes,many=True)
         return Response(serializer.data)
 
-    def put(self,request,user_pk,post_pk,format=None):    
+    def put(self,request,user_pk,post_pk,format=None):
         print (request.data)
         update_post_attributes(request.data["attributes"],post_pk)
         postattributes = PostAttributes.objects.filter(post__id=post_pk)
@@ -110,7 +109,7 @@ class PostList(APIView):
         serializer = PostSerializer(posts,many=True)
         return Response(serializer.data)
 
-    def post(self,request,user_pk,format=None):    
+    def post(self,request,user_pk,format=None):
         user =UserDetail().get_object(user_pk)
         request.data["user"]= user_pk
         serializer = PostSerializer(data=request.data)
@@ -121,7 +120,7 @@ class PostList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+
     def perform_create(self, serializer):
         print ("************************************************************")
         serializer.save(user=self.request.user)
