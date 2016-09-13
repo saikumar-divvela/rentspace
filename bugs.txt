@@ -6,5 +6,20 @@
               In correct or no error/status messages
               UI is not intuitive
               UI layout/fonts/colors not good (for this mention the exact page and text )
+              
+              
+# Testing bugs by Mayura(08-09-2016)
+
+1. After Successfull Sign Up, page remains in same screen with message "User is created successfully", It should be redirected to Home page, message should be "Welcome to Rahilo.com, We are exited to give you amazing experience"
+
+2. After Successfull Sign Up, User should be automatially logged in.
+
+3. Edit Profile Submit giving slow response ( Image uploading takes too much time. we can restrict size(in MB) of image for better performance) 
+
+4. Manage postings gives all entries    [Fixed]
+
+5. After Changing password successfully, if i go home, I am logged out automatically  [Message is displayed and redirected to Login page]
+
+6. Forgot password on login page -> Remove link or implement
                 
 
