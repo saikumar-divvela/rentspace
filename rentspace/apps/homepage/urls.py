@@ -1,8 +1,10 @@
 from django.conf.urls import url
 from django.views.generic import TemplateView
+from homepage import views
 
 urlpatterns = [
-    #url(r'^$', views.index), 
+    #url(r'^$', views.index),
+    url(r'^test_admin$',views.test_admin,name="test_admin"),
     url(r'^$',TemplateView.as_view(template_name='index.html')),
     url(r'^home$',TemplateView.as_view(template_name='index.html'),name="home"),
     url(r'^index.html/$',TemplateView.as_view(template_name='index.html'),name="home"),
@@ -21,7 +23,7 @@ urlpatterns = [
     url(r'^terms$',TemplateView.as_view(template_name='terms.html'),name="terms"),
 
 
-    
+
 ]
 
 

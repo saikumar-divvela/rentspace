@@ -13,14 +13,21 @@ mysql work bench (to connect to mysql server)
 Django (1.9.6)
 django-filter (0.13.0)
 djangorestframework (3.3.3)
-Markdown (2.6.6)
-setuptools (21.2.1)
 mysqlclient (1.3.7)
-Pillow (3.2.0) // required for ImageField of Django
-pip (8.1.2)
-Pygments (2.1.3)
+Markdown (2.6.6)
+setuptools (2.2.1)
 requests (2.10.0)
+Pillow (3.2.0) // required for ImageField of Django
+Pygments (2.1.3)
+httpie (0.9.3)
+python-http-client (2.1.1)
+
+pip (8.1.2)
 wheel (0.29.0)
+
+
+
+
 
 Windows7 (tested on 64 bit)
 
@@ -30,7 +37,7 @@ Windows7 (tested on 64 bit)
      https://www.python.org/ftp/python/3.4.3/python-3.4.3rc1.msi  (for 32 bit)
      https://www.python.org/ftp/python/3.4.3/python-3.4.3.amd64.msi  (for 64 bit os)
 
-    Install python 
+    Install python
     Add following paths to system path
         Python installation directory
         Scripts folder (this folder is located in Python installation directory)
@@ -39,11 +46,11 @@ Windows7 (tested on 64 bit)
     Pip is part of Python 3.4.x. No need to install this seperately.
     This exe is present in scripts folder located in python installation directory. Make sure that the path of scripts folder is added to system path
 
-====> Installing Mysql server (5.5.48)  
+====> Installing Mysql server (5.5.48)
       http://downloads.mysql.com/archives/community/
       http://downloads.mysql.com/archives/get/file/mysql-5.5.48-winx64.msi
 
-      Select default options while installing 
+      Select default options while installing
 
 ====> Installing mysql workbench (6.x)
         http://downloads.mysql.com/archives/workbench/
@@ -69,7 +76,7 @@ Linux (Ubuntu 14.04)
     Python 3.4.3 is installed by default with Ubuntu (14.04)
 
 ===>Installing Pip (Python package manager)  (1.5.4)
-    apt-get install python-pip   
+    apt-get install python-pip
 
     -> PIP 1.5.4 has some security issue. Install different version to bypass this
         wget  https://pypi.python.org/packages/source/p/pip/pip-1.2.1.tar.gz
@@ -77,10 +84,10 @@ Linux (Ubuntu 14.04)
         cd pip-1.2.1
         python setup.py install --record files.txt  # This gives list of files installed
     pip --version
-    
+
     apt-get install python3-dev libmysqlclient-dev   # Installs python dev libraries required for mysql connector
     pip install setuptools
-    
+
 ===>Installing Mysql (Ver 14.14 Distrib 5.5.49)
     sudo apt-get update
     sudo apt-get install mysql-server
@@ -88,7 +95,7 @@ Linux (Ubuntu 14.04)
     sudo mysql_secure_installation
     sudo mysql_install_db
 
-    # check version of mysql server    
+    # check version of mysql server
     mysql --version
 
 ===>Installing workbench
@@ -118,9 +125,9 @@ Linux (Ubuntu 14.04)
     pip install django-filter
     pip install httpie
 
-    
+
 ===>Uninstall Mysql
-    sudo service mysql stop or sudo killall -9 mysql 
+    sudo service mysql stop or sudo killall -9 mysql
     sudo apt-get purge mysql-server mysql-server-core-5.5  mysql-common mysql-client-core-5.5 mysql-client
     sudo rm -rf /etc/mysql /var/lib/mysql /var/log/mysql
     sudo apt-get autoremove

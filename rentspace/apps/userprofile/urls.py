@@ -6,7 +6,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from userprofile import views
 
 urlpatterns = [
-    
+
+
     url(r'^register$',views.create_user,name="register"),
     url(r'^login/?$',views.login_user,name="login"),
     #url(r'^logout/$',views.logout_user),  # TODO not working
@@ -17,14 +18,14 @@ urlpatterns = [
     url(r'^resetpassword$',views.reset_password,name="reset_password"),
     url(r'^editprofile$',views.edit_profile,name="edit_profile"),
     url(r'^register_success$',views.register_success,name="register_success"),
-  
+
 
 
     # REST api  (ADMIN)
     # url(r'^api/users$', views.UserList.as_view()),
     # url(r'^api/users/(?P<pk>[0-9]+)/$', views.UserDetail.as_view()),
     # url(r'^api/users/(?P<pk>[0-9]+)/status$', views.user_status),
-    
+
     # REST api for mobile client / logged in user
     url(r'^api/register$', views.registeruser),  #POST
     url(r'^api/login$', views.userlogin),   #POST
@@ -39,8 +40,8 @@ urlpatterns = [
 
     # test
     url(r'^register_success$',views.register_success,name="register_success"),
-    url(r'^pagination$',views.pagination,name="pagination"),    
-    
+    url(r'^pagination$',views.pagination,name="pagination"),
+
 ]
 
 

@@ -1,11 +1,11 @@
 <html lang="en">
   <head>
-      
+
       {% include "init_header.html" %}
       <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
 
-      
+
     <style>
          .big-box,
          .mini-box {
@@ -39,9 +39,9 @@
          div .row {
          margin-top:10px;
          }
-         
+
          .strike_service {
-            text-decoration: line-through; 
+            text-decoration: line-through;
             font-weight: lighter;
           }
 
@@ -56,14 +56,14 @@
             //text-decoration: underline;
           }
       </style>
-       
+
     <script type="text/javascript">
 
 
 
         $(document).ready(function() {
           facilities = "{{post.facilities}}"
-          var fac = facilities.split(","); 
+          var fac = facilities.split(",");
          $('#services ul li').each(function () {
           if ($.inArray($(this).attr("id"), fac) == -1){
              //alert($(this).attr("id"));
@@ -71,15 +71,15 @@
             }
           });
 
-         
+
 
           $('a[href="#map-canvas"]').click(function(e){
-             
+
               //alert(document.getElementById("map-canvas"));
               var geocoder;
               var map;
               var address ="Pai Layout,K R Puram";
-  
+
               geocoder = new google.maps.Geocoder();
               var latlng = new google.maps.LatLng(-34.397, 150.644);
               var myOptions = {
@@ -91,16 +91,16 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-    
+
     if (geocoder) {
-      
+
       geocoder.geocode( { 'address': address}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
           if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-            
+
             //alert(results[0].geometry.location);
              map.setCenter(results[0].geometry.location);
-            
+
             var infowindow = new google.maps.InfoWindow(
                 { content: '<b>'+address+'</b>',
                   size: new google.maps.Size(150,50)
@@ -108,13 +108,13 @@
 
             var marker = new google.maps.Marker({
                 position: results[0].geometry.location,
-                map: map, 
+                map: map,
                 title:address
-            }); 
+            });
             google.maps.event.addListener(marker, 'click', function() {
                 infowindow.open(map,marker);
             });
-            
+
 
           } else {
             alert("No results found");
@@ -123,15 +123,15 @@
           alert("Geocode was not successful for the following reason: " + status);
         }
       });
-    
-      }  
+
+      }
 
           });
-  
-        
+
+
         });
 
-      
+
 </script>
 
 
@@ -142,16 +142,17 @@
       {% include "header.html" %}
    </div>
   <body>
+    {% csrf_token %}
     <div id="main">
       <div class="container">
         <div class="heading1"> {{ post.title }} </div>
-          
+
         <div class="row">
           <div class="col-md-8">
              <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#photos">Photos</a></li>
         <li> <a data-toggle="tab" href="#map-canvas">Map</a></li>
-        </ul>  
+        </ul>
             <div class="tab-content">
               <div id="photos" class="tab-pane fade in active">
 
@@ -160,12 +161,12 @@
               <ol class="carousel-indicators">
                 {% for image in post.postphotos.all %}
                 {% if forloop.first %}
-                                
+
                 <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
-                {% else %}      
+                {% else %}
                 <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
                 {% endif %}
-                {% endfor %}        
+                {% endfor %}
               </ol>
               <!-- Wrapper for slides -->
               <div class="carousel-inner" role="listbox">
@@ -185,10 +186,10 @@
                       </div>
                     </div>
                 {% endif %}
-                
+
                 {% endfor %}
-                        
-                
+
+
                   <!-- Left and right controls -->
                   <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                     <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -201,24 +202,24 @@
                 </div>
               </div>
               </div>
-            
-            
+
+
             <div id="map-canvas"  style="height:100%; width:100%;" >
             </div>
 
             </div>
             </div>
-            
-          
+
+
               <div class="col-md-3">
                 <div class="row" style="text-align:center; margin-top:30px" >
-                      Available for 
+                      Available for
                   <b>{{ post.accom_for }}</b>
                   <br/>
-                      Accomdation type 
+                      Accomdation type
                   <b>{{ post.accom_type }}</b>
                   <br/>
-                      House type 
+                      House type
                   <b>{{ post.house_type }}</b>
                   <hr/>
                 </div>
@@ -233,7 +234,7 @@
                         Rent per day
                      </div>
                   <div class="col-md-6">
-                        Security deposit 
+                        Security deposit
                      </div>
                 </div>
                 <div class="row">
@@ -247,7 +248,7 @@
                 <hr/>
                 <div class="row">
                         {%  if post.is_active    %}
-                        
+
                   <div class="col-md-4">
                     <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Edit</a>
                   </div>
@@ -258,7 +259,7 @@
                     <a href="/myposts" class="btn btn-info btn-block" role="button">Back</a>
                   </div>
                         {% else  %}
-                        
+
                   <div class="col-md-4">
                     <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Activate</a>
                   </div>
@@ -267,11 +268,11 @@
                   </div>
 
                         {% endif %}
-                  
+
                 </div>
               </div>
             </div>
-          
+
           <div class="row">
             <div class="col-md-8">
               <div class="heading2"> Amenities and Services </div>

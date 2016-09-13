@@ -6,7 +6,7 @@ import traceback
 def createuser(username,password,first_name,last_name,phone_number):
 	response = {}
 	response["status"] = message.SUCCESS
-	try: 
+	try:
 		if username is None or password is None or first_name is None or last_name is None or phone_number is None:
 			raise Exception(message.MISSING_INPUT_FIELD)
 
@@ -17,13 +17,13 @@ def createuser(username,password,first_name,last_name,phone_number):
 			raise Exception(message.DUP_PHONE_NUMBER)
 
 		# Only pass the required fields defined in models.py
-		
+
 		user = User.objects.create_user(email=username,password=password,phone_number=phone_number)
 		print (user,user.password)
 		user.first_name = first_name
 		user.last_name = last_name
 		user.save()
-		
+
 		response["message"] = message.REGISTER_USER_SUCCESS
 
 	except Exception as exp:
@@ -32,7 +32,7 @@ def createuser(username,password,first_name,last_name,phone_number):
 		response["status"] = message.ERROR
 		response["message"]= str(exp)
 
-	return response		
+	return response
 
 
 def validate_email_format():

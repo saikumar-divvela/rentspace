@@ -40,7 +40,7 @@
             var userid = $(this).attr('id');
             var link = $(this);
             $.ajax({
-                url: "verifyidcard",
+                url: "{% url 'verifyidcard'  %}",
                 type: "get",
                 data:{userid:userid},
                 success: function(response) {
@@ -58,7 +58,7 @@
             var userid = $(this).attr('id');
             var link = $(this);
             $.ajax({
-                url: "verifyphone",
+                url: "{% url 'verifyphone'  %}"",
                 type: "get",
                 data:{userid:userid},
                 success: function(response) {
