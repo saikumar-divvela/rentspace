@@ -119,7 +119,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
@@ -128,7 +127,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -140,7 +138,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, "static"),
 ]
-
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -163,23 +160,20 @@ REST_FRAMEWORK = {
 AUTH_USER_MODEL = 'userprofile.User'
 LOGIN_URL = '/signin/'
 
-
 STAFF_REQUIRED_URLS = (
+)
+
+LOGIN_REQUIRED_URLS = (
     '/verifyidcard',
     '/verifyphone',
     '/admin/(.*)$',
 )
 
-LOGIN_REQUIRED_URLS = (
-)
-
 LOGIN_REQUIRED_URLS_EXCEPTIONS = ()
-
 
 # sets the dateformat for applicationwise
 DATE_FORMAT = "Y-m-d"
 #USE_L10N = False
-
 
 ## Following settings are used in application
 PAGE_SIZE = 10
