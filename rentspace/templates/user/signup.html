@@ -1,118 +1,116 @@
 <html lang="en">
 
 <head>
-   {% include "init_header.html" %}
+    {% include "init_header.html" %}
 
-  <style>
-    #alert {
-        /* display: none; */
-    }
-  </style>
-  <script type="text/javascript">
-  /*  
-  $(function(){
-    $("#submit").click(function(event){
-               event.preventDefault(); 
-               //var data = $("#form1").serialize();
-               var formData = JSON.parse($("#form1").serialize());
-               alert(formData);
-               $.ajax({
-                    url: '/api/register',
-                    dataType: 'json',
-                    contentType: "application/json; charset=utf-8",
-                    data: formData,
-                    type:'POST'
-                  }).done(handle_success)
-                    .fail(handle_fail);
-              });
-  });
+    <style>
+        #alert {
+            /* display: none; */
+        }
+    </style>
+    <script type="text/javascript">
+        /*  
+                                                  $(function(){
+                                                    $("#submit").click(function(event){
+                                                               event.preventDefault(); 
+                                                               //var data = $("#form1").serialize();
+                                                               var formData = JSON.parse($("#form1").serialize());
+                                                               alert(formData);
+                                                               $.ajax({
+                                                                    url: '/api/register',
+                                                                    dataType: 'json',
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    data: formData,
+                                                                    type:'POST'
+                                                                  }).done(handle_success)
+                                                                    .fail(handle_fail);
+                                                              });
+                                                  });
 
-   
-   function handle_success(data,statusText,xhr){
-        location.href = "{% url 'register_success' %}"
-   }
+                                                   
+                                                   function handle_success(data,statusText,xhr){
+                                                        location.href = "{% url 'register_success' %}"
+                                                   }
 
-   function  handle_fail(xhr, statusText, errorThrown){
-        console.log(xhr);        
-        var resp = xhr.responseJSON
-        $("div#alert").text(resp.message)
-   }
+                                                   function  handle_fail(xhr, statusText, errorThrown){
+                                                        console.log(xhr);        
+                                                        var resp = xhr.responseJSON
+                                                        $("div#alert").text(resp.message)
+                                                   }
 
-   function testfunction(responseTxt, statusTxt, xhr){
-       alert("Hi");  
-       alert(statusTxt);
-    }
-  */
-
-</script>
+                                                   function testfunction(responseTxt, statusTxt, xhr){
+                                                       alert("Hi");  
+                                                       alert(statusTxt);
+                                                    }
+                                                  */
+    </script>
 </head>
 
-
-  <div id="header">
-    {% include "header.html" %}
-  </div>
-
 <body>
-<div id="main">
-  <form id="form1" action="{% url 'register' %}" method="post">
-   {% csrf_token %}
-    <div class="container clear-top">
-      <div class="col-lg-offset-1 col-lg-6">
-        <div class="panel panel-default">
-          <div class='panel-heading'>
-            <h3>Signup</h3>
-          </div>
-          <div class="panel-body">
-            <div id="alert"> </div>
-            <div class="form-group">
-              <label for="username">User name(emailid)</label>
-              <input type="email" class="form-control" id="username" name="username" placeholder="username" required>
-            </div>
-            <div class="form-group">
-              <label for="pwd">Create a password</label>
-              <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-              <label for="pwd-repeat">Confirm your password</label>
-              <input type="password" class="form-control" id="password-repeat" name="password-repeat" required>
-            </div>
-            <div class="form-group">
-              <label for="first_name">Name</label>
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                 <div class="form-group">
-                    <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
-                 </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
-                </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="phone_number">Mobile number</label><br/>
-              <input type="text" id="phone_number" name="phone_number" required>
-            </div>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-lg">Create Account</button>
-            </div>
 
-            <div class="form-group">
-                <label for="newuser">Already have account?</label>
-                <a href="{% url 'signin' %}">Login</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div id="header">
+        {% include "header.html" %}
     </div>
+    <div id="main">
+        <form id="form1" action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="container clear-top section-pad">
+                <div class="col-lg-offset-3 col-lg-6">
+                    <div class="panel panel-default">
+                        <div class='panel-heading'>
+                            <h3>Sign Up</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div id="alert"> </div>
+                            <div class="form-group">
+                                <label for="username">User name(emailid)</label>
+                                <input type="email" class="form-control" id="username" name="username" placeholder="Username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd">Create a password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pwd-repeat">Confirm your password</label>
+                                <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Confirm your password" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="first_name">Name</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Mobile number</label><br/>
+                                <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-lg submit">Create Account</button>
+                            </div>
 
-  </form>
-  </div>
+                            <div class="form-group">
+                                <label for="newuser">Already have account?</label>
+                                <a href="{% url 'signin' %}">Login</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
 </body>
-  <div id="footer">
+<div id="footer">
     {% include "footer.html" %}
-  </div>
+</div>
 
 </html>
