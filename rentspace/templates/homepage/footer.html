@@ -1,59 +1,66 @@
- <style>
+<style>
 
 </style>
 
-              <div  class="container" >
+<div class="container">
 
-                  <div class="row">
-                        <div class="col-md-3">
-                            <div class="foot-header"><b>Rentspace.com</b></div>
-                             <div class="foot-links">
-                                <a href="{% url 'aboutus' %}" title="rentspace.com is a temporary accomdation reservation portal ">About Us</a>
-                                <a href="{% url 'contact' %}" title="Contact us for any queries">Contact Us</a>
-                                <a href="{% url 'support' %}" title="Support">Support</a>
-                                <a href="{% url 'blog' %}" title="Blog">Blog</a>
-                                <a href="{% url 'careers' %}" title="Careers">Careers</a>
-                             </div>
-                   
-                        </div>
-                        <div class="col-md-3">
-                              <div class="foot-header"><b>Guest</b></div>
-                              <div class="foot-links">
-                                <a href="{% url 'help' %}" title="Answers to all your questions on temporary accomdation">Help</a>
-                                <a href="{% url 'faq' %}" title="Frequently asked questions">FAQ</a>
-                                <a href="{% url 'terms' %}" title="Terms and conditions">Terms & Privacy</a>
-                               </div> 
-                             
-                        </div>
-                        <div class="col-md-3  text-center">
-                              
-                                <div class="footer-social">
-                                  <a target="_blank" href="http://twitter.com/"><i class="fa fa-twitter-square fa-2x"></i></a>
-                                  <a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook-square fa-2x"></i></a>
-                                  <a target="_blank" href="http://www.linkedin.com/"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                                  <a target="_blank" href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
-                                </div>
-            
-                              <small class="copyrgt">&copy; 2016-2017 rentspace.com, All rights reserved.</small>
-                        </div>
-                     </div>
-       
-              </div>
-     
-      
-   
-  
+    <div class="row">
+        <div class="col-md-3">
+            <div class="foot-header"><b>Rentspace.com</b></div>
+            <div class="content">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="foot-header"><b>Footer Link</b></div>
+            <div class="foot-links">
+                <a href="{% url 'aboutus' %}" title="rentspace.com is a temporary accomdation reservation portal ">About Us</a>
+                <a href="{% url 'contact' %}" title="Contact us for any queries">Contact Us</a>
+                <a href="{% url 'support' %}" title="Support">Support</a>
+                <a href="{% url 'blog' %}" title="Blog">Blog</a>
+                <a href="{% url 'careers' %}" title="Careers">Careers</a>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <div class="foot-header"><b>Guest</b></div>
+            <div class="foot-links">
+                <a href="{% url 'help' %}" title="Answers to all your questions on temporary accomdation">Help</a>
+                <a href="{% url 'faq' %}" title="Frequently asked questions">FAQ</a>
+                <a href="{% url 'terms' %}" title="Terms and conditions">Terms & Privacy</a>
+            </div>
+
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="foot-header"><b>Social</b></div>
+            <div class="footer-social">
+                <a target="_blank" href="http://twitter.com/"><i class="fa fa-twitter-square fa-2x"></i></a>
+                <a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook-square fa-2x"></i></a>
+                <a target="_blank" href="http://www.linkedin.com/"><i class="fa fa-linkedin-square fa-2x"></i></a>
+                <a target="_blank" href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+            </div>
+        </div>
+        <div class="col-md-12  text-center">
+            <small class="copyrgt">&copy; 2016-2017 rentspace.com, All rights reserved.</small>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
 <script type="text/javascript">
+    $(document).ready(function() {
 
-  $(document).ready(function() {
+        var docHeight = $(window).height();
+        var footerHeight = $('#footer').height();
+        var footerTop = $('#footer').position().top + footerHeight;
 
-   var docHeight = $(window).height();
-   var footerHeight = $('#footer').height();
-   var footerTop = $('#footer').position().top + footerHeight;
-
-   if (footerTop < docHeight) {
-    $('#footer').css('margin-top', 0+ (docHeight - footerTop) + 'px');
-   }
-  });
-
+        if (footerTop < docHeight) {
+            $('#footer').css('margin-top', 0 + (docHeight - footerTop) + 'px');
+        }
+    });
 </script>

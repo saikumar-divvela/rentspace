@@ -1,3 +1,5 @@
+
+
 <html lang="en">
    <head>
       {% include "init_header.html" %}
@@ -15,10 +17,7 @@
       <div id="main">
          <div class="container clear-top">
             <form role="form" >
-               {% csrf_token %}
-                {% if  msg %}
-                  <div class="alert alert-info"> {{ msg }} </div>
-                {% endif %}
+               {{ msg }} <br/>   
                <a href="{% url 'addpost' %}" class="btn btn-info" role="button">Add Post</a>
                {% for post in posts %}
                <div class="row record">
@@ -62,35 +61,35 @@
                   </div>
 
                   {% if shortlistedposts %}
-
+                  
                   <div class="col-md-2" >
                      <div class="row  button">
                         <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Contact</a>
                      </div>
                      <div class="row button">
-                        <a href="{% url 'delistpost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delist</a>
+                        <a href="{% url 'delistpost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delist</a> 
                      </div>
                   </div>
 
-                  {% elif not post.is_active   %}
+                  {% elif not post.is_active   %} 
                   <div class="col-md-2" >
                      <div class="row  button">
                         <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Activate</a>
                      </div>
                   </div>
 
-                  {% else  %}
+                  {% else  %}   
                   <div class="col-md-2" >
                      <div class="row  button">
                         <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Edit</a>
                      </div>
                      <div class="row button">
-                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a>
+                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a> 
                      </div>
                   </div>
                   {% endif %}
                </div>
-               {% endfor %}
+               {% endfor %}    
             </form>
          </div>
       </div>

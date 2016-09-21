@@ -1,52 +1,49 @@
-         <script type="text/javascript">
-
-         $(function() {
-          var accomfor = "{{ request.session.accomfor }}";
-          var housetype =  "{{ request.session.housetype }}"
-          var accomtype = "{{ request.session.accomtype }}"
-          if (accomfor && accomfor.trim() !=""){
+<script type="text/javascript">
+    $(function() {
+        var accomfor = "{{ request.session.accomfor }}";
+        var housetype = "{{ request.session.housetype }}"
+        var accomtype = "{{ request.session.accomtype }}"
+        if (accomfor && accomfor.trim() != "") {
             $("#accomfor").val(accomfor);
-          }
-          if (accomtype && accomtype.trim() !="") {
+        }
+        if (accomtype && accomtype.trim() != "") {
             $("#accomtype").val(accomtype);
-          }
+        }
 
-          if (housetype  && housetype.trim() !=""){
+        if (housetype && housetype.trim() != "") {
             $("#housetype").val(housetype);
-          }
+        }
 
-          $("#search" ).click(function() {
-                $("#searchform").submit();
-          });
-
-
+        $("#search").click(function() {
+            $("#searchform").submit();
         });
 
 
-      </script>
+    });
+</script>
 
-         <div id="searchbar" class="container-fluid">
-            <!-- daily rent min or maximum -->
-            <form id="searchform" action="{% url 'searchposts' %}" role="form" class="no-margin">
-            <div class="row" style="margin-top:0px;">
-               <div class="col-md-7 col-md-offset-2 maskbg" >
-                  <input type="text" id="location" placeholder="Enter the locality or City" name="location">
-                  <select class="selectpicker show-tick" name="accomtype" id="accomtype">
+<div id="searchbar" class="container-fluid">
+    <!-- daily rent min or maximum -->
+    <form id="searchform" action="{% url 'searchposts' %}" role="form" class="no-margin">
+        <div class="row" style="margin-top:0px;">
+            <div class="col-md-7 col-md-offset-2 maskbg">
+                <input type="text" id="location" placeholder="Enter the locality or City" name="location">
+                <select class="selectpicker show-tick" name="accomtype" id="accomtype">
                      <option value="shared">Shared</option>
                      <option value="private">Private Room</option>
                   </select>
-                  <select class="selectpicker" name="housetype" id="housetype">
+                <select class="selectpicker" name="housetype" id="housetype">
                      <option value="pg">PG</option>
                      <option value="house">Independent</option>
                      <option value="flat">Flat</option>
                   </select>
-                  <select class="selectpicker" name="accomfor" id="accomfor">
+                <select class="selectpicker" name="accomfor" id="accomfor">
                      <option value="men">Boys</option>
                      <option value="women">Girls</option>
                      <option value="family">Family</option>
                   </select>
-                  <a href="#" id="search" class="btn btn-primary bt-create">Search</a> <br/>
-               </div>
+                <a href="#" id="search" class="btn btn-primary bt-create">Search</a> <br/>
             </div>
-            </form>
-          </div>
+        </div>
+    </form>
+</div>
