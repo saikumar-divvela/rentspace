@@ -22,4 +22,8 @@
 
 6. Forgot password on login page -> Remove link or implement
                 
+7. More space between picture and test in view post details
 
+8. Activate button is not displayed full in view post
+
+9. After adding post successdfully either we have to empty the fields  or redirect to myposts with a message.
