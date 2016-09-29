@@ -2,11 +2,76 @@ import sys
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from userprofile.models import User
+from userprofile.models import User,UserKey
+from email.mime.text import MIMEText
+
+import smtplib
+import datetime
+import hashlib
+import random
+#import timezone
+
+
+def sendEmail(sender,recipient,sub,msg):
+    
+    # Create message
+    msg = MIMEText(msg)
+    msg['Subject'] = sub
+    msg['From'] = sender
+    msg['To'] = recipient
+
+    # Create server object with SSL option
+    server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+    # Perform operations via server
+    server.login("staff@rahilo.com", 'rahilo$123')
+    server.sendmail(sender, [recipient], msg.as_string())
+    server.quit()
+    print ("Mail sent")
+
+def activation(request, key):
+    context ={}
+    activation_expired = False
+    already_active = False
+    userkey = get_object_or_404(UserKey, activation_key=key)
+    if userkey.user.is_active == False:
+        #if datetime.datetime.now() > userkey.key_expires:
+        #activation_expired = True #Display: offer the user to send a new activation link
+        #id_user = userkey.user.id
+        #else: #Activation successful
+        userkey.user.is_active = True
+        userkey.user.save()
+        context["msg"] ="User is activated. Proceed to login....."
+
+    #If user is already active, simply display error message
+    else:
+        already_active = True #Display : error message
+        context["msg"] ="User is already activated. Proceed to login....."
+    
+    return render(request, 'register_success.html', context)
+
+def sendActivationEmail(user):
+
+    # generate a random activation key
+    print ("test0")
+    key = hashlib.sha1(str(user.email+str(random.random())).encode('utf-8')).hexdigest()[:40]
+
+    userkey = UserKey()
+    userkey.user = user
+    userkey.activation_key = key
+    userkey.key_expires = datetime.datetime.strftime(datetime.datetime.now() + datetime.timedelta(days=2), "%Y-%m-%d %H:%M:%S")
+    userkey.save()
+
+    link="http://rahilo.com/activate/"+key
+    sub ="Activate user account"
+    msg = link
+    sender = 'info@rahilo.com'
+    sendEmail(sender,user.email,sub,msg)
+
+
 
 def pagination(request):
     print ('you hit pagination')
@@ -47,6 +112,10 @@ def create_user(request):
         user.last_name = last_name
         user.save()  # This doesn't return anything
 
+     
+        # Send activation email here
+        sendActivationEmail(user)
+     
     except Exception as err:
         print ("Unexpected error:", sys.exc_info()[0])
         print (err)
@@ -58,7 +127,7 @@ def create_user(request):
 
 def register_success(request):
     context = {}
-    context["msg"] = "User is created successfully"
+    context["msg"] = "User is created successfully. Email is sent to registered email. Please follow the instructions in email to activate account."
     return render(request, 'register_success.html', context)
 
 # Retun success page if success else show same page with error message
@@ -71,7 +140,7 @@ def login_user(request):
 
        user = authenticate(username=username, password=password)
        print (user)
-       if user is not None:
+       if user is not None and user.is_active:
            login(request, user)
            return HttpResponseRedirect("/")
        else:

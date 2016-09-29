@@ -19,7 +19,9 @@ urlpatterns = [
     url(r'^editprofile$',views.edit_profile,name="edit_profile"),
     url(r'^register_success$',views.register_success,name="register_success"),
 
+    url(r'^activate/(?P<key>.+)$', views.activation),
 
+    #url(r'^activate/(?P<key>.+)/$', views.activation),
 
     # REST api  (ADMIN)
     # url(r'^api/users$', views.UserList.as_view()),

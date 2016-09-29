@@ -49,10 +49,11 @@ class User(AbstractBaseUser,Address):
     last_login_date = models.DateTimeField(auto_now=True)
     last_modified = models.DateTimeField(auto_now=True)
 
-    is_email_verified = models.BooleanField(default=True)
-    is_phone_verified = models.BooleanField(default=True)
-    is_id_verified = models.BooleanField(default=True)
-    is_verified = models.BooleanField(default=True)
+    is_email_verified = models.BooleanField(default=False)
+    is_phone_verified = models.BooleanField(default=False)
+    is_id_verified = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
+
 
 
     objects = MyUserManager()
@@ -85,7 +86,13 @@ class User(AbstractBaseUser,Address):
     def __setitem__(self, key, value):
         object.__setattr__(self, key, value)
 
-
+class UserKey(models.Model):
+    user = models.OneToOneField(User, related_name='profile') #1 to 1 link with Django User
+    activation_key = models.CharField(max_length=40)
+    key_expires = models.DateTimeField()
+    class Meta:
+        ordering = ('id',)
+        db_table = "userkey"
 
 '''
 from django.db.models.signals import post_save
