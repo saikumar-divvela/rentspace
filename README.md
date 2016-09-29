@@ -1,4 +1,4 @@
-# rentspace
+# rahilo
 
 This document is main source for all technical and non technical things related to projects.
 
@@ -88,7 +88,7 @@ Jun 19th
 quickstay
 estay
 eroom
-rentspace
+rahilo
 oyebasera
 eroost
 ehoy/hoy

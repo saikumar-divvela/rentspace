@@ -3,7 +3,7 @@
 from mongoengine import *
 import json
 
-db ="rentspace"
+db ="rahilo"
 host="mongodb://localhost:27017"
 # host='mongodb://admin:qwerty@localhost/production'  ## connects to production database using admin user and qwerty password
 username=""
@@ -23,7 +23,7 @@ class User(Document):
 from pymongo import MongoClient
 
 client = MongoClient()
-db = client["rentspace"]
+db = client["rahilo"]
 print client
 
 def adduser(user):
