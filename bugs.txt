@@ -38,3 +38,4 @@ Bugs found by Paresh - 1-october-2016
 6. Edit- ID Card - Add more Driving license , Voter ID, Passport, we should keep only address proof identity
 7. 
 
+
