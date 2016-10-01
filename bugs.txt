@@ -28,3 +28,13 @@
 8. Activate button is not displayed full in view post
 
 9. After adding post successdfully either we have to empty the fields  or redirect to myposts with a message.
+
+Bugs found by Paresh - 1-october-2016
+1. Mobile number text box should take 10 digit only
+2. Accomadation section - over lap
+3. Guest Tab- Terms & Privacy replace with Terms & Conditions
+4. Remove below four pix from home page not looking good- we can add other content
+5. edit- Phone number text box replace with Contact number
+6. Edit- ID Card - Add more Driving license , Voter ID, Passport, we should keep only address proof identity
+7. 
+
