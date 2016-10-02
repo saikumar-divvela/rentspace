@@ -35,7 +35,10 @@ Bugs found by Paresh - 1-october-2016
 3. Guest Tab- Terms & Privacy replace with Terms & Conditions
 4. Remove below four pix from home page not looking good- we can add other content
 5. edit- Phone number text box replace with Contact number
-6. Edit- ID Card - Add more Driving license , Voter ID, Passport, we should keep only address proof identity
-7. 
+6. Edit- ID Card - Add more Driving license , Voter ID, Passport, we have keep only address proof identity 
+7. Change passowrd - repeat new password - replace with Confirm new password
+8. Manage posting - Error code: 504-loadbalancer
+9. General bug - Rahilo is taking too much time reload
+10. 
 
 
