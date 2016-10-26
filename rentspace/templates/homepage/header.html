@@ -1,30 +1,56 @@
 
 
 <div id="header123" class="navbar navbar-default">
-  <div class="container">
-    <a class="navbar-brand logo" href="{% url 'home' %}"><b>Rahilo</b></a>
-    {% csrf_token %}
-    <ul class="nav navbar-nav navbar-right navMrg">
-        {% if request.user.is_authenticated %}        
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 col-xs-4">
+                <a class="logo" href="{% url 'home' %}"><img src="/media/logo.png"/></a>
+            </div>
+            {% csrf_token %}
+            <div class="col-sm-6 col-xs-6 pull-right">
+                <ul class="nav navbar-nav navbar-right navMrg pull-right">
+                    {% if request.user.is_authenticated %}        
 
-        <div class="dropdown">
-          <a href="#" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;{{ user }}  </a>
-            <ul class="dropdown-menu">
-                <li><a href="{% url 'myaccount' %}" >My Account</a></li>
-                <li><a href="{% url 'change_password' %}" >Change Password</a></li>
-                <li><a href="{% url 'myposts' %}">Manage Postings</a></li>
-                <li><a href="{% url 'shortlistedposts' %}">Shortlisted</a></li>
-                <li><a href="{% url 'logout' %}"">Logout</a></li>
-            </ul>
+                    <div class="dropdown">
+                        <a href="#" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;{{ user }}  </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'myaccount' %}" >My Account</a></li>
+                            <li><a href="{% url 'change_password' %}" >Change Password</a></li>
+                            <li><a href="{% url 'myposts' %}">Manage Postings</a></li>
+                            <li><a href="{% url 'shortlistedposts' %}">Shortlisted</a></li>
+                            <li><a href="{% url 'logout' %}"">Logout</a></li>
+                        </ul>
+                    </div>
+                    {% else %}
+
+                    <li><a href="{% url 'signin' %}" title="Login to make a reservation" class="login_a"> <span class="glyphicon glyphicon-log-in"></span><span class="hidden-xs">Login</span></a></li>
+                    <li><a href="{% url 'signin' %}" title="Register new user" class="signup_a"><span class="glyphicon glyphicon-user"></span><span class="hidden-xs">Sign Up</span></a></li>
+
+                    {% endif %}
+                </ul>
+            </div>
         </div>
-      {% else %}
-
-      <li><a href="{% url 'signin' %}" title="Login to make a reservation" class="login_a"> <span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-      <li><a href="{% url 'signup' %}" title="Register new user" class="signup_a"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
-
-     {% endif %}
-    </ul>
-  </div>
+    </div>
 </div>
-
+<script>
+    var viewPortWidth = $(window).width();
+    if (viewPortWidth > 992) {
+        var getHeaderHeight = $('#header').outerHeight();
+        var lastScrollPosition = 0;
+        $('#header').css('top', -getHeaderHeight);
+        $(window).scroll(function () {
+            var currentScrollPosition = $(window).scrollTop();
+            if ($(window).scrollTop() > 4 * (getHeaderHeight)) {
+                $('body').addClass('fixedscroll').css('padding-top', getHeaderHeight);
+                $('#header').css('top', 0);
+                if (currentScrollPosition < lastScrollPosition) {
+                    $('#header').css('top', -getHeaderHeight - 20);
+                }
+                lastScrollPosition = currentScrollPosition;
+            } else {
+                $('body').removeClass('fixedscroll').css('padding-top', 0);
+            }
+        });
+    }
+</script>
 

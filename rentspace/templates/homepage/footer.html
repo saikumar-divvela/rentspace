@@ -1,59 +1,72 @@
-<style>
-
-</style>
 
 <div class="container">
 
     <div class="row">
-        <div class="col-md-3">
-            <div class="foot-header"><b>Rahilo.com</b></div>
-            <div class="content">
+        <div class="col-md-3 col-sm-4 col-x-12">
+            <div class="foot-header"><img src="/media/logo.png" style="width: 135px;"/></div>
+            <div class="content text-justify">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="foot-header"><b>Footer Link</b></div>
-            <div class="foot-links">
-                <a href="{% url 'aboutus' %}" title="rahilo.com is a temporary accomdation reservation portal ">About Us</a>
-                <a href="{% url 'contact' %}" title="Contact us for any queries">Contact Us</a>
-                <a href="{% url 'support' %}" title="Support">Support</a>
-                <a href="{% url 'blog' %}" title="Blog">Blog</a>
-                <a href="{% url 'careers' %}" title="Careers">Careers</a>
+        <div class="col-md-3 col-sm-4 col-x-12">
+            <div class="foot-title">Quick Links
+                <i class="openSub hidden-lg plus_icon"></i>
+            </div>
+            <div class="footer-contant">
+                <ul>
+                    <li><a href="{% url 'aboutus' %}" title="rahilo.com is a temporary accomdation reservation portal ">About Us</a></li>
+                    <li><a href="{% url 'contact' %}" title="Contact us for any queries">Contact Us</a></li>
+                    <li><a href="{% url 'support' %}" title="Support">Support</a></li>
+                    <li><a href="{% url 'blog' %}" title="Blog">Blog</a></li>
+                    <li><a href="{% url 'careers' %}" title="Careers">Careers</a></li>
+                </ul>
             </div>
 
         </div>
-        <div class="col-md-3">
-            <div class="foot-header"><b>Guest</b></div>
-            <div class="foot-links">
-                <a href="{% url 'help' %}" title="Answers to all your questions on temporary accomdation">Help</a>
-                <a href="{% url 'faq' %}" title="Frequently asked questions">FAQ</a>
-                <a href="{% url 'terms' %}" title="Terms and conditions">Terms & Privacy</a>
+        <div class="col-md-3 col-sm-4 col-x-12">
+            <div class="foot-title">Know Us
+                <i class="openSub hidden-lg plus_icon"></i>
+            </div>
+            <div class="footer-contant">
+                <ul>
+                    <li><a href="{% url 'help' %}" title="Answers to all your questions on temporary accomdation">Help</a></li>
+                    <li><a href="{% url 'faq' %}" title="Frequently asked questions">FAQ</a></li>
+                    <li><a href="{% url 'terms' %}" title="Terms and conditions">Terms & Privacy</a></li>
+                </ul>
             </div>
 
         </div>
-        <div class="col-md-3 text-center">
-            <div class="foot-header"><b>Social</b></div>
-            <div class="footer-social">
-                <a target="_blank" href="http://twitter.com/"><i class="fa fa-twitter-square fa-2x"></i></a>
-                <a target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook-square fa-2x"></i></a>
-                <a target="_blank" href="http://www.linkedin.com/"><i class="fa fa-linkedin-square fa-2x"></i></a>
-                <a target="_blank" href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus-square fa-2x social"></i></a>
+        <div class="col-md-3 col-sm-4 col-x-12">
+            <div class="foot-title">Subscribe
+                <i class="openSub hidden-lg plus_icon"></i>
+            </div>
+            <div class="subscribe footer-contant form-group">
+                <div class="input-group">
+                    <input name="name" class="form-control" placeholder="Enter email address" required="" type="text"/>
+                    <span class="input-group-btn"> <button type="submit" class="btn subscribe-btn">GO</button> </span>
+                </div>
+            </div>
+            <div class="clearfix hidden-xs">&nbsp;</div>
+            <div class="foot-title">Follow Us
+                <i class="openSub hidden-lg plus_icon"></i>
+            </div>
+            <div class="footer-contant">
+                <ul class="social">
+                    <li><a target="_blank" href="http://twitter.com/"><i class="fa fa-facebook"></i></a></li>
+                    <li><a target="_blank" href="https://www.facebook.com/"><i class="fa fa-twitter"></i></a></li>
+                    <li><a target="_blank" href="http://www.linkedin.com/"><i class="fa fa-linkedin"></i></a></li>
+                    <li><a target="_blank" href="https://plus.google.com/"><i id="social-gp" class="fa fa-google-plus social"></i></a></li>
+                </ul>
             </div>
         </div>
-        <div class="col-md-12  text-center">
+        <div class="col-xs-12  text-center">
             <small class="copyrgt">&copy; 2016-2017 rahilo.com, All rights reserved.</small>
         </div>
-
     </div>
-
 </div>
-
-
-
-
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         var docHeight = $(window).height();
         var footerHeight = $('#footer').height();
@@ -62,5 +75,22 @@
         if (footerTop < docHeight) {
             $('#footer').css('margin-top', 0 + (docHeight - footerTop) + 'px');
         }
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        var viewPortWidth = jQuery(window).width();
+        if (viewPortWidth < 769) {
+            jQuery('.footer-content').hide();
+            jQuery('.foot-title').each(function () {
+                jQuery(this).show(0).on('click', function (e) {
+                    e.preventDefault();
+                    jQuery(this).find(".openSub").toggleClass("plus_icon");
+                    jQuery(this).find(".openSub").toggleClass("minus_icon");
+                    jQuery(this).next('.footer-contant').slideToggle('fast');
+                });
+            });
+        }
+        ;
     });
 </script>

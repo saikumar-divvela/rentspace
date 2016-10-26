@@ -1,0 +1,18 @@
+Set up is done.
+
+Whenever you want to run Server on localhost, you need to run these three command
+run from 1st command..there ??
+copy 2nd command ..are baba from python
+ 1) cd C:\Users\jainesh\Desktop\Himanshu\rentspace\rentspace\rentspace
+ 2) python ./manage.py makemigrations
+ 3) python ./manage.py migrate
+ 4) python ./manage.py runserver
+ if no errors you can access the console in http://localhost:8000 or http://127.0.0.1:8000/
+
+
+all html files are in \rentspace\rentspace\templates folders, in which only you can change html designs..
+YOu can change design and make it more effective with images, animation or whatever, just dont change python code!
+
+
+added to Testimonials? yes
+ok
