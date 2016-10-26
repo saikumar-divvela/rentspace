@@ -1,68 +1,122 @@
 <html lang="en">
 
-<head>
-  {% include "init_header.html" %}
+    <head>
+        {% include "init_header.html" %}
 
- <style>
-</style>
-<script type="text/javascript">
-</script>
-</head>
+        <style>
+        </style>
+        <script type="text/javascript">
+        </script>
+    </head>
 
-  <div id='header'>
-    {% include "header.html" %}
-  </div>
-<body>
-<div id="main">
-  <form role="form" action="{% url 'login' %}" method="post">
-    {% csrf_token %}
-    <div class="container clear-top">
-      <div class="col-lg-offset-1 col-lg-4">
-        <div class="panel panel-default">
-          <div class='panel-heading'>
-            <h2>Login</h2>
-          </div>
-          <div class="panel-body">
-            {{ msg }}
-            <br/>
-            <div class="form-group">
-              <label for="username">Email</label>
-              <br/>
-              <input type="username" id="username" name="username">
-              <br/>
-            </div>
-            <div class="form-group">
-              <label for="pwd">Password</label>
-              <br/>
-              <input type="password" id="pwd" name="pwd">
-              <br/>
-            </div>
-            <div class="form-group">
-              <button type="submit" class="btn btn-primary btn-lg">Sign In</button> &nbsp;&nbsp; <a href="{% url 'reset_password' %}">Forgot Password</a>
-            </div>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 ">
-        <div class="panel panel-default">
-          <div class='panel-heading'>
-            <h2>New User?</h2>
-          </div>
-          <div class="panel-body">
-            <div class="text-center">
-              <br/><br/>
-              <a class="btn btn-primary btn-lg" role="button" href="{% url 'signup' %}">Create Account</a>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div id='header'>
+        {% include "header.html" %}
     </div>
-  </form>
-  </div>
-</body>
-  <div id="footer">
-    {% include "footer.html" %}
-  </div>
+    <body>
+        <div id="main" class="login-page">
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="container clear-top">
+                <div class="row">
+                    <div class="col-sm-6 col-xs-12">
+                        <form role="form" action="{% url 'login' %}" method="post">
+                            {% csrf_token %}
+                            <div class="login-box">
+                                <div class='login-heading text-center'>
+                                    <h2>Login</h2>
+                                </div>
+                                <div class="panel-body">
+                                    {{ msg }}
+                                    <div class="form-group clearfix">
+                                        <input type="username" id="username" name="username" placeholder="Email Address"/>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <input type="password" id="pwd" name="pwd" placeholder="password">
+                                    </div>
+                                    <div class="form-group">
+                                        <a href="{% url 'reset_password' %}">Forgot Password</a>
+                                        <button type="submit" class="btn orange-btn pull-right">Login</button> 
+                                    </div>
+                                </div>
+                                <div class="separator-horizantal col-xs-12">
+                                    <span class="h6 signup-or-separator--text">or</span>
+                                    <hr/>
+                                </div>
+                                <div class="clearfix">
+                                    <div class="col-sm-12 form-group text-center">
+                                        <button class="btn fb-btn btn-block">
+                                            <span><i class="fa fa-facebook"></i></span>
+                                           Log in with Facebook
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-12 form-group text-center">
+                                        <button class="btn gplus-btn btn-block"><span><i class="fa fa-google-plus"></i></span>
+                                           Log in with Google</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-sm-6 col-xs-12">
+                        <form id="form1" action="{% url 'register' %}" method="post">
+                            {% csrf_token %}
+                            <div class="login-box">
+                                <div class='login-heading text-center'>
+                                    <h2>Sign Up?</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="alert"> </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group clearfix">
+                                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group clearfix">
+                                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <input type="email" class="form-control" id="username" name="username" placeholder="Username" required>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+                                    </div>
+                                    <div class="form-group clearfix">
+                                        <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Confirm your password" required>
+                                    </div>
+
+                                    <div class="form-group clearfix">
+                                        <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
+                                    </div>
+                                    <div class="form-group clearfix text-center">
+                                        <button type="submit" class="btn orange-btn">Create Account</button>
+                                    </div>
+
+                                    <!--                                        <div class="form-group">
+                                                                                <label for="newuser">Already have account?</label>
+                                                                                <a href="{% url 'signin' %}">Login</a>
+                                                                            </div>-->
+                                    <!--                                    <div class="text-center">
+                                                                            <a class="btn orange-btn btn-lg" role="button" href="{% url 'signup' %}">Create Account</a>
+                                                                        </div>-->
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+    </body>
+    <div id="footer">
+        {% include "footer.html" %}
+    </div>
 
 </html>
