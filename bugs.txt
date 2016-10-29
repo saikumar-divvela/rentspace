@@ -39,6 +39,11 @@ Bugs found by Paresh - 1-october-2016
 7. Change passowrd - repeat new password - replace with Confirm new password
 8. Manage posting - Error code: 504-loadbalancer
 9. General bug - Rahilo is taking too much time reload
-10. 
+
+# Testing bugs by Mayura(29-10-2016)
+1. Add post not working, giving  CSRF token missing or incorrect.
+2. Create account error, not giving any message when same email id/mobile
+3. 
+
 
 
