@@ -4,12 +4,12 @@
   <head>
   <meta http-equiv='cache-control' content='no-cache'>
 <meta http-equiv='expires' content='0'>
-  
+
     {% include "init_header.html" %}
-    
+
     <link href="/static/kk/css/fileinput.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="/static/kk/js/fileinput.js"></script> 
-    
+    <script src="/static/kk/js/fileinput.js"></script>
+
 
 
     <style>
@@ -37,38 +37,38 @@
                 }
            });
 
-           var accomdation_for = "{{post.accom_for}}".split(","); 
+           var accomdation_for = "{{post.accom_for}}".split(",");
            $("#accom_for").find(":checkbox").each(function () {
                 if ($.inArray($(this).val(), accomdation_for) > -1){
                     this.checked = true;
                 }
            });
 
-           var facilities = "{{post.facilities}}".split(","); 
+           var facilities = "{{post.facilities}}".split(",");
            $("#facilities").find(":checkbox").each(function () {
                 if ($.inArray($(this).val(), facilities) > -1){
                     this.checked = true;
                 }
            });
 
-            
+
         $("#cancelbtn").click(function() {
               $("#form1").attr("action","{% url 'myposts'  %}");
               $("#form1").attr("method","get");
               $("#form1").submit();
          });
-      
+
          $("#submitbtn").click(function() {
             $("#form1").attr("action","{% url 'addpost'  %}");
             $("#form1").attr("method","post");
-            $("#form1").submit();   
+            $("#form1").submit();
          });
-      
-      });
-      
 
-      
-      
+      });
+
+
+
+
     </script>
   </head>
   <div id='header'>
@@ -78,6 +78,7 @@
     <div id="main">
       <div class="container clear-top">
         <form id ="form1" role="form" class="form-horizontal" enctype="multipart/form-data">
+        {% csrf_token %}
           <div class="form-group">
             <label for="title" class="control-label col-md-2">
               <h3>Add Post</h3>
@@ -128,7 +129,7 @@
                 <input type="text" class="input-normal" id="address" length ="100" name="address" placeholder="Address" value="{{post.address}}">
               </div>
               <div class="col-md-3">
-                <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">   
+                <input type="text" id="street" name="street" placeholder="Street" value="{{post.street}}">
               </div>
               <div class="col-md-3 col-md-offset-2">
                 <input type="text" id="city" name="city" placeholder="City" value="{{post.city}}">
@@ -166,7 +167,7 @@
               <label><input type="radio" name="house_type" value="flat">Flat</label>
             </div>
           </div>
-          
+
           <div id="accom_for" class="form-group">
             <label for="accom_for" class="control-label col-md-2">Available for</label>
             <div class="col-md-2 ">
@@ -215,13 +216,13 @@
             </div>
           </div>
           <div class="form-group">
-            <input id="photos" name="photos" type="file" class="file" multiple data-preview-file-type="any" data-upload-url="#"> 
+            <input id="photos" name="photos" type="file" class="file" multiple data-preview-file-type="any" data-upload-url="#">
             <div id="errorBlock" class="help-block"></div>
           </div>
           <div class="form-group">
             <div class="col-md-offset-3">
               <button id="submitbtn" type="submit" class="btn btn-info">Submit</button>
-              <button id="cancelbtn" type="submit" class="btn btn-info">Cancel</button>     
+              <button id="cancelbtn" type="submit" class="btn btn-info">Cancel</button>
             </div>
           </div>
         </form>
@@ -234,9 +235,9 @@
   <script>
 
               $(document).ready(function() {
-                  
+
                   $("#photos").fileinput({
-                   
+
                     showUpload: false
                      });
                 });

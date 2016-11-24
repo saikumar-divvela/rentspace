@@ -46,4 +46,34 @@ Bugs found by Paresh - 1-october-2016
 3. 
 
 
+################################  Fixed #############################################
+1. After Successfull Sign Up, page remains in same screen with message "User is created successfully", It should be redirected to Home page, message should be "Welcome to Rahilo.com, We are exited to give you amazing experience"  ### Fixed. User is redirected to reguistration successful and email activation page
+2. After Successfull Sign Up, User should be automatially logged in. ### Fixed same as above
+4. Manage postings gives all entries    ### Fixed
+5. After Changing password successfully, if i go home, I am logged out automatically  ### Fixed Message is displayed and redirected to Login page
+1. Add post not working, giving  CSRF token missing or incorrect. ### Fixed: Added { % csrf_token %} to html page 
+3. Guest Tab- Terms & Privacy replace with Terms & Conditions  ### Added 
+7. Change passowrd - repeat new password - replace with Confirm new password ### Done
+5. edit- Phone number text box replace with Contact number ### Done
+
+################################## Pending ############################################
+3. Edit Profile Submit giving slow response ( Image uploading takes too much time. we can restrict size(in MB) of image for better performance) 
+6. Forgot password on login page -> Remove link or implement
+7. More space between picture and test in view post details
+8. Activate button is not displayed full in view post
+9. After adding post successdfully either we have to empty the fields  or redirect to myposts with a message.
+
+2. Create account error, not giving any message when same email id/mobile
+
+1. Mobile number text box should take 10 digit only
+2. Accomadation section - over lap
+
+4. Remove below four pix from home page not looking good- we can add other content
+
+6. Edit- ID Card - Add more Driving license , Voter ID, Passport, we have keep only address proof identity 
+8. Manage posting - Error code: 504-loadbalancer
+9. General bug - Rahilo is taking too much time reload
+
+
+
 

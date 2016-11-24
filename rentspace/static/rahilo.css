@@ -559,3 +559,7 @@ figure.effect-sadie:hover h3{bottom: 100px;}
 .fb-btn span,.gplus-btn span{float: left;margin: 3px 0;}
 .grid{padding: 30px 0;display: table-cell;}
 .form-group input:hover,.form-group input:focus{border: 1px solid #666 !important;}
+
+ .info p{
+    font-size: 15px;
+ }
