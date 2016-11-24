@@ -25,6 +25,7 @@
 <div id="searchbar" class="container-fluid">
     <!-- daily rent min or maximum -->
     <form id="searchform" action="{% url 'searchposts' %}" role="form" class="no-margin">
+        {% csrf_token %}
         <div class="row" style="margin-top:0px;">
             <div class="col-md-10 col-md-offset-1 maskbg">
                 <input type="text" id="location" placeholder="Enter the locality or City" name="location">
