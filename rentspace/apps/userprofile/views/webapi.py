@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 
 from userprofile.models import User,UserKey
 from email.mime.text import MIMEText
@@ -94,7 +95,30 @@ def pagination(request):
     context["records"] = records
     return render(request, 'pagination.html', context)
 
+def isDupUser(username):
+    try:
+        User.objects.get(email=username)
+        return True
+    except ObjectDoesNotExist:
+        return False
+    return False
+
+def isDupPhonenumber(phone_number):
+    try:
+        User.objects.get(phone_number=phone_number)
+        return True
+    except ObjectDoesNotExist:
+        return False
+    return False
+
+
+'''
+User already exists.
+The mobile number is already registered. Please use another phone number.
+
+'''
 def create_user(request):
+    msg=""
     try:
         print ("You hit create user")
         username = request.POST.get("username")
@@ -103,6 +127,18 @@ def create_user(request):
         phone_number =  request.POST.get("phone_number","")
         first_name = request.POST.get("first_name","")
         last_name = request.POST.get("last_name","")
+
+        if (password != password_repeat):
+            msg = "Password and Confirm password doesn't match."
+            return
+        
+        if (isDupUser(username)):
+            msg = "User already exists."
+            return
+
+        if (isDupPhonenumber(phone_number)):
+            msg = "The phone number is already registered."
+            return
 
 
         print (username,password,password_repeat,phone_number,first_name,last_name)
@@ -119,11 +155,15 @@ def create_user(request):
     except Exception as err:
         print ("Unexpected error:", sys.exc_info()[0])
         print (err)
-        context ={}
-        context["msg"]= "Some errror occurred while creating user..."
-        return render(request,'signup.html',context)
-
-    return HttpResponseRedirect("/register_success")
+        msg = "Error occurred while creating user..."
+        
+    finally:
+        if (msg):
+            context ={}
+            context["msg"] =msg 
+            return render(request,'signup.html',context)
+        else:
+            return HttpResponseRedirect("/register_success")
 
 def register_success(request):
     context = {}

@@ -9,41 +9,80 @@
         }
     </style>
     <script type="text/javascript">
+        $(document).ready(function(){
+            var msg = "{{ msg }}";
+            
+            if (msg){
+                $("#status").addClass("alert alert-danger");
+                $("#status").html(msg);
+            }
+
+            $("#form1").submit(function(e){
+                 //e.preventDefault();
+                 haserrors = false;
+
+                 pwd=$("#password").val();
+                 pwd_repeat=$("#password-repeat").val();
+                 mobile_number = $("#phone_number").val();
+
+                 /*
+                 if (pwd != pwd_repeat){    
+                    haserrors = true
+                    $("#status").addClass("alert alert-danger");
+                    $("#status").text("Password and Confirm new password doesn't match.");
+                 }*/
+
+                 if (/^[789]\d{9}$/.test(mobile_number)) {
+                
+                 } else {
+                    haserrors = true
+                    $("#status").addClass("alert alert-danger");
+                    $("#status").text("Invalid mobile number.");
+                 }
+                 
+                if (! Boolean(haserrors)) {
+                    return true;
+                    //$("#form1").submit();   // This makes infinite loop 
+                 } else {
+                    return false;
+                 }
+            });
+        });
 
         /*  
-                                                  $(function(){
-                                                    $("#submit").click(function(event){
-                                                               event.preventDefault(); 
-                                                               //var data = $("#form1").serialize();
-                                                               var formData = JSON.parse($("#form1").serialize());
-                                                               alert(formData);
-                                                               $.ajax({
-                                                                    url: '/api/register',
-                                                                    dataType: 'json',
-                                                                    contentType: "application/json; charset=utf-8",
-                                                                    data: formData,
-                                                                    type:'POST'
-                                                                  }).done(handle_success)
-                                                                    .fail(handle_fail);
-                                                              });
-                                                  });
+            $(function(){
+                $("#submit").click(function(event){
+                    event.preventDefault(); 
+                    //var data = $("#form1").serialize();
+                    var formData = JSON.parse($("#form1").serialize());
+                    alert(formData);
+                    $.ajax({
+                        url: '/api/register',
+                        dataType: 'json',
+                        contentType: "application/json; charset=utf-8",
+                        data: formData,
+                        type:'POST'
+                        }).done(handle_success)
+                    .fail(handle_fail);
+                    });
+                    });
 
                                                    
-                                                   function handle_success(data,statusText,xhr){
-                                                        location.href = "{% url 'register_success' %}"
-                                                   }
+                    function handle_success(data,statusText,xhr){
+                        location.href = "{% url 'register_success' %}"
+                    }
 
-                                                   function  handle_fail(xhr, statusText, errorThrown){
-                                                        console.log(xhr);        
-                                                        var resp = xhr.responseJSON
-                                                        $("div#alert").text(resp.message)
-                                                   }
+                    function  handle_fail(xhr, statusText, errorThrown){
+                        console.log(xhr);        
+                        var resp = xhr.responseJSON
+                        $("div#alert").text(resp.message)
+                    }
 
-                                                   function testfunction(responseTxt, statusTxt, xhr){
-                                                       alert("Hi");  
-                                                       alert(statusTxt);
-                                                    }
-                                                  */
+                    function testfunction(responseTxt, statusTxt, xhr){
+                        alert("Hi");  
+                        alert(statusTxt);
+                    }
+                    */
     </script>
 </head>
 
@@ -61,6 +100,10 @@
                                 <div class='login-heading text-center'>
                                     <h2>Sign Up?</h2>
                                 </div>
+
+                    <div id ="status" style="margin-top:10px">
+                           
+                     </div>
                         <div class="panel-body">
                             <div id="alert"> </div>
                             <div class="row">
