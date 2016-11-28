@@ -140,7 +140,7 @@ def login_user(request):
 
        user = authenticate(username=username, password=password)
        print (user)
-       if user is not None and user.is_active:
+       if user is not None:  # and user.is_active:
            login(request, user)
            return HttpResponseRedirect("/")
        else:

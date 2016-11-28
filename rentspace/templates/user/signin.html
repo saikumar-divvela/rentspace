@@ -19,7 +19,7 @@
             <div class="clearfix">&nbsp;</div>
             <div class="container clear-top">
                 <div class="row">
-                    <div class="col-sm-6 col-xs-12">
+                    <div class="col-sm-6     col-xs-12">
                         <form role="form" action="{% url 'login' %}" method="post">
                             {% csrf_token %}
                             <div class="login-box">
@@ -39,10 +39,12 @@
                                         <button type="submit" class="btn orange-btn pull-right">Login</button> 
                                     </div>
                                 </div>
+                                <!--
                                 <div class="separator-horizantal col-xs-12">
                                     <span class="h6 signup-or-separator--text">or</span>
                                     <hr/>
                                 </div>
+                                
                                 <div class="clearfix">
                                     <div class="col-sm-12 form-group text-center">
                                         <button class="btn fb-btn btn-block">
@@ -55,56 +57,7 @@
                                            Log in with Google</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-sm-6 col-xs-12">
-                        <form id="form1" action="{% url 'register' %}" method="post">
-                            {% csrf_token %}
-                            <div class="login-box">
-                                <div class='login-heading text-center'>
-                                    <h2>Sign Up?</h2>
-                                </div>
-                                <div class="panel-body">
-                                    <div id="alert"> </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="form-group clearfix">
-                                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group clearfix">
-                                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <input type="email" class="form-control" id="username" name="username" placeholder="Username" required>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Confirm your password" required>
-                                    </div>
-
-                                    <div class="form-group clearfix">
-                                        <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
-                                    </div>
-                                    <div class="form-group clearfix text-center">
-                                        <button type="submit" class="btn orange-btn">Create Account</button>
-                                    </div>
-
-                                    <!--                                        <div class="form-group">
-                                                                                <label for="newuser">Already have account?</label>
-                                                                                <a href="{% url 'signin' %}">Login</a>
-                                                                            </div>-->
-                                    <!--                                    <div class="text-center">
-                                                                            <a class="btn orange-btn btn-lg" role="button" href="{% url 'signup' %}">Create Account</a>
-                                                                        </div>-->
-                                </div>
+                                -->
                             </div>
                         </form>
                     </div>
