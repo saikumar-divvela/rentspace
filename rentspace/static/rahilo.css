@@ -1,4 +1,4 @@
-body{font-family: 'Source Sans Pro', sans-serif;font-size: 13px;}
+body{font-family: 'Source Sans Pro', sans-serif;font-size: 13px;color: #565656;}
 #searchbar {
     /* background-color:grey; */
     margin-top: 0px;
@@ -10,7 +10,7 @@ body{font-family: 'Source Sans Pro', sans-serif;font-size: 13px;}
 .no-margin {
     margin: 0px;
 }
-
+a:focus, a:hover{text-decoration: none;}
 .button {
     margin-top: 30px;
 }
@@ -25,7 +25,9 @@ a,input {
     transition: all 0.3s ease-in 0s;
 
 }
-
+.no-gutter{margin-left: -30px;margin-right: -30px;}
+.p-none{padding: 0 !important;}
+.no-gutter{margin-left: -10px;margin-right: -10px;}
 /************  for home page  *********/
 
 .setimg {
@@ -39,7 +41,10 @@ a,input {
     z-index: 99;
     /* border-radius: 10px; */
 }
-
+.maskbg [class*="col-"]{
+    padding-left: 5px;
+    padding-right: 5px;
+}
 
 /****** search page *******/
 
@@ -48,7 +53,7 @@ a,input {
 }
 
 .btn-file {
-    padding: 7% 7% !important;
+    padding: 0 20px !important;
 }
 
 .btn-block {
@@ -64,8 +69,8 @@ a,input {
     border: none;
     color: #FFF;
     padding: 0 5%;
-    height: 45px;
-    line-height: 45px;
+    height: 44px;
+    line-height: 44px;
 }
 
 /*.bt-create:hover,
@@ -86,13 +91,9 @@ a,input {
     padding: 0 4%;
     border-radius: 0;
 }
-
-.btn-file {
-    padding: 7% 7% !important;
-}
 /*********** general ****************/
 
-input[type=text],
+/*input[type=text],
 input[type=password],
 input[type=email],
 input[type=username],
@@ -103,14 +104,14 @@ input[type=username],
     width: 100%;
     margin-right: 17px;
     float: left;
-    /*width: 300px;*/
+    width: 300px;
     height: 45px;
     color: #333;
-    /*text-shadow: 1px 1px 1px black;*/
-    /*background: rgba(0, 0, 0, 0.54);*/
-    /*rgba(0, 0, 0, 0.16)*/
+    text-shadow: 1px 1px 1px black;
+    background: rgba(0, 0, 0, 0.54);
+    rgba(0, 0, 0, 0.16)
     border: 1px solid #ccc;
-}
+}*/
 
 h3,
 h4,
@@ -120,10 +121,10 @@ h4,
     /*color:#E42E07;*/
 }
 
-.navbar-nav > li > .dropdown-menu {
-    /* background-color: #fff !important; */
+/*.navbar-nav > li > .dropdown-menu {
+     background-color: #fff !important; 
     box-shadow: 0px 0px 3px #FB3409;
-}
+}*/
 
 
 /*.dropdown-menu > li > a:focus,*/
@@ -148,11 +149,13 @@ h4,
 .navbar-inverse a {
     color: #fff !important;
 }
-
 .navbar-nav > li > a {
-    padding: 15px !important;
+    padding: 14px !important;
 }
-
+.navbar-nav > li > .user-icon {
+    padding: 18px !important;
+}
+.user-icon span{padding: 0 !important;}
 .dropdown-menu > li > a {
     color: rgb(129, 130, 131) !important;
 }
@@ -314,6 +317,7 @@ form#searchform select {
 
 .signup_a {
     background-color: rgb(251, 52, 9) !important;
+    border: 1px solid rgb(251, 52, 9) !important;
     color: rgb(255, 255, 255) !important;
 }
 
@@ -370,7 +374,7 @@ form#searchform select {
 a{color: #333;}
 p{line-height: 24px;font-size: 13px;}
 .logo img{width:140px;padding:7px 0;}
-#location{width: 28%;}
+/*#location{width: 28%;}*/
 #main{position: relative;}
 .options {
     margin: 0;
@@ -381,7 +385,7 @@ p{line-height: 24px;font-size: 13px;}
     z-index: 99;
     float: left;
     margin-right: 17px;
-    width: 17.33%;
+    width: 100%;
 }
 .options::after {
     background: rgba(0, 0, 0, 0) url('../../media/down-arrow.png') no-repeat scroll 0 0;
@@ -555,11 +559,55 @@ figure.effect-sadie:hover h3{bottom: 100px;}
 }
 .btn:hover,.btn:focus,.btn:active{color: #fff;}
 .login-page{background-color: #ececec;}
+#form1{margin: 0 !important;}
 .navbar-right{margin-right: 0 !important;}
 .fb-btn span,.gplus-btn span{float: left;margin: 3px 0;}
 .grid{padding: 30px 0;display: table-cell;}
 .form-group input:hover,.form-group input:focus{border: 1px solid #666 !important;}
+.info p{font-size: 15px;}
+.checkbox + .checkbox, .radio + .radio{margin-top: 0 !important;}
+input[type="checkbox"], input[type="radio"]{margin: 0;}
 
- .info p{
-    font-size: 15px;
- }
+@media screen and (max-width:768px){
+    .sidebar-nav{position: relative !important;width: 100% !important;}
+    #page-content-wrapper{margin-left: 0 !important;}
+}
+
+.dropdown-menu-hover{top:70px;-khtml-opacity:0;-ms-filter:alpha(opacity=0);filter:alpha(opacity=0);filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";opacity:0;-webkit-transition:all .3s ease-in-out;-moz-transition:all .3s ease-in-out;-o-transition:all .3s ease-in-out;transition:all .3s ease-in-out;display:block;visibility:hidden;min-width:120px;}
+.hasChild:hover .dropdown-menu-hover{-khtml-opacity:1;-ms-filter:alpha(opacity=1);filter:alpha(opacity=1);filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=1)";opacity:1;top:50px;visibility:visible;}
+.fixedscroll .hasChild:hover .dropdown-menu-hover{top:50px;}
+.dropdown .dropdown-menu::before{
+    border-color: -moz-use-text-color transparent #fff;
+    border-style: none solid solid;
+    border-width: medium 8px 8px;
+    content: " ";
+    display: block;
+    margin-top: -13px;
+    position: absolute;
+    right: 16px;
+}
+#facilities input,.accom_for input{margin-right: 8px;}
+.col-md-4.radio{margin: 10px 0 !important;}
+#facilities li,.accom_for{line-height: 25px;}
+.property-listing{padding:15px;box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);}
+.postdetails h4{font-size:22px;margin: 10px 0 0;}
+.postdetails h4:hover{color: #fb3409;text-decoration: none;}
+.postdetails address{font-size: 14px;margin: 0;}
+.Availablefor{color: #7f7f7f;margin: 15px 0;}
+.Availablefor b{color: #000;}
+.house-rate{font-size: 14px;color: #7f7f7f;margin: 30px 0;line-height: 18px;}
+.house-rate span{display: block;font-size:20px;color: #333;}
+.house-rate span span{display: inline-block;vertical-align: middle;}
+.btn-sortlist{background-color: #3f51b5;border: 1px solid #3f51b5;color: #fff; height: 44px;line-height: 30px;}
+.listing-btn [class*="col-"]{padding:0 10px;}
+.booking-items-list{font-size: 16px;color: #7f7f7f;margin-bottom: 20px;}
+.booking-items-list b{color: #333;}
+.booking-price{font-size: 30px !important;margin: 20px 0;display: block;}
+.amenities-services ul{margin: 0;padding: 0;}
+.amenities-services ul li{line-height:35px;font-size: 14px;}
+.amenities-services li img{padding-right: 10px;}
+.rules{line-height: 30px;}
+.rules > li{list-style: inside;}
+.pro-name{font-size: 30px;}
+.rant-day{font-size: 16px;vertical-align: middle;}
+.booking-items{margin: 20px 0;}
