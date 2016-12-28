@@ -10,9 +10,9 @@ from myadmin.models import Postbox
 def show_admin(request):
     context = {}
 
-    if(request.user.is_authenticated and request.user.is_staff):
-        return render(request, 'admin_home.html', context)
-    return HttpResponse("This page is accessible to only staff. Either you are not logged in or your are not staff.")
+    #if(request.user.is_authenticated and request.user.is_staff):
+    return render(request, 'admin_home.html', context)
+    #return HttpResponse("This page is accessible to only staff. Either you are not logged in or your are not staff.")
 
 
 def all_users(request):
