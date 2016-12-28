@@ -18,7 +18,7 @@ import random
 
 
 def sendEmail(sender,recipient,sub,msg):
-    
+
     # Create message
     msg = MIMEText(msg)
     msg['Subject'] = sub
@@ -51,7 +51,7 @@ def activation(request, key):
     else:
         already_active = True #Display : error message
         context["msg"] ="User is already activated. Proceed to login....."
-    
+
     return render(request, 'register_success.html', context)
 
 def sendActivationEmail(user):
@@ -95,7 +95,7 @@ def pagination(request):
     context["records"] = records
     return render(request, 'pagination.html', context)
 
-def isDupUser(username):
+def user_exists(username):
     try:
         User.objects.get(email=username)
         return True
@@ -103,7 +103,7 @@ def isDupUser(username):
         return False
     return False
 
-def isDupPhonenumber(phone_number):
+def phonenumber_exists(phone_number):
     try:
         User.objects.get(phone_number=phone_number)
         return True
@@ -131,12 +131,12 @@ def create_user(request):
         if (password != password_repeat):
             msg = "Password and Confirm password doesn't match."
             return
-        
-        if (isDupUser(username)):
+
+        if (user_exists(username)):
             msg = "User already exists."
             return
 
-        if (isDupPhonenumber(phone_number)):
+        if (phonenumber_exists(phone_number)):
             msg = "The phone number is already registered."
             return
 
@@ -148,19 +148,19 @@ def create_user(request):
         user.last_name = last_name
         user.save()  # This doesn't return anything
 
-     
+
         # Send activation email here
         sendActivationEmail(user)
-     
+
     except Exception as err:
         print ("Unexpected error:", sys.exc_info()[0])
         print (err)
         msg = "Error occurred while creating user..."
-        
+
     finally:
         if (msg):
             context ={}
-            context["msg"] =msg 
+            context["msg"] =msg
             return render(request,'signup.html',context)
         else:
             return HttpResponseRedirect("/register_success")
@@ -212,6 +212,7 @@ def logout_user(request):
     context["msg"] = "successfully logged out"
     return render(request, 'index.html', context)
 
+
 @login_required
 def change_password(request):
     print("*** You Hit Change Password ***")
@@ -252,7 +253,29 @@ def change_password(request):
 
 def reset_password(request):
     print ("reset password")
-    return HttpResponse("you hit reset password change page")
+    user_email = request.POST.get("user_email", "")
+
+    print (user_email)
+    output = {}
+    output["status"] = "fail"
+
+    if user_email =="":
+        output["msg"] = "User email id is empty"
+        return JsonResponse(output)
+
+    if (not user_exists(username)):
+        msg = "User email doesn't exists."
+        return JsonResponse(output)
+
+
+    #TODO send email about reset password
+
+    output["status"] = "success"
+    output["msg"] = "Password is reset successfully"
+
+    return JsonResponse(output)
+
+
 
 @login_required
 def edit_profile(request):

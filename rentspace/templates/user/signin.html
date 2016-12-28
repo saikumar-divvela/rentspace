@@ -6,6 +6,15 @@
         <style>
         </style>
         <script type="text/javascript">
+	    $(document).ready(function(){
+	            var msg = "{{ msg }}";
+
+        	    if (msg){
+                	$("#status").addClass("alert alert-danger");
+	                $("#status").html(msg);
+        	    }
+
+	    });		
         </script>
     </head>
 
@@ -27,9 +36,12 @@
                                     <h2>Login</h2>
                                 </div>
                                 <div class="panel-body">
-                                    {{ msg }}
+                                <div id="status" style="margin-top:10px">
+
+                     		</div>
+
                                     <div class="form-group clearfix">
-                                        <input type="username" id="username" name="username" placeholder="Email Address"/>
+                                        <input type="email" id="username" name="username" placeholder="Email Address"/>
                                     </div>
                                     <div class="form-group clearfix">
                                         <input type="password" id="pwd" name="pwd" placeholder="password">

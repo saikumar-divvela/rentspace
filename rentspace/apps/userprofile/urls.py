@@ -15,7 +15,10 @@ urlpatterns = [
     url(r'^myaccount$',TemplateView.as_view(template_name='myaccount.html'),name="myaccount"),
     url(r'^changepassword$',TemplateView.as_view(template_name='changepassword.html'),name="change_password"),
     url(r'^updatepassword$',views.change_password,name="update_password"),
-    url(r'^resetpassword$',views.reset_password,name="reset_password"),
+
+    url(r'^resetpassword$',TemplateView.as_view(template_name='resetpassword.html'),name="reset_password"),
+    url(r'^getnewpassword$',views.reset_password,name="get_new_password"),
+
     url(r'^editprofile$',views.edit_profile,name="edit_profile"),
     url(r'^register_success$',views.register_success,name="register_success"),
 
