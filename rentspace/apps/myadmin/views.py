@@ -160,5 +160,5 @@ def sendquery(request):
 
    output = {}
    output["status"] = "success"
-   output["msg"] = "Thanks for getting in touch with us. Weâ€™ll get back to you shortly."
+   output["msg"] = "Thanks for getting in touch with us. We will get back to you shortly."
    return JsonResponse(output)
