@@ -132,7 +132,7 @@ Total records: {{ posts.paginator.count }} ## Page {{posts.number}} of {{posts.p
     </li>
     {% for i in posts.paginator.num_pages|get_range %}
       {% if posts.number == i   %}
-        <li><a href="{{ page_url }}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+        <li><a href="{{ page_url }}?page={{i}}">{{ i }}</a></li>
       {% else %}
         <li><a href="{{ page_url }}?page={{i}}"> {{ i }}</a></li>
       {% endif %}

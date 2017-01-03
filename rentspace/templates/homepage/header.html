@@ -11,16 +11,18 @@
                 <ul class="nav navbar-nav navbar-right navMrg pull-right">
                     {% if request.user.is_authenticated %}        
 
-                    <div class="dropdown">
-                        <a href="#" class=" btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> &nbsp;{{ user }}  </a>
-                        <ul class="dropdown-menu">
+                    <li class="dropdown hasChild">
+                        <a href="#" class="dropdown-hover user-icon signup_a" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> 
+<!--                            &nbsp;{{ user }}  -->
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-hover">
                             <li><a href="{% url 'myaccount' %}" >My Account</a></li>
                             <li><a href="{% url 'change_password' %}" >Change Password</a></li>
                             <li><a href="{% url 'myposts' %}">Manage Postings</a></li>
                             <li><a href="{% url 'shortlistedposts' %}">Shortlisted</a></li>
                             <li><a href="{% url 'logout' %}"">Logout</a></li>
                         </ul>
-                    </div>
+                    </li>
                     {% else %}
 
                     <li><a href="{% url 'signin' %}" title="Login to make a reservation" class="login_a"> <span class="glyphicon glyphicon-log-in"></span><span class="hidden-xs">Login</span></a></li>

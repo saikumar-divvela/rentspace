@@ -5,6 +5,7 @@
   .errormsg {
     color:red;
   }
+  .verify{text-decoration: underline;}
 
 </style>
 
@@ -119,7 +120,7 @@ Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.p
         {% if user.is_phone_verified %}
           <td>Verified</td>
         {% else %}
-          <td><a href="#" id="{{user.id}}" class="btn btn-info verifyphone">Verify</a></td>
+          <td><a href="#" id="{{user.id}}" class="verify">Verify</a></td>
         {% endif %}
 
 
@@ -133,7 +134,7 @@ Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.p
         {% if user.is_id_verified %}
           <td>Verified</td>
         {% else %}
-          <td><a href="#" id="{{user.id}}" class="btn btn-info verifyid">Verify</a></td>
+          <td><a href="#" id="{{user.id}}" class="verify">Verify</a></td>
         {% endif %}
 
       	</tr>
@@ -157,7 +158,7 @@ Total records: {{ users.paginator.count }} ## Page {{users.number}} of {{users.p
     </li>
     {% for i in users.paginator.num_pages|get_range %}
       {% if users.number == i   %}
-        <li><a href="{{ page_url }}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+        <li><a href="{{ page_url }}?page={{i}}" >{{ i }}</a></li>
       {% else %}
         <li><a href="{{ page_url }}?page={{i}}"> {{ i }}</a></li>
       {% endif %}
