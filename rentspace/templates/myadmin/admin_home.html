@@ -1,245 +1,247 @@
 <html lang="en">
-<head>
-    {% include "init_header.html" %}
-<style>
+    <head>
+        {% include "init_header.html" %}
+        <style>
 
 
 
 
-#sidebar-wrapper {
-    z-index: 1000;
-    position: absolute;
-    margin-left: 0px;
-    margin-top: 20px;
-    left: 10px;
-    width: 200px;
-    height: 50%;
-    margin-left: -10px;
-    overflow-y: absolute;
-    background: #337AB7;
- }
+            /*            #sidebar-wrapper {
+                            z-index: 1000;
+                            position: absolute;
+                            margin-left: 0px;
+                            margin-top: 20px;
+                            left: 10px;
+                            width: 200px;
+                            height: 50%;
+                            margin-left: -10px;
+                            overflow-y: absolute;
+                            background: #337AB7;
+                        }*/
 
 
-/* Sidebar Styles */
+            /* Sidebar Styles */
 
-.sidebar-nav {
-    position: absolute;
-    top: 0;
-    width: 200px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-}
+            .sidebar-nav {
+                position: absolute;
+                top: 0;
+                width: 200px;
+                margin: 40px 0;
+                padding: 0;
+                background-color: #f1f1f1;
+            }
 
-.sidebar-nav li {
-    text-indent: 20px;
-    line-height: 40px;
-}
+            .sidebar-nav li {
+                text-indent: 20px;
+                line-height: 40px;
+                border-bottom: 1px solid #ccc
+            }
 
-.sidebar-nav li a {
-    display: block;
-    text-decoration: none;
-    color: #ffffff;
-}
+            .sidebar-nav li a {
+                display: block;
+                text-decoration: none;
+                color: #333;
+            }
 
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #ffff00;
-    background: rgba(0,0,0,0.5);
-}
+            .sidebar-nav li a:hover {
+                text-decoration: none;
+                color: #fff;
+                background:#000;
+            }
 
-.sidebar-nav li a:active,
-.sidebar-nav li a:focus {
-    color: #ffff00;
-    font-style: italic;
-}
+            #page-content-wrapper {
+                position: relative;
+                margin-left:200px;
+                margin-top: 40px;
+            }
 
-#page-content-wrapper {
-    position: relative;
-    margin-left:200px;
-}
+            .subitems > a {
+                padding-left: 15px;
+            }
+            input[type="checkbox"], input[type="radio"]{margin-right: 10px;}
+            #filterusers.row{margin-bottom: 40px;}
 
-.subitems > a {
-	margin-top: 1px;
-	text-align: center;
-	background: #121212;
-}
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#search").click(function (e) {
+                    var searchby = "";
+                    $("#searchuserby option:selected").each(function () {
+                        searchby += $(this).text() + " ";
+                    });
+                    var searchdata = $("#searchdata").val();
+                    $.ajax({
+                        url: "{% url 'all_users' %}",
+                        type: "get",
+                        data: {command: "search", searchby: searchby, searchdata: searchdata},
+                        success: function (response) {
+                            $("#result").html(response);
+                        },
+                        error: function (xhr) {
+                            alert('error');
+                            $("#result").html("some error occurred");
+                        }
+                    });
+                });
 
+                $("#allusers").click(function (e) {
+                    $("#filterusers").show();
+                    $("input[name^='phone_not_verified']").prop('checked', false);
+                    $("input[name^='idproof_not_verified']").prop('checked', false);
 
+                    $.get("{% url 'all_users' %}", function (data) {
+                        $("#result").html(data);
+                    });
 
-</style>
-<script type="text/javascript">
-	$(document).ready(function() {
-        $("#search").click(function(e){
-            var searchby = "";
-            $( "#searchuserby option:selected" ).each(function() {
-                searchby += $( this ).text() + " ";
-            });
-            var searchdata = $("#searchdata").val();
-            $.ajax({
-                url: "{% url 'all_users' %}",
-                type: "get",
-                data:{command:"search",searchby:searchby,searchdata:searchdata},
-                success: function(response) {
-                   $( "#result" ).html( response );
-                },
-                error: function(xhr) {
-                    alert('error');
-                    $( "#result" ).html("some error occurred");
-                }
-            });
-        });
+                });
 
-        $("#allusers").click(function(e){
-            $("#filterusers").show();
-            $("input[name^='phone_not_verified']").prop('checked', false);
-            $("input[name^='idproof_not_verified']").prop('checked', false);
-
-            $.get( "{% url 'all_users' %}", function( data ) {
-               $( "#result" ).html( data );
-            });
-
-        });
-
-        $("#filter").click(function(e){
-            var isphonenotverified = $("input[name^='phone_not_verified']").is(':checked');
-            var isidproofnotverified = $("input[name^='idproof_not_verified']").is(':checked');
-            $.ajax({
-                url: "{% url 'all_users' %}",
-                type: "get",
-                data:{command:"filter",isphonenotverified:isphonenotverified,isidproofnotverified:isidproofnotverified},
-                success: function(response) {
-                   $( "#result" ).html( response );
-                },
-                error: function(xhr) {
-                    alert('error');
-                    $( "#result" ).html("some error occurred");
-                }
-            });
-        });
+                $("#filter").click(function (e) {
+                    var isphonenotverified = $("input[name^='phone_not_verified']").is(':checked');
+                    var isidproofnotverified = $("input[name^='idproof_not_verified']").is(':checked');
+                    $.ajax({
+                        url: "{% url 'all_users' %}",
+                        type: "get",
+                        data: {command: "filter", isphonenotverified: isphonenotverified, isidproofnotverified: isidproofnotverified},
+                        success: function (response) {
+                            $("#result").html(response);
+                        },
+                        error: function (xhr) {
+                            alert('error');
+                            $("#result").html("some error occurred");
+                        }
+                    });
+                });
 
 
 
-        $("#email_not_verified").click(function(e){
-            $("#filterusers").hide();
-            $.get( "{% url 'inactive_users' %}", function( data ) {
-                $("#result" ).html( data );
-            });
+                $("#email_not_verified").click(function (e) {
+                    $("#filterusers").hide();
+                    $.get("{% url 'inactive_users' %}", function (data) {
+                        $("#result").html(data);
+                    });
 
-        });
+                });
 
 
-        $("#allposts").click(function(e){
-            $("#filterusers").hide();
-            $.get( "{% url 'all_posts' %}?", function( data ) {
-                $( "#result" ).html( data );
-            });
+                $("#allposts").click(function (e) {
+                    $("#filterusers").hide();
+                    $.get("{% url 'all_posts' %}?", function (data) {
+                        $("#result").html(data);
+                    });
 
-        });
+                });
 
-        $("#unverifiedposts").click(function(e){
-            $("#filterusers").hide();
-            $.get( "{% url 'unverified_posts' %}", function( data ) {
-                $( "#result" ).html( data );
-            });
+                $("#unverifiedposts").click(function (e) {
+                    $("#filterusers").hide();
+                    $.get("{% url 'unverified_posts' %}", function (data) {
+                        $("#result").html(data);
+                    });
 
-        });
+                });
 
-        $("#inactiveposts").click(function(e){
-            $("#filterusers").hide();
-            $.get( "{% url 'inactive_posts' %}", function( data ) {
-                $( "#result" ).html( data );
-            });
+                $("#inactiveposts").click(function (e) {
+                    $("#filterusers").hide();
+                    $.get("{% url 'inactive_posts' %}", function (data) {
+                        $("#result").html(data);
+                    });
 
-        });
+                });
 
-        $("#postbox").click(function(e){
-            $("#filterusers").hide();
-            $.get( "{% url 'user_queries' %}?", function( data ) {
-                $( "#result" ).html( data );
+                $("#postbox").click(function (e) {
+                    $("#filterusers").hide();
+                    $.get("{% url 'user_queries' %}?", function (data) {
+                        $("#result").html(data);
+                    });
+
+                });
+
             });
 
-        });
+        </script>
+    </head>
 
-	});
+    <div id="header">
+        {% include "header.html" %}
+    </div>
+    <body>
+        {% csrf_token %}
+        <div id="main">
+            <div class="container-fluid">
+                <!-- Sidebar -->
+                <div id="sidebar-wrapper">
+                    <ul class="sidebar-nav">
+                        <li>
+                            <a data-toggle="collapse" href="#collapseUsers">Users</a>
+                            <div class="subitems collapse" id="collapseUsers">
+                                <a href="#" id="allusers">All Users</a>
+                                <a href="#" id="email_not_verified"  data-toggle="tooltip" title="Displays list of users not email verified">New Users</a>
+                                <!--
+                                                        <a href="#" id ="loggedinusers" data-toggle="tooltip" title="Displays all logged in" class="btn">Logged in users</a>
+                                -->
+                            </div>
 
-</script>
-</head>
-
-<div id="header">
-{% include "header.html" %}
-</div>
-<body>
-{% csrf_token %}
-<div id="main">
-<div class="container-fluid">
-       <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <ul class="sidebar-nav">
-                <li>
-                    <a data-toggle="collapse" href="#collapseUsers">Users</a>
-        			 <div class="subitems collapse" id="collapseUsers">
-						<a href="#" id="allusers" class="btn">All Users</a>
-						<a href="#" id="email_not_verified"  data-toggle="tooltip" title="Displays list of users not email verified" class="btn">New Users</a>
+                        </li>
+                        <li>
+                            <a data-toggle="collapse" href="#collapsePosts">Posts</a>
+                            <div class="subitems collapse" id="collapsePosts">
+                                <a href="#" id="allposts">All Posts</a>
+                                <a href="#" id="unverifiedposts">Not Verified Posts</a>
+                                <a href="#" id="inactiveposts">Inactive Posts</a>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" id="postbox">User Queries</a>
+                        </li>
                         <!--
-						<a href="#" id ="loggedinusers" data-toggle="tooltip" title="Displays all logged in" class="btn">Logged in users</a>
+                        <li>
+                            <a href="#">Send Email</a>
+                        </li>
                         -->
-					</div>
+                    </ul>
 
-                </li>
-                <li>
-                    <a data-toggle="collapse" href="#collapsePosts">Posts</a>
-                    <div class="subitems collapse" id="collapsePosts">
-						<a href="#" id="allposts" class="btn">All Posts</a>
-						<a href="#" id="unverifiedposts" class="btn">Not Verified Posts</a>
-						<a href="#" id="inactiveposts" class="btn">Inactive Posts</a>
-					</div>
-                </li>
-                <li>
-                    <a href="#" id="postbox">User Queries</a>
-                </li>
-                <!--
-                <li>
-                    <a href="#">Send Email</a>
-                </li>
-                -->
-          	</ul>
+                </div>
+                <div id="page-content-wrapper" class="container-fluid">
+                    <div id="filterusers" class ="row" hidden>
+                        <div class="col-md-5">
+                            <input type="checkbox" name="phone_not_verified"  value="true">Not verified phone
+                            &nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" name="idproof_not_verified" value="true">Not verified idproof
+                            &nbsp;&nbsp;&nbsp;
+                            <a href="#" id="filter" class="btn bt-create">Filter</a>
+                        </div>
+                        <div class="col-md-1">
+                            <label> Search by </label>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="options">
+                                <select class="selectpicker form-control" name="searchuserby" id="searchuserby">
+                                    <option>Username</option>
+                                    <option>Phonenumber</option>
+                                    <option>FirstName</option>
+                                    <option>LastName</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" id="searchdata" name="searchdata">
+                        </div>
+                        <a href="#" id="search" class="btn bt-create">Search</a>
 
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div id="result"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
-            <div id="page-content-wrapper" class="container-fluid">
-                <div id="filterusers" class ="row" hidden>
-                    <div class="col-md-4">
-                        <input type="checkbox" name="phone_not_verified"  value="true">Not verified phone
-                        &nbsp;&nbsp;&nbsp;
-                        <input type="checkbox" name="idproof_not_verified" value="true">Not verified idproof
-                        &nbsp;&nbsp;&nbsp;
-                        <a href="#" id="filter" class="btn btn-sm btn-info">Filter</a>
-                     </div>
-
-                    <div class="col-md-5">
-                        <label> Search by </label>
-                        <select class="selectpicker" name="searchuserby" id="searchuserby">
-                            <option>Username</option>
-                            <option>Phonenumber</option>
-                            <option>FirstName</option>
-                            <option>LastName</option>
-                        </select>
-                        <input type="text" id="searchdata" name="searchdata">
-                        <a href="#" id="search" class="btn btn-sm btn-info">Search</a>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div id="result"></div>
-                    </div>
-                </div>
-         </div>
-
-</div>
-</div>
-</body>
-<div id="footer">
-{% include "footer.html" %}
-</div>
+    </body>
+    <div id="footer">
+        {% include "footer.html" %}
+    </div>
 </html>

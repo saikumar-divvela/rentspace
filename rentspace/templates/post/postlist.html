@@ -1,114 +1,109 @@
 
 
 <html lang="en">
-   <head>
-      {% include "init_header.html" %}
-      <style>
+    <head>
+        {% include "init_header.html" %}
+        <style>
 
-      </style>
-      <script type="text/javascript">
+        </style>
+        <script type="text/javascript">
 
-         $(function() {
-          $(".pagination a").click(function(e) {
-               //e.preventDefault();
-               var newhref = $(this).attr('href') +"&accomtype="+$("#accomtype").val()+"&accomfor="+$("#accomfor").val()+"&housetype="+$("#housetype").val();
-                $(this).attr("href",newhref);
-             });
-         });
+            $(function () {
+                $(".pagination a").click(function (e) {
+                    //e.preventDefault();
+                    var newhref = $(this).attr('href') + "&accomtype=" + $("#accomtype").val() + "&accomfor=" + $("#accomfor").val() + "&housetype=" + $("#housetype").val();
+                    $(this).attr("href", newhref);
+                });
+            });
 
-      </script>
-   </head>
-   <div id='header'>
-      {% include "header.html" %}
-      {% include "searchposts.html" %}
-   </div>
-   <body>
-      {% load mytemplatetags %}
-      <div id="main">
-         <div class="container clear-top">
-            <form role="form" >
-               {% for post in posts %}
-               <div class="row record">
-                  <div class="col-md-3">
-                     {% if post.postphotos.all %}
-                      {% with post.postphotos.all|first as image %}
-                      <a href="/showpost/?id={{post.id}}">
-                        <img src="{{image.photo.url}}" alt="IMG" class="img-rounded img-responsive" >
-                      </a>
-                        {% endwith %}
-                      {% else %}
-                        <a href="/showpost/?id={{post.id}}">
-                        <img src="https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900" alt="IMG" class="img-rounded img-responsive" >
-                        </a>
-                      {% endif %}
-                  </div>
-                  <div class="col-md-5 postdetails" >
-                     <div class="row">
-                        <a href="/showpost/?id={{post.id}}"> <h4> {{ post.title }} </h4> </a>
-                        <h5> Available for {{ post.accom_for }}</h5>
-                     </div>
-                     <div class="row">
-                        <address>{{post.address}} &nbsp; {{post.street}} &nbsp; {{post.city}} &nbsp; {{post.pincode}}</address>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-3">
-                           RENT
-                        </div>
-                        <div class="col-md-6">
-                           SECURITY DEPOSIT
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-3">
-                           <i> Rs {{ post.rentperday }} </i>
-                        </div>
-                        <div class="col-md-6">
-                           <i> Rs {{ post.deposit }} </i>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="col-md-2" >
-                    <div class="row  button">
-                        <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Contact</a>
-                     </div>
-                     <div class="row button">
-                        <a href="{% url 'shortlistpost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Shortlist</a>
-                     </div>
-                  </div>
-               </div>
-               {% endfor %}
-            </form>
-         </div>
-           <div align="center">
-            <ul class="pagination">
-         <li>
-        {%  if posts.has_previous %}
-          <a href="{% url 'searchposts' %}?page={{posts.previous_page_number}}">&laquo;</a>
-        {% else %}
-          <a href="#">&laquo;</a>
-        {% endif %}
-    </li>
-    {% for i in posts.paginator.num_pages|get_range %}
-      {% if posts.number == i   %}
-        <li><a href="{% url 'searchposts' %}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
-      {% else %}
-        <li><a href="{% url 'searchposts' %}?page={{i}}"> {{ i }}</a></li>
-      {% endif %}
-    {% endfor %}
+        </script>
+    </head>
+    <div id='header'>
+        {% include "header.html" %}
+        {% include "searchposts.html" %}
+    </div>
+    <body>
+        {% load mytemplatetags %}
+        <div id="main">
+            <div class="container clear-top">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form role="form" >
+                            {% for post in posts %}
+                            <div class="record property-listing">
+                                {% if post.postphotos.all %}
+                                {% with post.postphotos.all|first as image %}
+                                <a href="/showpost/?id={{post.id}}">
+                                    <img src="{{image.photo.url}}" alt="IMG" class="img-responsive" >
+                                </a>
+                                {% endwith %}
+                                {% else %}
+                                <a href="/showpost/?id={{post.id}}">
+                                    <img src="https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900" alt="IMG" class="img-responsive" >
+                                </a>
+                                {% endif %}
+                                <div class="postdetails clearfix" >
+                                    <a href="/showpost/?id={{post.id}}"> <h4> {{ post.title }} </h4> </a>
+                                    <address>{{post.address}} &nbsp; {{post.street}} &nbsp; {{post.city}} &nbsp; {{post.pincode}}</address>
 
-    <li>
-      {%  if posts.has_next %}
-        <a href="{% url 'searchposts' %}?page={{posts.next_page_number}}">&raquo;</a>
-      {% else %}
-        <a href="#">&raquo;</a>
-      {% endif %}
-    </li>
-  </ul>
-  </div>
-      </div>
-   </body>
-   <div id="footer">
-      {% include "footer.html" %}
-   </div>
+                                    <div class="Availablefor">
+                                        <h5> Available for <b>{{ post.accom_for }}</b></h5>                               
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 house-rate">
+                                            RENT
+                                            <span><img src="../../media/rupees2-icon.png"/> <span>{{ post.rentperday }} </span></span>
+                                        </div>
+                                        <div class="col-xs-6 house-rate">
+                                            SECURITY DEPOSIT
+                                            <span><img src="../../media/rupees2-icon.png"/> {{ post.deposit }} </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="no-gutter row listing-btn">                            
+                                    <div class="col-xs-6">
+                                        <a href="{% url 'shortlistpost' %}?id={{post.id}}" class="btn btn-block bt-create btn-sortlist" role="button"><img src="../../media/sortlist-icon.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Shortlist</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-block bt-create" role="button"><img src="../../media/contact-icon.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Contact</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div align="center">
+                <ul class="pagination">
+                    <li>
+                        {%  if posts.has_previous %}
+                        <a href="{% url 'searchposts' %}?page={{posts.previous_page_number}}">&laquo;</a>
+                        {% else %}
+                        <a href="#">&laquo;</a>
+                        {% endif %}
+                    </li>
+                    {% for i in posts.paginator.num_pages|get_range %}
+                    {% if posts.number == i   %}
+                    <li><a href="{% url 'searchposts' %}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+                    {% else %}
+                    <li><a href="{% url 'searchposts' %}?page={{i}}"> {{ i }}</a></li>
+                    {% endif %}
+                    {% endfor %}
+
+                    <li>
+                        {%  if posts.has_next %}
+                        <a href="{% url 'searchposts' %}?page={{posts.next_page_number}}">&raquo;</a>
+                        {% else %}
+                        <a href="#">&raquo;</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <div id="footer">
+        {% include "footer.html" %}
+    </div>
 </html>
 

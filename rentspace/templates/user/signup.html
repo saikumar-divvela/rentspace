@@ -92,10 +92,13 @@
         {% include "header.html" %}
     </div>
     <div id="main" class="login-page">
+        <div lang="clearfix">&nbsp;</div>
+        <div lang="clearfix">&nbsp;</div>
+        <div lang="clearfix">&nbsp;</div>
         <form id="form1" action="{% url 'register' %}" method="post">
             {% csrf_token %}
-            <div class="container clear-top section-pad">
-                <div class="col-sm-6 col-xs-12">
+            <div class="container clear-top">
+                <div class="col-sm-6 col-xs-12 col-lg-offset-3">
                    <div class="login-box">
                                 <div class='login-heading text-center'>
                                     <h2>Sign Up?</h2>
@@ -133,13 +136,12 @@
                                         <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
                                     </div>
 
-                            <div class="form-group">
+                            <div class="form-group text-center">
                                 <button type="submit" class="btn btn-primary btn-lg submit">Create Account</button>
                             </div>
-
-                            <div class="form-group">
-                                <label for="newuser">Already have account?</label>
-                                <a href="{% url 'signin' %}">Login</a>
+                            <div class="clearfix">&nbsp;</div>
+                            <div class="form-group text-center">
+                                <p for="newuser">Already have account? <a href="{% url 'signin' %}">Login</a></p>                                
                             </div>
                         </div>
                     </div>
@@ -147,6 +149,8 @@
             </div>
 
         </form>
+        <div lang="clearfix">&nbsp;</div>
+        <div lang="clearfix">&nbsp;</div>
     </div>
 </body>
 <div id="footer">

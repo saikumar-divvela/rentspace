@@ -6,15 +6,6 @@
         <style>
         </style>
         <script type="text/javascript">
-	    $(document).ready(function(){
-	            var msg = "{{ msg }}";
-
-        	    if (msg){
-                	$("#status").addClass("alert alert-danger");
-	                $("#status").html(msg);
-        	    }
-
-	    });		
         </script>
     </head>
 
@@ -26,55 +17,49 @@
             <div class="clearfix">&nbsp;</div>
             <div class="clearfix">&nbsp;</div>
             <div class="clearfix">&nbsp;</div>
-            <div class="container clear-top">
-                
-                    <div class="col-sm-6     col-xs-12">
-                        <form role="form" action="{% url 'login' %}" method="post">
-                            {% csrf_token %}
-                            <div class="login-box">
-                                <div class='login-heading text-center'>
-                                    <h2>Login</h2>
-                                </div>
-                                <div class="panel-body">
-                                <div id="status" style="margin-top:10px">
-
-                     		</div>
-
-                                    <div class="form-group clearfix">
-                                        <input type="email" id="username" name="username" placeholder="Email Address"/>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <input type="password" id="pwd" name="pwd" placeholder="password">
-                                    </div>
-                                    <div class="form-group">
-                                        <a href="{% url 'reset_password' %}">Forgot Password</a>
-                                        <button type="submit" class="btn orange-btn pull-right">Login</button> 
-                                    </div>
-                                </div>
-                                <!--
-                                <div class="separator-horizantal col-xs-12">
-                                    <span class="h6 signup-or-separator--text">or</span>
-                                    <hr/>
-                                </div>
-                                
-                                <div class="clearfix">
-                                    <div class="col-sm-12 form-group text-center">
-                                        <button class="btn fb-btn btn-block">
-                                            <span><i class="fa fa-facebook"></i></span>
-                                           Log in with Facebook
-                                        </button>
-                                    </div>
-                                    <div class="col-sm-12 form-group text-center">
-                                        <button class="btn gplus-btn btn-block"><span><i class="fa fa-google-plus"></i></span>
-                                           Log in with Google</button>
-                                    </div>
-                                </div>
-                                -->
+            <div class="container clear-top">                
+                <div class="col-sm-6 col-xs-12 col-lg-offset-3">
+                    <form role="form" action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                        <div class="login-box">
+                            <div class='login-heading text-center'>
+                                <h2>Login</h2>
                             </div>
-                        </form>
-                    </div>
-
-               
+                            <div class="panel-body">
+                                {{ msg }}
+                                <div class="form-group clearfix">
+                                    <input class="form-control" type="username" id="username" name="username" placeholder="Email Address" />
+                                </div>
+                                <div class="form-group clearfix">
+                                    <input class="form-control" type="password" id="pwd" name="pwd" placeholder="password" />
+                                </div>
+                                <div class="form-group">
+                                    <a href="{% url 'reset_password' %}">Forgot Password</a>
+                                    <button type="submit" class="btn orange-btn pull-right">Login</button> 
+                                </div>
+                            </div>
+                            <!--
+                            <div class="separator-horizantal col-xs-12">
+                                <span class="h6 signup-or-separator--text">or</span>
+                                <hr/>
+                            </div>
+                            
+                            <div class="clearfix">
+                                <div class="col-sm-12 form-group text-center">
+                                    <button class="btn fb-btn btn-block">
+                                        <span><i class="fa fa-facebook"></i></span>
+                                       Log in with Facebook
+                                    </button>
+                                </div>
+                                <div class="col-sm-12 form-group text-center">
+                                    <button class="btn gplus-btn btn-block"><span><i class="fa fa-google-plus"></i></span>
+                                       Log in with Google</button>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="clearfix">&nbsp;</div>
             <div class="clearfix">&nbsp;</div>

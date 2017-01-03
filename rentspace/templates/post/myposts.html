@@ -1,102 +1,97 @@
 
 
 <html lang="en">
-   <head>
-      {% include "init_header.html" %}
-      <style>
+    <head>
+        {% include "init_header.html" %}
+        <style>
 
-      </style>
-      <script type="text/javascript">
+        </style>
+        <script type="text/javascript">
 
-      </script>
-   </head>
-   <div id='header'>
-      {% include "header.html" %}
-   </div>
-   <body>
-      <div id="main">
-         <div class="container clear-top">
-            <form role="form" >
-               {% csrf_token %}
-               {{ msg }} <br/>
-               <a href="{% url 'addpost' %}" class="btn btn-info" role="button">Add Post</a>
-               {% for post in posts %}
-               <div class="row record">
-                  <div class="col-md-3">
-                     {% if post.postphotos.all %}
-                      {% with post.postphotos.all|first as image %}
-                      <a href="/showpost/?id={{post.id}}">
-                        <img src="{{image.photo.url}}" alt="IMG" class="img-rounded img-responsive" >
-                      </a>
-                        {% endwith %}
-                      {% else %}
-                        <a href="/showpost/?id={{post.id}}">
-                        <img src="https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900" alt="IMG" class="img-rounded img-responsive" >
-                        </a>
-                      {% endif %}
-                  </div>
-                  <div class="col-md-5 postdetails" >
-                     <div class="row">
-                        <a href="/showpost/?id={{post.id}}"> <h4> {{ post.title }} </h4> </a>
-                        <h5> Available for {{ post.accom_for }}</h5>
-                     </div>
-                     <div class="row">
-                        <address>{{post.address}} &nbsp; {{post.street}} &nbsp; {{post.city}} &nbsp; {{post.pincode}}</address>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-3">
-                           RENT
-                        </div>
-                        <div class="col-md-6">
-                           SECURITY DEPOSIT
-                        </div>
-                     </div>
-                     <div class="row">
-                        <div class="col-md-3">
-                           <i> Rs {{ post.rentperday }} </i>
-                        </div>
-                        <div class="col-md-6">
-                           <i> Rs {{ post.deposit }} </i>
-                        </div>
-                     </div>
-                  </div>
+        </script>
+    </head>
+    <div id='header'>
+        {% include "header.html" %}
+    </div>
+    <body>
+        <div id="main">
+            <div class="container clear-top">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-12">
+                        <form role="form" >
+                            {% csrf_token %}
+                            {{ msg }} <br/>
+                            <a href="{% url 'addpost' %}" class="btn btn-info" role="button">Add Post</a>
+                            {% for post in posts %}
+                            <div class="record property-listing">
+                                {% if post.postphotos.all %}
+                                {% with post.postphotos.all|first as image %}
+                                <a href="/showpost/?id={{post.id}}">
+                                    <img src="{{image.photo.url}}" alt="IMG" class="img-rounded img-responsive" >
+                                </a>
+                                {% endwith %}
+                                {% else %}
+                                <a href="/showpost/?id={{post.id}}">
+                                    <img src="https://lh6.ggpht.com/ItcoMm0qVG2JsPnPJVN4Ece6vlXhnYt9E069Iw2lJpKj2_lKml-iV41ur9iaa5XQxg=h900" alt="IMG" class="img-rounded img-responsive" >
+                                </a>
+                                {% endif %}
+                                <div class="postdetails clearfix" >
+                                    <a href="/showpost/?id={{post.id}}"> <h4> {{ post.title }} </h4> </a>
+                                    <address>{{post.address}} &nbsp; {{post.street}} &nbsp; {{post.city}} &nbsp; {{post.pincode}}</address>
 
-                  {% if shortlistedposts %}
+                                    <div class="Availablefor">
+                                        <h5> Available for <b>{{ post.accom_for }}</b></h5>                               
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-6 house-rate">
+                                            RENT
+                                            <span> Rs {{ post.rentperday }} </span>
+                                        </div>
+                                        <div class="col-xs-6 house-rate">
+                                            SECURITY DEPOSIT
+                                            <span> Rs {{ post.deposit }} </span>
+                                        </div>
+                                    </div>
+                                </div>
 
-                  <div class="col-md-2" >
-                     <div class="row  button">
-                        <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Contact</a>
-                     </div>
-                     <div class="row button">
-                        <a href="{% url 'delistpost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delist</a>
-                     </div>
-                  </div>
+                                {% if shortlistedposts %}
 
-                  {% elif not post.is_active   %}
-                  <div class="col-md-2" >
-                     <div class="row  button">
-                        <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Activate</a>
-                     </div>
-                  </div>
+                                <div class="no-gutter row listing-btn">                            
+                                    <div class="col-xs-6">
+                                        <a href="{% url 'shortlistpost' %}?id={{post.id}}" class="btn btn-block bt-create btn-sortlist" role="button"><img src="../../media/sortlist-icon.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Shortlist</a>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-block bt-create" role="button"><img src="../../media/contact-icon.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Contact</a>
+                                    </div>
+                                </div>
 
-                  {% else  %}
-                  <div class="col-md-2" >
-                     <div class="row  button">
-                        <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn btn-info btn-block " role="button">Edit</a>
-                     </div>
-                     <div class="row button">
-                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-info btn-block" role="button">Delete</a>
-                     </div>
-                  </div>
-                  {% endif %}
-               </div>
-               {% endfor %}
-            </form>
-         </div>
-      </div>
-   </body>
-   <div id="footer">
-      {% include "footer.html" %}
-   </div>
+                                {% elif not post.is_active   %}
+                                <div class="col-md-2" >
+                                    <div class="row  button">
+                                        <a href="{% url 'activatepost' %}?id={{post.id}}" class="btn btn-block btn-sortlist" role="button">Activate</a>
+                                    </div>
+                                </div>
+
+                                {% else  %}
+                                <div class="no-gutter row listing-btn">
+                                    <div class="col-sm-6">
+                                        <a href="{% url 'updatepost' %}?id={{post.id}}" class="btn bt-create btn-block" role="button">Edit</a>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a href="{% url 'deletepost' %}?id={{post.id}}" class="btn btn-block btn-sortlist" role="button">Delete</a>
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endfor %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <div id="footer">
+        {% include "footer.html" %}
+    </div>
 </html>
 

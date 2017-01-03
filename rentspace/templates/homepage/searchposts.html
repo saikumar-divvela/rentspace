@@ -23,33 +23,43 @@
 </script>
 
 <div id="searchbar" class="container-fluid">
-    <!-- daily rent min or maximum -->
+     daily rent min or maximum 
     <form id="searchform" action="{% url 'searchposts' %}" role="form" class="no-margin">
         {% csrf_token %}
         <div class="row" style="margin-top:0px;">
-            <div class="col-md-10 col-md-offset-1 maskbg">
-                <input type="text" id="location" placeholder="Enter the locality or City" name="location">
-                <div class="options">
-                    <select class="selectpicker show-tick" name="accomtype" id="accomtype">
-                        <option value="shared">Shared</option>
-                        <option value="private">Private Room</option>
-                    </select>
+            <div class="col-lg-10 col-sm-12 col-lg-offset-1 maskbg">
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" id="location" placeholder="Enter the locality or City" name="location">
                 </div>
-                <div class="options">
-                    <select class="selectpicker" name="housetype" id="housetype">
-                        <option value="pg">PG</option>
-                        <option value="house">Independent</option>
-                        <option value="flat">Flat</option>
-                    </select>
+                <div class="col-sm-2">
+                    <div class="options">
+                        <select class="selectpicker show-tick form-control" name="accomtype" id="accomtype">
+                            <option value="shared">Shared</option>
+                            <option value="private">Private Room</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="options">
-                    <select class="selectpicker" name="accomfor" id="accomfor">
-                        <option value="men">Boys</option>
-                        <option value="women">Girls</option>
-                        <option value="family">Family</option>
-                    </select>
+                <div class="col-sm-2">
+                    <div class="options">
+                        <select class="selectpicker form-control" name="housetype" id="housetype">
+                            <option value="pg">PG</option>
+                            <option value="house">Independent</option>
+                            <option value="flat">Flat</option>
+                        </select>
+                    </div>
                 </div>
-                <a href="#" id="search" class="btn bt-create">Search</a>
+                <div class="col-sm-2">
+                    <div class="options">
+                        <select class="selectpicker form-control" name="accomfor" id="accomfor">
+                            <option value="men">Boys</option>
+                            <option value="women">Girls</option>
+                            <option value="family">Family</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <a href="#" id="search" class="btn btn-block bt-create">Search</a>
+                </div>
             </div>
         </div>
     </form>
