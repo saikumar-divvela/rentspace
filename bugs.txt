@@ -74,7 +74,11 @@ Bugs found by Paresh - 1-october-2016
 8. Manage posting - Error code: 504-loadbalancer
 9. General bug - Rahilo is taking too much time reload
 
-test
+---------------------bugs 27-01-2017 by Mayura
 
+1. when i try to register with same email id, it shows User already exists. and all data i have entered gets blank, Data should remain in textviews, so that user is not supposed to enter all data again!
+   same happening with all error messages.
+   Also on login page.
+2. Admin pannel verify button is not working.
 
 
