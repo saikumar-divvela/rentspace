@@ -21,7 +21,7 @@
                         <form role="form" >
                             {% csrf_token %}
                             {{ msg }} <br/>
-                            <a href="{% url 'addpost' %}" class="btn btn-info" role="button">Add Post</a>
+                            <a href="{% url 'addpost' %}" class="btn orange-btn" role="button">Add Post</a>
                             {% for post in posts %}
                             <div class="record property-listing">
                                 {% if post.postphotos.all %}

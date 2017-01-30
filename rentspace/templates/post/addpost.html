@@ -18,9 +18,6 @@
                 margin: 0;
                 padding: 0;
             }
-            li {
-                margin-top:6px;
-            }
         </style>
         <script type="text/javascript">
             $(document).ready(function () {
@@ -99,17 +96,11 @@
                                 <div class="row">
                                     <div class="col-sm-6 col-xs-12 form-group">
                                         <!--                                        <label for="rentperday">Rent per day</label>-->
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Rs</div>
-                                            <input type="text"  class ="form-control" id="rentperday" placeholder="Rent per day" name="rentperday" value="{{post.rentperday}}">
-                                        </div>
+                                        <input type="text"  class ="form-control" id="rentperday" placeholder="Rs Rent per day" name="rentperday" value="{{post.rentperday}}">
                                     </div>
                                     <div class="col-sm-6 col-xs-12 form-group">
                                         <!--                                        <label for="deposit">Security Deposit</label>-->
-                                        <div class="input-group">
-                                            <div class="input-group-addon">Rs</div>
-                                            <input type="text"  class ="form-control" id="deposit" placeholder="Security Deposit" name="deposit" value="{{post.deposit}}">
-                                        </div>
+                                        <input type="text"  class ="form-control" id="deposit" placeholder="Rs Security Deposit" name="deposit" value="{{post.deposit}}">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -150,77 +141,77 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="row">
-                                <div class="col-xs-12 form-group p-none">
-                                    <label for="accom_type" class="col-xs-12">Accomdation Type</label>
-                                    <div class="col-md-6 col-xs-6 radio">
-                                        <label><input type="radio" name="accom_type" value="shared">Shared</label>
+                                    <div class="col-xs-12 form-group p-none">
+                                        <label for="accom_type" class="col-xs-12">Accomdation Type</label>
+                                        <div class="col-md-6 col-xs-6 radio">
+                                            <label><input type="radio" name="accom_type" value="shared">Shared</label>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 radio">
+                                            <label><input type="radio" name="accom_type" value="private">Private</label>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 col-xs-6 radio">
-                                        <label><input type="radio" name="accom_type" value="private">Private</label>
+                                    <div class="clearfix"></div>
+                                    <div class="col-xs-12 form-group p-none">
+                                        <label for="house_type" class="col-xs-12">House Type</label>
+                                        <div class="col-md-4 radio">
+                                            <label><input type="radio" name="house_type" value="pg">PG</label>
+                                        </div>
+                                        <div class="col-md-4 radio">
+                                            <label><input type="radio" name="house_type" value="house">Independent</label>
+                                        </div>
+                                        <div class="col-md-4 radio">
+                                            <label><input type="radio" name="house_type" value="flat">Flat</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-xs-12 form-group p-none">
-                                    <label for="house_type" class="col-xs-12">House Type</label>
-                                    <div class="col-md-4 radio">
-                                        <label><input type="radio" name="house_type" value="pg">PG</label>
+                                    <div class="clearfix"></div>
+                                    <div class="col-xs-12 form-group p-none accom_for">
+                                        <label for="accom_for" class="col-xs-12">Available for</label>
+                                        <div class="col-md-4 ">
+                                            <input type="checkbox" name="accom_for" value="men">Men
+                                        </div>
+                                        <div class="col-md-4 ">
+                                            <input type="checkbox" name="accom_for" value="women">Women
+                                        </div>
+                                        <div class="col-md-4 ">
+                                            <input type="checkbox" name="accom_for" value="family">Family
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 radio">
-                                        <label><input type="radio" name="house_type" value="house">Independent</label>
+                                    <div class="clearfix"></div>
+                                    <div id="facilities" class="col-xs-12 form-group p-none">
+                                        <label for="facilities" class="col-xs-12">Facilities</label>
+                                        <div class="col-md-4 ">
+                                            <ul>
+                                                <li> <input type="checkbox" name="facilities" value="tv">TV</li>
+                                                <li> <input type="checkbox" name="facilities" value="refrigerator">Refrigerator</li>
+                                                <li> <input type="checkbox" name="facilities" value="washingmachine">Washingmachine</li>
+                                                <li> <input type="checkbox" name="facilities" value="microwave">Microwave</li>
+                                                <li> <input type="checkbox" name="facilities" value="waterpurifier">Water Purifier</li>
+                                                <li> <input type="checkbox" name="facilities" value="laundry">Laundry</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul>
+                                                <li> <input type="checkbox" name="facilities" value="toilet">Western Toilet</li>
+                                                <li> <input type="checkbox" name="facilities" value="bathroom">Attached Bathroom</li>
+                                                <li> <input type="checkbox" name="facilities" value="watersupply">24 Hrs Water Supply</li>
+                                                <li> <input type="checkbox" name="facilities" value="geyser">Geyser</li>
+                                                <li> <input type="checkbox" name="facilities" value="wifi">WiFi</li>
+                                                <li> <input type="checkbox" name="facilities" value="cooking">Cooking Allowed</li>
+                                                <li> <input type="checkbox" name="facilities" value="sofa">Sofa</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <ul>
+                                                <li> <input type="checkbox" name="facilities" value="elevator">Elevator</li>
+                                                <li> <input type="checkbox" name="facilities" value="parking">Parking</li>
+                                                <li> <input type="checkbox" name="facilities" value="gym">Gym</li>
+                                                <li> <input type="checkbox" name="facilities" value="security">Security</li>
+                                                <li> <input type="checkbox" name="facilities" value="powerbackup">Power Backup</li>
+                                                <li> <input type="checkbox" name="facilities" value="housekeeping">House Keeping</li>
+                                                <li> <input type="checkbox" name="facilities" value="cctv">CCTV</li>
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4 radio">
-                                        <label><input type="radio" name="house_type" value="flat">Flat</label>
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div class="col-xs-12 form-group p-none accom_for">
-                                    <label for="accom_for" class="col-xs-12">Available for</label>
-                                    <div class="col-md-4 ">
-                                        <input type="checkbox" name="accom_for" value="men">Men
-                                    </div>
-                                    <div class="col-md-4 ">
-                                        <input type="checkbox" name="accom_for" value="women">Women
-                                    </div>
-                                    <div class="col-md-4 ">
-                                        <input type="checkbox" name="accom_for" value="family">Family
-                                    </div>
-                                </div>
-                                <div class="clearfix"></div>
-                                <div id="facilities" class="col-xs-12 form-group p-none">
-                                    <label for="facilities" class="col-xs-12">Facilities</label>
-                                    <div class="col-md-4 ">
-                                        <ul>
-                                            <li> <input type="checkbox" name="facilities" value="tv">TV</li>
-                                            <li> <input type="checkbox" name="facilities" value="refrigerator">Refrigerator</li>
-                                            <li> <input type="checkbox" name="facilities" value="washingmachine">Washingmachine</li>
-                                            <li> <input type="checkbox" name="facilities" value="microwave">Microwave</li>
-                                            <li> <input type="checkbox" name="facilities" value="waterpurifier">Water Purifier</li>
-                                            <li> <input type="checkbox" name="facilities" value="laundry">Laundry</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul>
-                                            <li> <input type="checkbox" name="facilities" value="toilet">Western Toilet</li>
-                                            <li> <input type="checkbox" name="facilities" value="bathroom">Attached Bathroom</li>
-                                            <li> <input type="checkbox" name="facilities" value="watersupply">24 Hrs Water Supply</li>
-                                            <li> <input type="checkbox" name="facilities" value="geyser">Geyser</li>
-                                            <li> <input type="checkbox" name="facilities" value="wifi">WiFi</li>
-                                            <li> <input type="checkbox" name="facilities" value="cooking">Cooking Allowed</li>
-                                            <li> <input type="checkbox" name="facilities" value="sofa">Sofa</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <ul>
-                                            <li> <input type="checkbox" name="facilities" value="elevator">Elevator</li>
-                                            <li> <input type="checkbox" name="facilities" value="parking">Parking</li>
-                                            <li> <input type="checkbox" name="facilities" value="gym">Gym</li>
-                                            <li> <input type="checkbox" name="facilities" value="security">Security</li>
-                                            <li> <input type="checkbox" name="facilities" value="powerbackup">Power Backup</li>
-                                            <li> <input type="checkbox" name="facilities" value="housekeeping">House Keeping</li>
-                                            <li> <input type="checkbox" name="facilities" value="cctv">CCTV</li>
-                                        </ul>
-                                    </div>
-                                </div>
                                 </div>
                                 <div class="clearfix">&nbsp;</div>
                                 <div class="form-group">
