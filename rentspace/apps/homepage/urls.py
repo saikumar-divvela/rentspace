@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^faq$',TemplateView.as_view(template_name='faq.html'),name="faq"),
     url(r'^terms$',TemplateView.as_view(template_name='terms.html'),name="terms"),
 
+ url(r'^googlec25148b0745d794f.html',TemplateView.as_view(template_name='googlec25148b0745d794f.html')),
 
 
 ]
