@@ -81,4 +81,19 @@ Bugs found by Paresh - 1-october-2016
   
 2. Admin pannel verify button is not working.
 
+Functionality Bugs 05-03-2017
+
+1. Forgot password not working, giving Error occured while processing request.
+
+
+Design Bugs
+
+1. Edit Profile browse button 
+
+2. Make login, sign up, Edit profile, forgot password page more impressive, can add animations or images.
+
+3. Listing page should be displayed in two column
+
+
+
 
