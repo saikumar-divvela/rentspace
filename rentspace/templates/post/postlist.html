@@ -4,7 +4,7 @@
     <head>
         {% include "init_header.html" %}
         <style>
-
+ #searchbar{display: none;}
         </style>
         <script type="text/javascript">
 
@@ -27,9 +27,9 @@
         <div id="main">
             <div class="container clear-top">
                 <div class="row">
+                    {% for post in posts %}
                     <div class="col-sm-4">
-                        <form role="form" >
-                            {% for post in posts %}
+                        <form role="form" >                            
                             <div class="record property-listing">
                                 {% if post.postphotos.all %}
                                 {% with post.postphotos.all|first as image %}
@@ -68,13 +68,14 @@
                                         <a href="{% url 'contactpostowner' %}?id={{post.id}}" class="btn btn-block bt-create" role="button"><img src="../../media/contact-icon.png"/>&nbsp;&nbsp;&nbsp;&nbsp;Contact</a>
                                     </div>
                                 </div>
-                            </div>
-                            {% endfor %}
+                            </div>                            
                         </form>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div align="center">
+            <!--Code Comment By Himanshu 06-03-2017 -->
+<!--            <div align="center">
                 <ul class="pagination">
                     <li>
                         {%  if posts.has_previous %}
@@ -99,7 +100,7 @@
                         {% endif %}
                     </li>
                 </ul>
-            </div>
+            </div>-->
         </div>
     </body>
     <div id="footer">
