@@ -1,160 +1,156 @@
 <html lang="en">
 
-<head>
-    {% include "init_header.html" %}
+    <head>
+        {% include "init_header.html" %}
 
-    <style>
-        #alert {
-            /* display: none; */
-        }
-    </style>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            var msg = "{{ msg }}";
-            
-            if (msg){
-                $("#status").addClass("alert alert-danger");
-                $("#status").html(msg);
+        <style>
+            #alert {
+                /* display: none; */
             }
+        </style>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                var msg = "{{ msg }}";
 
-            $("#form1").submit(function(e){
-                 //e.preventDefault();
-                 haserrors = false;
-
-                 pwd=$("#password").val();
-                 pwd_repeat=$("#password-repeat").val();
-                 mobile_number = $("#phone_number").val();
-
-                 /*
-                 if (pwd != pwd_repeat){    
-                    haserrors = true
+                if (msg) {
                     $("#status").addClass("alert alert-danger");
-                    $("#status").text("Password and Confirm new password doesn't match.");
-                 }*/
+                    $("#status").html(msg);
+                }
 
-                 if (/^[789]\d{9}$/.test(mobile_number)) {
-                
-                 } else {
-                    haserrors = true
-                    $("#status").addClass("alert alert-danger");
-                    $("#status").text("Invalid mobile number.");
-                 }
-                 
-                if (! Boolean(haserrors)) {
-                    return true;
-                    //$("#form1").submit();   // This makes infinite loop 
-                 } else {
-                    return false;
-                 }
+                $("#form1").submit(function (e) {
+                    //e.preventDefault();
+                    haserrors = false;
+
+                    pwd = $("#password").val();
+                    pwd_repeat = $("#password-repeat").val();
+                    mobile_number = $("#phone_number").val();
+
+                    /*
+                     if (pwd != pwd_repeat){    
+                     haserrors = true
+                     $("#status").addClass("alert alert-danger");
+                     $("#status").text("Password and Confirm new password doesn't match.");
+                     }*/
+
+                    if (/^[789]\d{9}$/.test(mobile_number)) {
+
+                    } else {
+                        haserrors = true
+                        $("#status").addClass("alert alert-danger");
+                        $("#status").text("Invalid mobile number.");
+                    }
+
+                    if (!Boolean(haserrors)) {
+                        return true;
+                        //$("#form1").submit();   // This makes infinite loop 
+                    } else {
+                        return false;
+                    }
+                });
             });
-        });
 
-        /*  
-            $(function(){
-                $("#submit").click(function(event){
-                    event.preventDefault(); 
-                    //var data = $("#form1").serialize();
-                    var formData = JSON.parse($("#form1").serialize());
-                    alert(formData);
-                    $.ajax({
-                        url: '/api/register',
-                        dataType: 'json',
-                        contentType: "application/json; charset=utf-8",
-                        data: formData,
-                        type:'POST'
-                        }).done(handle_success)
-                    .fail(handle_fail);
-                    });
-                    });
+            /*  
+             $(function(){
+             $("#submit").click(function(event){
+             event.preventDefault(); 
+             //var data = $("#form1").serialize();
+             var formData = JSON.parse($("#form1").serialize());
+             alert(formData);
+             $.ajax({
+             url: '/api/register',
+             dataType: 'json',
+             contentType: "application/json; charset=utf-8",
+             data: formData,
+             type:'POST'
+             }).done(handle_success)
+             .fail(handle_fail);
+             });
+             });
+         
+         
+             function handle_success(data,statusText,xhr){
+             location.href = "{% url 'register_success' %}"
+             }
+         
+             function  handle_fail(xhr, statusText, errorThrown){
+             console.log(xhr);        
+             var resp = xhr.responseJSON
+             $("div#alert").text(resp.message)
+             }
+         
+             function testfunction(responseTxt, statusTxt, xhr){
+             alert("Hi");  
+             alert(statusTxt);
+             }
+             */
+        </script>
+    </head>
 
-                                                   
-                    function handle_success(data,statusText,xhr){
-                        location.href = "{% url 'register_success' %}"
-                    }
+    <body>
 
-                    function  handle_fail(xhr, statusText, errorThrown){
-                        console.log(xhr);        
-                        var resp = xhr.responseJSON
-                        $("div#alert").text(resp.message)
-                    }
+        <div id="header">
+            {% include "header.html" %}
+        </div>
+        <div id="main" class="login-bg">
+            <div lang="clearfix">&nbsp;</div>
+            <div lang="clearfix">&nbsp;</div>
+            <div lang="clearfix">&nbsp;</div>
+            <form id="form1" action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+                <div class="container clear-top">
+                    <div class="col-sm-6 col-xs-12 col-lg-offset-3">
+                        <div class="login-box">
+                            <div class='login-heading text-center'>
+                                <h2>Sign Up?</h2>
+                            </div>
 
-                    function testfunction(responseTxt, statusTxt, xhr){
-                        alert("Hi");  
-                        alert(statusTxt);
-                    }
-                    */
-    </script>
-</head>
+                            <div id ="status" style="margin-top:10px">
 
-<body>
-
-    <div id="header">
-        {% include "header.html" %}
-    </div>
-    <div id="main" class="login-page">
-        <div lang="clearfix">&nbsp;</div>
-        <div lang="clearfix">&nbsp;</div>
-        <div lang="clearfix">&nbsp;</div>
-        <form id="form1" action="{% url 'register' %}" method="post">
-            {% csrf_token %}
-            <div class="container clear-top">
-                <div class="col-sm-6 col-xs-12 col-lg-offset-3">
-                   <div class="login-box">
-                                <div class='login-heading text-center'>
-                                    <h2>Sign Up?</h2>
+                            </div>
+                                <div id="alert"> </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group clearfix">
+                                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group clearfix">
+                                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
+                                        </div>
+                                    </div>
                                 </div>
 
-                    <div id ="status" style="margin-top:10px">
-                           
-                     </div>
-                        <div class="panel-body">
-                            <div id="alert"> </div>
-                            <div class="row">
-                                <div class="col-lg-6">
-                                            <div class="form-group clearfix">
-                                                <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name" required/>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="form-group clearfix">
-                                                <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name" required/>
-                                            </div>
-                                        </div>
-                            </div>
+                                <div class="form-group clearfix">
+                                    <input type="email" class="form-control" id="username" name="username" placeholder="Username" required>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
+                                </div>
+                                <div class="form-group clearfix">
+                                    <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Confirm your password" required>
+                                </div>
 
-                            <div class="form-group clearfix">
-                                        <input type="email" class="form-control" id="username" name="username" placeholder="Username" required>
-                            </div>
-                                    <div class="form-group clearfix">
-                                        <input type="password" class="form-control" id="password" name="password" placeholder="Create a password" required>
-                                    </div>
-                                    <div class="form-group clearfix">
-                                        <input type="password" class="form-control" id="password-repeat" name="password-repeat" placeholder="Confirm your password" required>
-                                    </div>
+                                <div class="form-group clearfix">
+                                    <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
+                                </div>
 
-                                    <div class="form-group clearfix">
-                                        <input type="text" id="phone_number" class="form-control" name="phone_number" placeholder="Mobile Number" required>
-                                    </div>
-
-                            <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary btn-lg submit">Create Account</button>
-                            </div>
-                            <div class="clearfix">&nbsp;</div>
-                            <div class="form-group text-center">
-                                <p for="newuser">Already have account? <a href="{% url 'signin' %}">Login</a></p>                                
-                            </div>
+                                <div class="form-group clearfix">
+                                    <p class="pull-left" for="newuser">Already have account? <a href="{% url 'signin' %}">Login</a></p>        
+                                    <button type="submit" class="btn btn-primary btn-lg submit pull-right">Create Account</button>
+                                </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-        </form>
-        <div lang="clearfix">&nbsp;</div>
-        <div lang="clearfix">&nbsp;</div>
+            </form>
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+        </div>
+    </body>
+    <div id="footer">
+        {% include "footer.html" %}
     </div>
-</body>
-<div id="footer">
-    {% include "footer.html" %}
-</div>
 
 </html>
