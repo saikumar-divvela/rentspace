@@ -4,7 +4,7 @@
     <head>
         {% include "init_header.html" %}
         <style>
- #searchbar{display: none;}
+            #searchbar{display: none;}
         </style>
         <script type="text/javascript">
 
@@ -27,6 +27,9 @@
         <div id="main">
             <div class="container clear-top">
                 <div class="row">
+                    <div class="col-xs-12 text-center" style="margin: 60px 0;">
+                        <img src="/media/no-project-found.jpg"/>
+                    </div>
                     {% for post in posts %}
                     <div class="col-sm-4">
                         <form role="form" >                            
@@ -75,32 +78,32 @@
                 </div>
             </div>
             <!--Code Comment By Himanshu 06-03-2017 -->
-<!--            <div align="center">
-                <ul class="pagination">
-                    <li>
-                        {%  if posts.has_previous %}
-                        <a href="{% url 'searchposts' %}?page={{posts.previous_page_number}}">&laquo;</a>
-                        {% else %}
-                        <a href="#">&laquo;</a>
-                        {% endif %}
-                    </li>
-                    {% for i in posts.paginator.num_pages|get_range %}
-                    {% if posts.number == i   %}
-                    <li><a href="{% url 'searchposts' %}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
-                    {% else %}
-                    <li><a href="{% url 'searchposts' %}?page={{i}}"> {{ i }}</a></li>
-                    {% endif %}
-                    {% endfor %}
-
-                    <li>
-                        {%  if posts.has_next %}
-                        <a href="{% url 'searchposts' %}?page={{posts.next_page_number}}">&raquo;</a>
-                        {% else %}
-                        <a href="#">&raquo;</a>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>-->
+            <!--            <div align="center">
+                            <ul class="pagination">
+                                <li>
+                                    {%  if posts.has_previous %}
+                                    <a href="{% url 'searchposts' %}?page={{posts.previous_page_number}}">&laquo;</a>
+                                    {% else %}
+                                    <a href="#">&laquo;</a>
+                                    {% endif %}
+                                </li>
+                                {% for i in posts.paginator.num_pages|get_range %}
+                                {% if posts.number == i   %}
+                                <li><a href="{% url 'searchposts' %}?page={{i}}" style="background-color:cyan" >{{ i }}</a></li>
+                                {% else %}
+                                <li><a href="{% url 'searchposts' %}?page={{i}}"> {{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+            
+                                <li>
+                                    {%  if posts.has_next %}
+                                    <a href="{% url 'searchposts' %}?page={{posts.next_page_number}}">&raquo;</a>
+                                    {% else %}
+                                    <a href="#">&raquo;</a>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                        </div>-->
         </div>
     </body>
     <div id="footer">
