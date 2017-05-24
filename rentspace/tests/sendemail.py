@@ -30,7 +30,7 @@ msg_full = (''.join([msg_header, msg_content])).encode()
 
 try:
     sender = "saikumar.divvela@gmail.com"
-    receivers = "sai.divvela@samsung.com"
+    receivers = "saikumar.divvela@gmail.com"
     username="AKIAIF3E7TOV4UXTTMUQ"
     password="Al8wnYoFZkinQGG7xg0wgjAmW8389FkjrU8jQIErtZNs"
     username="saikumar.divvela"
